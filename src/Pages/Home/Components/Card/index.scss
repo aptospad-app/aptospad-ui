@@ -1,0 +1,24 @@
+#card {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(22, 20, 49, 0.9);
+  border-radius: 5px;
+  height: 100%;
+
+  i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #00faff;
+  }
+
+  h3 {
+    color: #87c0f5;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}

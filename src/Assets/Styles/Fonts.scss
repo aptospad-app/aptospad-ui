@@ -1,0 +1,21 @@
+/*
+  Import fonts using both variable fonts and static fonts so let you can use
+  multiple font weights without declare multiple @font-face
+
+  References:
+  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide#using_a_variable_font_font-face_changes 
+*/
+@font-face {
+  font-family: "Red Hat";
+  src: url("@/Assets/Fonts/RedHatDisplay-VariableFont.ttf") format("truetype");
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Red Hat";
+  src: url("@/Assets/Fonts/RedHatDisplay-VariableFont-Italic.ttf") format("truetype");
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: italic;
+}

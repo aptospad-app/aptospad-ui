@@ -1,0 +1,227 @@
+@import "@/Assets/Styles/Variables";
+
+$fireColor: rgb(255,80,0);
+$fireColorT: rgba(255,80,0,0);
+$dur: 1s;
+$blur: 0.02em;
+$fireRad: 3em;
+$parts: 50;
+$partSize: 5em;
+
+#splash {
+  position: fixed;
+  z-index: $loadingSpinnerZIndex;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(30, 29, 45, 0.96);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .shooting-star {
+    z-index: 2;
+    width: 1px;
+    height: 50px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 400px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+    animation: animShootingStar 6s linear infinite;
+    -webkit-transition: all 2000ms linear;
+    transition: all 2000ms linear; 
+    @keyframes animShootingStar {
+      from {
+        transform: translateY(0px) translateX(0px) rotate(-45deg);
+        opacity: 1;
+        height: 5px;
+      }
+      to {
+        transform: translateY(1280px) translateX(1280px) rotate(-45deg);
+        opacity: 1;
+        height: 800px;
+      }
+    }
+  }
+
+  .shooting-star-2 {
+    z-index: 2;
+    width: 1px;
+    height: 50px;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 800px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+    animation: animShootingStar-2 9s linear infinite;
+    -webkit-transition: all 2000ms linear;
+    transition: all 2000ms linear; 
+
+    @keyframes animShootingStar-2 {
+      from {
+        transform: translateY(0px) translateX(0px) rotate(-45deg);
+        opacity: 1;
+        height: 5px;
+      }
+      to {
+        transform: translateY(1920px) translateX(1920px) rotate(-45deg);
+        opacity: 1;
+        height: 800px;
+      }
+    }
+  }
+  
+  .fire {
+    filter: blur($blur);
+    -webkit-filter: blur($blur);
+    width: 135px;
+    position: absolute;
+    left: 50%;
+    transform: translate(45%, 0);
+
+    .particle {
+      animation: rise $dur ease-in infinite;
+      background-image: radial-gradient($fireColor 20%,$fireColorT 70%);
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      opacity: 0;
+      position: absolute;
+      bottom: 0;
+      width: $partSize;
+      height: $partSize;
+      // spread particles out in time and x-position to get desired effect
+      @for $p from 1 through $parts {
+        &:nth-of-type(#{$p}) {
+          animation-delay: $dur * random();
+          left: calc((100% - $partSize) * ($p - 1) / $parts);
+        }
+      }
+  
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(0) scale(1);
+        }
+        25% {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-10em) scale(0);
+        }
+      }
+    }
+  }
+
+  #spooky {
+    animation: floaty 2s infinite;
+    @keyframes floaty {
+      0%, 100% {
+          transform: translateY(0);
+      }
+
+      50% {
+          transform: translateY(-20px);
+      }
+    }
+
+    #spooky-body {
+      position: relative;
+      width: 180px;
+      height: 220px;
+      background: #f2fbf1;
+      border-top-left-radius: 90px;
+      border-top-right-radius: 90px;
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 130px;
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f2fbf1;
+        animation: floaty .2s infinite;
+      }
+      &::before {
+        left: -18px;
+      }
+      &::after {
+        right: -18px;
+      }
+
+      #eyes {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        padding: 90px 0 0;
+        width: 90px;
+        height: 20px;
+        &::before, &::after {
+          content: ' ';
+          display: block;
+          width: 30px;
+          height: 30px;
+          background: #252c49;
+          border-radius: 50%;
+        }
+      }
+
+      #mouth {
+        background: #252c49;
+        margin: 45px auto 0;
+        width: 60px;
+        height: 30px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        &::before {
+          content: ' ';
+          display: block;
+          background: #fff;
+          margin-left: 20px;
+          width: 10px;
+          height: 10px;
+        }
+      }
+
+      #feet {
+        position: absolute;
+        display: flex;
+        bottom: -18px;
+        width: 180px;
+        height: 36px;
+
+        &>*, &::before, &::after {
+          content: ' ';
+          width: 36px;
+          height: 36px;
+          background: #f2fbf1;
+          border-radius: 50%;
+        } 
+      }
+    }
+
+    #shadow {
+      margin-top: 50px;
+      background: #252c49;
+      width: 180px;
+      height: 40px;
+      border-radius: 50%;
+      animation: zoomy 2s infinite;
+  
+      @keyframes zoomy {
+        0%, 100% {
+            transform: scale(1);
+        }
+  
+        50% {
+            transform: scale(0.8);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "home": "Home",
+  "buy crypto": "Buy Crypto",
+  "connect wallet": "Connect Wallet",
+  "disconnect": "Disconnect",
+  "next": "Next",
+  "previous": "Previous",
+  "new order": "New order",
+  "successfully": "Successfully",
+  "failed": "Failed",
+
+  "homeScreen": {
+    "title": "Make everything Easier and Easier",
+    "description": "Let's think of a world that uses cryptocurrency as a common payment method and completely eliminates the current traditional form of payment. A world with only one login method: “Connect Wallet”. You will no longer have to provide personal information to any organization. <br/> We are doing this - making cryptocurrency popular and easy all over the world.",
+    "buy crypto now": "Buy crypto now"
+  },
+
+  "buyCryptoScreen": {
+    "buy": "Buy",
+    "steps": {
+      "order": "Order",
+      "payment": "Payment",
+      "finish": "Finish"
+    },
+    "the remaining balance": "The remaining balance",
+    "the remaining balance tootip": "The number of available cryptocurrencies that you can buy. <br /> Due to some limitations in Paypal's policy, we can only offer a limited number of cryptocurrencies for trading per day. <br /> We will increase the transaction limit higher soon.",
+    "amount USD will you pay": "Amount USD will you pay",
+    "select a cryptocurrency": "Select a cryptocurrency",
+    "select a cryptocurrency tooltip": "Cryptocurrency will you get",
+    "your wallet address": "Your wallet address (BSC network)",
+    "your wallet address tooltip": "The wallet address will receive cryptocurrency (Binance Smart Chain network - BEP20)",
+    "transaction fee": "Transaction fee",
+    "transaction fee tooltip": "Calculation based on Paypal transaction fee + Processing fee + Network fee",
+    "view fees": "View fees",
+    "total payment": "Total Payment",
+    "reminder": "As a reminder, you are purchasing DIGITAL goods and no physical items will be shipped. Therefore, entering a billing address is required according to Paypal's terms but we will not use this address to send Crypto for you. Crypto will be sent to Wallet address that you entered in the previous step.",
+    "choose a payment method": "Choose a payment method",
+    "transaction informations": "The following is some informations about the transaction",
+    "token price at time of sale": "Token price at time of sale",
+    "support message success": "Please save your transaction informations carefully before seeing the cryptocurrency in your Wallet. If there is any problem, please contact us via email or Facebook fanpage and provide above transaction informations for support. Thank you",
+    "support message error": "Please contact us via email or Facebook Messenger and provide above transaction informations for get your refund. Sorry for the inconvenience"
+  },
+
+  "whitepaperScreen": {
+    "title": "Whitepaper",
+    "description": "You found it! Welcome to Ezniz's whitepaper. Essentially Ezniz's project plan outlining the technical concepts that power the project, and how we pay dividends and protecting our RIPers.",
+    "whatIsRIP": {
+      "title": "What is RIP?",
+      "description": "RIP is a community-driven DeFi project built on Binance Smart Chain (BSC). Our ground-breaking contract delivers a revolutionary mechanism to BSC ecosystem. Like stock, when holding RIP token, you have the voting rights, joining the launchpad and receive USDT dividends."
+    },
+    "summary": {
+      "title": "Summary",
+      "description": "RIP is more than a token, it is a platform and community making it easy for anyone to make money by investing in cryptocurrency. Our innovative ecosystem and initiatives are strategically chosen to ensure sustainable income for our holders. When holding RIP token, you have the rights to:",
+      "rightsToVote": "Vote on matters of business policy.",
+      "rightsToJoinTheLaunchpad": "Join the Launchpad of hand-picked promising projects on Blockchain.",
+      "rightsToReceiveUsdtDevidends": "Receive USDT dividends to the wallet address holding RIP token based on the current ratio."
+    },
+    "votingRights": {
+      "title": "Voting rights",
+      "description": "We carry out financial activities to create profits for our holders and to invest in research on promoting cryptocurrency development, which you have the voting rights on."
+    },
+    "joiningTheLaunchpad": {
+      "title": "Joining the Launchpad",
+      "description": "Ezniz allows other projects to launch on our platform. Before launching, Blockchain projects will be audited by our team of experts to ensure the quality of those projects. This is how we protect our investors and minimize the risk, as well as to promote transparency in the crypto market."
+    },
+    "receivingUsdtDividends": {
+      "title": "Receiving USDT dividends",
+      "description": "Dividends are the heartbeat of our project. USDT dividends are paid quarterly. RIP token holders will have to login on the website using <span class='text-info fw-bold'>Connect Wallet</span>. Then in the <a href='/investors' class='text-info fw-bold' target='__blank'>Investors</a> tab, click on <span class='text-info fw-bold'>Receive dividends</span>. In the last three days of the quarter this function will be available. <br><br><span class='text-danger fw-bold'>Note</span><br>- You <span class='text-info fw-bold'>must</span> click on the <span class='text-info fw-bold'>Receive dividends</span> button to be on the list of dividends recipients. There's no other way.<br>- After being on the list to receive dividends, you can still freely buy/sell to increase/decrease the percentage of RIP tokens you hold.  However, at the point of dividend payout, the percentage of RIP tokens you <span class='text-info fw-bold'>currently hold</span> is the final number we use to calculate how much USDT dividend you will receive. So please keep holding RIP token until the dividend in USDT has actually appeared in your wallet. <br>- Dividends in USDT will be automatically transferred to your wallet address no later than 1 week after the end of the quarter. <br>- If you do not register to receive dividends as instructed above, you will lose your benefits. Your dividends will be used for <span class='text-info fw-bold'>charity</span>. Please be rest assured that we will transparently disclose that money and other charity initiatives on our home page here <a href='/charity-activities' class='text-info fw-bold' target='__blank'>Charity Activities</a>. <br><br> The source of our dividend payments comes from the profits of our financial operations.  Some of the financial activities include:",
+      "financialActivities": {
+        "paypal": "Allows buying cryptocurrency using PayPal.",
+        "launchpad": "Is a launchpad platform for other Blockchain projects.",
+        "nft": "Sell NFTs<br> Allows creating NFTs and sell them on this platform.<br> <span class='text-warning'>Our NFTs are different. When you choose this platform to create your own NFTs, your NFTs are also different.</span><br> This difference will be revealed after we finalize it.",
+        "//nft": "Sell NFTs<br> Allows creating NFTs and sell them on this platform.<br> <span class='text-warning'>Our NFTs are different. When you choose this platform to create your own NFTs, your NFTs are also different.</span><br> This difference will be revealed after we finalize it. Once the NFT is created, for each NFT sale transaction, the seller will be charged a transaction fee and the profits from this operation will of course also be redistributed to the token holders.<br> Creating NFTs in image and text format.<br> With image NFTs, we have 2 options: a normal NFT image or a signature image (which is used as a digital signature).<br> With textual NFTs, we can use them to create NFTs of names of people, poetry, places,...<br> Our difference is where NFT's content is stored.  On other platforms, when you mint NFTs, information like name and symbol is on-chain but the content you upload is stored on a centralized database. So what happens when the centralized database is no more.  This will not happen to us as the content of the NFT is also stored on Blockchain.",
+        "otherFinancialActivities": "Other financial investment activities."
+      }
+    },
+    "fairAndTransparent": {
+      "title": "Fair and Transparent",
+      "description": "Our principles are fairness and transparency. We disclose quarterly financial statements to the community no later than 1 month after the end of the previous quarter."
+    },
+    "upgradableContract": {
+      "title": "Upgradable contract",
+      "description": "Being able to continually innovate is absolutely critical to our project and future. Most contracts on the blockchain can not be amended once they are live and this hinders their ability to improve and optimize how the contract functions or prevents new and exciting features from being added. In some cases, loopholes that become exposed can't be fixed and can truly inhibit many projects from having a future. <br><br> RIP has an upgradable <a href='{{proxyContractLink}}' class='text-info fw-bold' target='__blank'>proxy contract</a> allowing us to develop the contract at will, allowing us to deliver many exciting advantages:",
+      "benefitsOfProxyContract": {
+        "optimizeGasFees": "Optimize gas fees",
+        "addNewContractFeatures": "Add new contract features",
+        "reduceGasFees": "Remove redundant features to reduce gas fees",
+        "fixErrors": "Fix errors or loopholes if ever identified",
+        "keepUpLatestTrends": "Keep up with the very latest trends"
+      },
+      "description2": "We are here to stay and this means being able to innovate and adapt to the market and our investors needs. By having an upgradable contract there is no limit to what we can achieve!"
+    }
+  }
+}
