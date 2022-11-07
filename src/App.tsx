@@ -2,21 +2,24 @@ import React, {useEffect} from "react";
 import "./App.scss";
 import {Outlet} from "react-router-dom";
 import {useAppSelector, useAppDispatch} from "./MyRedux";
-import HeaderComponent from "./Components/Header";
-import HeaderBottomComponent from "./Components/HeaderBottom";
+import Header from "./Components/Header";
+import HeaderBottom from "./Components/HeaderBottom";
+import Footer from "./Components/Footer";
 
 function App() {
   const dispatch = useAppDispatch();
 
   return (
     <div id="App">
-      <HeaderComponent />
+      <Header />
 
       <div id="app-content">
         <Outlet />
+
+        <Footer />
       </div>
 
-      <HeaderBottomComponent />
+      <HeaderBottom />
     </div>
   );
 }

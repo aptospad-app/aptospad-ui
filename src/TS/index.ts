@@ -15,6 +15,7 @@
  * Interfaces
  */
 export * from "./Interfaces/Api.interface";
+export * from "./Interfaces/Home.interface";
 
 /**
  * Types

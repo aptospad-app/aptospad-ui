@@ -51,7 +51,8 @@
         }}],
         "prefer-regex-literals": "off",
         "object-shorthand": "off",
-        "no-trailing-spaces": "error"
+        "no-trailing-spaces": "error",
+        "dot-notation": "off"
     },
     "ignorePatterns": ["dist", "build", "public", "src/Assets/*", "src/**/*.test.ts", "src/**/*.scss", "src/**/*.css"],
     "settings": {

@@ -1,25 +1,21 @@
 import React from "react";
-import "./index.scss";
+import style from "./index.module.scss";
+import {ITF_WhyChooseThisToken} from "@/TS";
 
 interface ITF_CardProps {
-  data: any;
+  data: ITF_WhyChooseThisToken;
 }
 
 export default function Card(props: ITF_CardProps) {
   const {
     icon,
-    title,
     message
   } = props.data;
 
   return (
-    <div id="card">
-      <i className={`${icon}`}></i>
-      <h3>{title}</h3>
-      <p dangerouslySetInnerHTML={{"__html": message}} />
+    <div className={`${style["card"]} cbtn cbtn-outline-gradient-blue`}>
+      <img src={icon} alt="" />
+      <p className={`${style["description"]}`} dangerouslySetInnerHTML={{"__html": message}} />
     </div>
   );
 }
-
-Card.defaultProps = {
-};
