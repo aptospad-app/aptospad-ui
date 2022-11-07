@@ -2,6 +2,7 @@ import {defineConfig, loadEnv} from "vite";
 import react from "@vitejs/plugin-react";
 import {createHtmlPlugin} from "vite-plugin-html";
 import * as path from "path";
+import svgrPlugin from "vite-plugin-svgr";
 
 const config = async ({command, mode}): Promise<any> => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -22,6 +23,11 @@ const config = async ({command, mode}): Promise<any> => {
     },
     "plugins": [
       react(),
+      svgrPlugin({
+        "svgrOptions": {
+          "icon": true
+        }
+      }),
       createHtmlPlugin({
         "inject": {
           "data": {

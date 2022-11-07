@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
 import Card from "./Components/Card";
+import Project from "./Components/Project";
 import {ITF_WhyChooseThisToken} from "@/TS";
 
 export default function HomeScreen() {
@@ -52,7 +53,7 @@ export default function HomeScreen() {
         </div>
 
         <div id={`${style["block-2"]}`}>
-          <h3 className="text-center pb-5">The trusted community - driven platform</h3>
+          <h2 className="text-center pb-5">The trusted community - driven platform</h2>
           <div className={`${style["container"]} container`}>
             <div className={`${style["row"]} row`}>
               {
@@ -82,6 +83,32 @@ export default function HomeScreen() {
         </div>
 
         <div id={`${style["block-4"]}`}>
+          <h2 className={`${style["title"]} text-center fw-bold mb-5`}>Upcoming IDOs</h2>
+          <div className={`${style["wrap"]} container-fluid`}>
+            <div className="row">
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id={`${style["block-5"]}`}>
           <div className="d-flex justify-content-center">
             <img src="/images/shake-hands-icon.png" alt="" />
           </div>
