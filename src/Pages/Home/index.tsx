@@ -71,7 +71,17 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        <div id={`${style["block-3"]}`}>
+        <div id={`${style["block-3"]}`} className="py-5">
+          <h2 className="text-center mb-5">Want to launch your project on AptosPad?</h2>
+          <div className="d-flex justify-content-center">
+            <button className={`${style["btn-launch"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}>
+              <i className="fa fa-rocket me-2 h4 mb-0" aria-hidden="true"></i>
+              Apply to Launch
+            </button>
+          </div>
+        </div>
+
+        <div id={`${style["block-4"]}`}>
           <div className="d-flex justify-content-center">
             <img src="/images/shake-hands-icon.png" alt="" />
           </div>

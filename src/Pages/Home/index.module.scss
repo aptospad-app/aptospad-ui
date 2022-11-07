@@ -106,6 +106,15 @@
   }
 
   #block-3 {
+    border-bottom: 1px solid rgba(10, 140, 233, 0.5);
+
+    .btn-launch {
+      padding: 10px 50px;
+      box-shadow: initial;
+    }
+  }
+
+  #block-4 {
     padding-top: 70px;
     border-bottom: 1px solid rgba(10, 140, 233, 0.3);
 
