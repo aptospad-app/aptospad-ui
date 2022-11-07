@@ -21,6 +21,7 @@ build
 stderr.txt
 stdout.txt
 *.pem
+public/sitemap.xml
 
 # Editor directories and files
 .vscode/*
