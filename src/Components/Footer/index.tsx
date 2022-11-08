@@ -34,9 +34,15 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
+              {/* <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
                 Discord
-              </a>
+              </a> */}
+              <Link
+                to="/"
+                data-tip={`<div class="text-center">When we get 5000 <a class="text-white" href="https://twitter.com/Aptospad_DAO" target="_blank">Twitter</a> followers, we will share the Discord link. <br/> Help us quickly accomplish our aim.</div>`}
+              >
+                  Discord
+              </Link>
             </li>
           </ul>
         </div>

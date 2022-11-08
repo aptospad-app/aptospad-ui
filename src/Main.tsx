@@ -60,12 +60,15 @@ export default function Main() {
 
       <ReactTooltip
         className="react-tooltip-my-custom"
-        html={false} // Must be false because You can't use "multiline: true" combine with "html: true"
-        multiline={true}
+        html={true} // Must be false because You can't use "multiline: true" combine with "html: true"
+        multiline={false}
         border={true}
         borderColor="rgb(81, 192, 225)"
         backgroundColor="#000"
         textColor="rgb(81, 192, 225)"
+        effect="solid"
+        clickable={true}
+        delayHide={500}
       />
 
       {

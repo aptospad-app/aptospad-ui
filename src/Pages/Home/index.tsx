@@ -28,6 +28,10 @@ export default function HomeScreen() {
     }
   ];
 
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  });
+
   return (
     <React.Fragment>
       <div id={`${style["Home"]}`}>
@@ -75,7 +79,12 @@ export default function HomeScreen() {
             </div>
           </div>
           <div className="d-flex justify-content-center pt-4">
-            <button className="cbtn cbtn-lg cbtn-outline-gradient-blue">Be the first OG on this platform</button>
+            <button
+              className="cbtn cbtn-lg cbtn-outline-gradient-blue"
+              data-tip={`<div class="text-center">The first 1000 users will get high priority for OG and WL. <br/> Follow us on <a class="text-white" href="https://twitter.com/Aptospad_DAO" target="_blank">Twitter</a> to get the latest update.</div>`}
+            >
+              Be the first OG on this platform
+            </button>
           </div>
         </div>
 

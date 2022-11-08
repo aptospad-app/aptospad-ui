@@ -77,10 +77,15 @@ export default function HeaderBottom() {
                       <span className="text ms-2">Staking</span>
                     </NavLink>
                   </li>
-                  <li>
-                    <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
+                  <li data-tip={`<div class="text-center">When we get 5000 <a class="text-white" href="https://twitter.com/Aptospad_DAO" target="_blank">Twitter</a> followers, we will share the Discord link. <br/> Help us quickly accomplish our aim.</div>`}>
+                    {/* <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
                       <span className="text ms-2">Community</span>
-                    </a>
+                    </a> */}
+                    <NavLink
+                      to="/"
+                    >
+                      <span className="text ms-2">Community</span>
+                    </NavLink>
                   </li>
                   <li>
                     <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
