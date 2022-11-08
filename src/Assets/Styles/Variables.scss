@@ -27,21 +27,34 @@ $loadingSpinnerZIndex: 9999999;
       box-shadow: rgb(96, 213, 220) 0px 0px 20px;
     }
     20% {
-        box-shadow: rgb(96, 213, 220) 0px 0px 25px;
+      box-shadow: rgb(96, 213, 220) 0px 0px 25px;
     }
     40% {
-        box-shadow: rgb(96, 213, 220) 0px 0px 15px;
+      box-shadow: rgb(96, 213, 220) 0px 0px 15px;
     }
     60% {
-        box-shadow: rgb(96, 213, 220) 0px 0px 10px;
+      box-shadow: rgb(96, 213, 220) 0px 0px 10px;
     }
     80% {
-        box-shadow: rgb(96, 213, 220) 0px 0px 15px;
+      box-shadow: rgb(96, 213, 220) 0px 0px 15px;
     }
     100% {
-        box-shadow: rgb(96, 213, 220) 0px 0px 20px;
+      box-shadow: rgb(96, 213, 220) 0px 0px 20px;
     }
   }
+}
+
+/*
+  How to use:
+  @include textOverflowEllipsis(4);
+*/
+@mixin textOverflowEllipsis($lineNumber) {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: $lineNumber;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 /*

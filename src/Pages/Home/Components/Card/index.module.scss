@@ -1,3 +1,5 @@
+@import "@/Assets/Styles/Variables";
+
 .card {
   background-color: transparent;
   display: flex;
@@ -22,5 +24,9 @@
     margin-bottom: 0;
     margin-left: 20px;
     text-align: left;
+    height: 100px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
   }
 }
