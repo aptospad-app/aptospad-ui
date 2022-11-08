@@ -25,6 +25,6 @@ const paramsConfig = {
   new Sitemap(Routes)
     .filterPaths(filterConfig)
     .applyParams(paramsConfig)
-    .build("https://aptospad.com", {"limitCountPaths": 5000})
+    .build("https://aptospad.app", {"limitCountPaths": 5000})
     .save("public/sitemap.xml")
 );

@@ -14,7 +14,9 @@ export default function Footer() {
           <ul className={`${style["list"]}`}>
             <li className={`${style["title"]}`}>AptosPad</li>
             <li>
-              <Link to="/">Documents</Link>
+              <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
+                Documents
+              </a>
             </li>
             <li>
               <Link to="/">Apply for project</Link>
@@ -25,7 +27,9 @@ export default function Footer() {
           <ul className={`${style["list"]}`}>
             <li className={`${style["title"]}`}>Follow Us</li>
             <li>
-              <Link to="/">Twitter</Link>
+              <a href="https://twitter.com/Aptospad_DAO" target="_blank" rel="noreferrer">
+                Twitter
+              </a>
             </li>
             <li>
               <Link to="/">Discord</Link>

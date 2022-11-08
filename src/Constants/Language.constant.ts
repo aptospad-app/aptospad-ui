@@ -3,10 +3,10 @@ export const LanguageConstant = {
     {
       "symbol": "en",
       "name": "English"
-    },
-    {
-      "symbol": "vi",
-      "name": "Tiếng Việt"
     }
+    // {
+    //   "symbol": "vi",
+    //   "name": "Tiếng Việt"
+    // }
   ]
 };

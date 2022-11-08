@@ -64,21 +64,19 @@ export default function HeaderBottom() {
               <div id="wrap-sub-menu">
                 <ul id="sub-menu" className="p-0">
                   <li>
-                    <NavLink
-                      to="/document"
-                    >
+                    <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
                       <i className="fa fa-leanpub icon" aria-hidden="true"></i>
                       <span className="text ms-2">Document</span>
-                    </NavLink>
+                    </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <NavLink
                       to="/about-us"
                     >
                       <i className="fa fa-user icon" aria-hidden="true"></i>
                       <span className="text ms-2">About Us</span>
                     </NavLink>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             }
