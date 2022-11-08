@@ -42,7 +42,14 @@ export default function HomeScreen() {
                 </p>
                 <div className="d-flex">
                   <button className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project</button>
-                  <button className="cbtn cbtn-lg cbtn-outline-gradient-blue">Launch your App</button>
+                  <a
+                    href="https://forms.gle/1XXuWt819wmcuiv69"
+                    className="cbtn cbtn-lg cbtn-outline-gradient-blue"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Launch your App
+                  </a>
                 </div>
               </div>
               <div id={`${style["description-photo"]}`} className="col-12 col-md-6 d-none d-md-flex h-100">

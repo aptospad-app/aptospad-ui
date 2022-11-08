@@ -45,7 +45,7 @@ function Header() {
               to="/idos"
               className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <span className="text ms-2">IDOs</span>
+              <span className="text">IDOs</span>
             </NavLink>
           </li>
           <li>
@@ -53,20 +53,17 @@ function Header() {
               to="/staking"
               className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <span className="text ms-2">Staking</span>
+              <span className="text">Staking</span>
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/community"
-              className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
-            >
-              <span className="text ms-2">Community</span>
-            </NavLink>
+            <a className="menu-blue" href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
+              <span className="text">Community</span>
+            </a>
           </li>
           <li>
             <a className="menu-blue" href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
-              <span className="text ms-2">Document</span>
+              <span className="text">Document</span>
             </a>
           </li>
         </ul>

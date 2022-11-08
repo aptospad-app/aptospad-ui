@@ -8,7 +8,7 @@ export default function NotFoundScreen() {
       <div className="wrap-page container-fluid d-flex flex-column justify-content-center align-items-center">
         <div className="title">
             4
-          <img className="logo-icon" src="/images/logo_icon_gold.svg" alt="Buy crypto with paypal" />
+          <img className="logo-icon" src="/images/logo-icon.svg" alt="" />
             4
         </div>
         <p className="description text-center">

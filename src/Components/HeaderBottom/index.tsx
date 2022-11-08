@@ -78,11 +78,9 @@ export default function HeaderBottom() {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="/community"
-                    >
+                    <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
                       <span className="text ms-2">Community</span>
-                    </NavLink>
+                    </a>
                   </li>
                   <li>
                     <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
