@@ -72,7 +72,7 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        <div id={`${style["block-3"]}`} className="py-5">
+        {/* <div id={`${style["block-3"]}`} className="py-5">
           <h2 className="text-center mb-5">Want to launch your project on AptosPad?</h2>
           <div className="d-flex justify-content-center">
             <button className={`${style["btn-launch"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}>
@@ -89,24 +89,9 @@ export default function HomeScreen() {
               <div className="col-12 col-md-6 col-lg-4 mb-5">
                 <Project />
               </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
-              </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div id={`${style["block-5"]}`}>
           <div className="d-flex justify-content-center">

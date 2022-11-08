@@ -42,61 +42,41 @@ function Header() {
         <ul className="menu m-0 p-0 d-flex">
           <li>
             <NavLink
-              to="/"
+              to="/idos"
               className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <i className="fa fa-home icon" aria-hidden="true"></i>
-              <span className="text ms-2">{t("home")}</span>
+              <span className="text ms-2">IDOs</span>
             </NavLink>
           </li>
           <li>
-            <a
-              href="/"
-              className="menu-green"
-              rel="noreferrer"
-              target="_blank"
+            <NavLink
+              to="/staking"
+              className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <img className="icon" src="/images/logo-icon.svg" alt="" />
-              <span className="text ms-2">ATP</span>
-            </a>
+              <span className="text ms-2">Staking</span>
+            </NavLink>
           </li>
           <li>
-            <div
-              className={`menu-violet ${isSubMenuActive() ? "active" : ""}`}
-              onMouseOver={() => toggleSubMenu(true)}
-              onMouseOut={() => toggleSubMenu(false)}
+            <NavLink
+              to="/community"
+              className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <i className="fa fa-ellipsis-h icon" aria-hidden="true"></i>
-
-              <div id="wrap-sub-menu">
-                <ul id="sub-menu" className="p-0">
-                  <li>
-                    <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
-                      <i className="fa fa-leanpub icon" aria-hidden="true"></i>
-                      <span className="text ms-2">Document</span>
-                    </a>
-                  </li>
-                  {/* <li>
-                    <NavLink
-                      to="/about-us"
-                      onClick={() => toggleSubMenu(false)}
-                    >
-                      <i className="fa fa-user icon" aria-hidden="true"></i>
-                      <span className="text ms-2">About Us</span>
-                    </NavLink>
-                  </li> */}
-                </ul>
-              </div>
-            </div>
+              <span className="text ms-2">Community</span>
+            </NavLink>
+          </li>
+          <li>
+            <a className="menu-blue" href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
+              <span className="text ms-2">Document</span>
+            </a>
           </li>
         </ul>
       </div>
 
       <div className="header-right d-flex">
-        <div className="stack d-none d-sm-flex align-items-center" role="button">
+        {/* <div className="stack d-none d-sm-flex align-items-center" role="button">
           <img src="/images/logo-icon.svg" className="me-1" alt="mmo crypto" style={{"width": "24px"}} />
           <span>$0</span>
-        </div>
+        </div> */}
         <div className="stack d-none d-md-flex align-items-center">
           <WalletInteractComponent />
         </div>

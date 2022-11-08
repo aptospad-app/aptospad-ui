@@ -29,7 +29,7 @@ export default function HeaderBottom() {
   return (
     <div id="header-bottom" className="d-block d-lg-none">
       <ul className="menu m-0 p-0 d-flex justify-content-around">
-        <li>
+        {/* <li>
           <a
             href={`/`}
             className="menu-green"
@@ -39,7 +39,7 @@ export default function HeaderBottom() {
             <img className="icon" src="/images/logo-icon.svg" alt="rip coin" />
             <span className="text">ATP</span>
           </a>
-        </li>
+        </li> */}
         <li>
           <NavLink
             to="/"
@@ -64,19 +64,31 @@ export default function HeaderBottom() {
               <div id="wrap-sub-menu">
                 <ul id="sub-menu" className="p-0">
                   <li>
+                    <NavLink
+                      to="/idos"
+                    >
+                      <span className="text ms-2">IDOs</span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/staking"
+                    >
+                      <span className="text ms-2">Staking</span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/community"
+                    >
+                      <span className="text ms-2">Community</span>
+                    </NavLink>
+                  </li>
+                  <li>
                     <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
-                      <i className="fa fa-leanpub icon" aria-hidden="true"></i>
                       <span className="text ms-2">Document</span>
                     </a>
                   </li>
-                  {/* <li>
-                    <NavLink
-                      to="/about-us"
-                    >
-                      <i className="fa fa-user icon" aria-hidden="true"></i>
-                      <span className="text ms-2">About Us</span>
-                    </NavLink>
-                  </li> */}
                 </ul>
               </div>
             }
