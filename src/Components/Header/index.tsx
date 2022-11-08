@@ -60,9 +60,9 @@ function Header() {
             {/* <a className="menu-blue" href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
               <span className="text">Community</span>
             </a> */}
-            <NavLink className="menu-blue" to="">
+            <a className="menu-blue" href="">
               <span className="text">Community</span>
-            </NavLink>
+            </a>
           </li>
           <li>
             <a className="menu-blue" href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
