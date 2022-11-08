@@ -50,10 +50,12 @@
         justify-content: center;
         align-items: center;
         background-color: rgb(22 20 49);
+        overflow: hidden;
 
         img {
           width: 100%;
           object-fit: cover;
+          border-radius: 50%;
         }
       }
     }
@@ -121,11 +123,21 @@
   }
 
   .footer {
-    color: #fff;
-    font-size: 15px;
+    font-size: 18px;
     padding: 20px 0 10px 0;
-    text-align: center;
     border-top: 1px solid rgba(10, 140, 233, 0.9);
+
+    a {
+      color: #fff;
+      text-align: center;
+      display: block;
+      position: relative;
+      z-index: 1;
+
+      &:hover {
+        color: rgba(10, 140, 233, 0.9);
+      }
+    }
   }
 
   &:hover {

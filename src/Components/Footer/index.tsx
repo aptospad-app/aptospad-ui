@@ -19,7 +19,9 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <Link to="/">Apply for project</Link>
+              <a href="https://forms.gle/1XXuWt819wmcuiv69" target="_blank" rel="noreferrer">
+                Apply for project
+              </a>
             </li>
           </ul>
         </div>
@@ -32,7 +34,9 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <Link to="/">Discord</Link>
+              <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
+                Discord
+              </a>
             </li>
           </ul>
         </div>

@@ -72,13 +72,18 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* <div id={`${style["block-3"]}`} className="py-5">
+        <div id={`${style["block-3"]}`} className="py-5">
           <h2 className="text-center mb-5">Want to launch your project on AptosPad?</h2>
           <div className="d-flex justify-content-center">
-            <button className={`${style["btn-launch"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}>
+            <a
+              className={`${style["btn-launch"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}
+              href="https://forms.gle/1XXuWt819wmcuiv69"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fa fa-rocket me-2 h4 mb-0" aria-hidden="true"></i>
               Apply to Launch
-            </button>
+            </a>
           </div>
         </div>
 
@@ -89,9 +94,24 @@ export default function HomeScreen() {
               <div className="col-12 col-md-6 col-lg-4 mb-5">
                 <Project />
               </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 mb-5">
+                <Project />
+              </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div id={`${style["block-5"]}`}>
           <div className="d-flex justify-content-center">
