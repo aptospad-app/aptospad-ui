@@ -20,7 +20,7 @@ export default function Project() {
         </div>
         <div className={`${style["project-avatar"]}`}>
           <div className={`${style["avatar"]}`}>
-            <img src="/images/logo.jpg" alt="" />
+            <img src="/logo512.png" alt="" />
             <div className={`${style["chain"]}`}>
               <img src="/images/network-aptos.png" alt="" />
             </div>
