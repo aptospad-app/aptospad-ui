@@ -46,11 +46,11 @@ export default function Project() {
         </Link>
       </div>
 
-      <div className="mb-5">
+      <div className="mb-3">
         <span className={`${style["badge"]} ${style["badge-gray"]} text-uppercase`}>Upcoming</span>
       </div>
 
-      <p className={`${style["description"]} mb-5`}>
+      <p className={`${style["description"]} mb-4`}>
         This is an IDO template project. When a project is accepted, the coming project will be shown like this.
       </p>
 
