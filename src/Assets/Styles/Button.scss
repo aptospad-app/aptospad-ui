@@ -43,5 +43,9 @@
     &:hover {
       color: #00f1ff;
     }
+
+    &:focus {
+      box-shadow: inset 2px 1000px 1px #03132f;
+    }
   }
 }
