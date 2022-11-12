@@ -24,6 +24,7 @@ export default function WalletInteract() {
   let copiedAddress = false;
 
   const openChooseWalletPopup = () => {
+    aptosWalletAdapter.disconnect();
     dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(true));
   };
 
@@ -40,16 +41,37 @@ export default function WalletInteract() {
 
   return (
     <div id="wallet-interact">
-      <div className="not-connect">
-        <button
-          className="cbtn cbtn-outline-gradient-blue"
-          disabled={chooseWalletPopup}
-          onClick={() => openChooseWalletPopup()}
-        >
-          <img src="/images/wallet.svg" className="me-2" alt="wallet" style={{"width": "20px"}} />
-          {t("connect wallet")}
-        </button>
-      </div>
+      {
+        aptosWalletAdapter.connected
+          ? <div className="connected d-flex align-items-center">
+            <span className="wallet-account-address"
+              onClick={() => copyTextToClipboard(aptosWalletAdapter.account!.address as any)}
+            >
+              {CommonUtility.stringEllipsisMiddle(aptosWalletAdapter.account!.address as any)}
+            </span>
+
+            <React.Fragment>
+              <img src="/images/network-aptos.png" className="network-icon ms-2 me-1" alt="wallet" />
+              <span className="network-name">Aptos</span>
+            </React.Fragment>
+
+            <div className="bound">
+              <div className="actions">
+                <div className="action" onClick={() => aptosWalletAdapter.disconnect()}>{t("disconnect")}</div>
+              </div>
+            </div>
+          </div>
+          : <div className="not-connect">
+            <button
+              className="cbtn cbtn-outline-gradient-blue"
+              disabled={chooseWalletPopup}
+              onClick={() => openChooseWalletPopup()}
+            >
+              <img src="/images/wallet.svg" className="me-2" alt="wallet" style={{"width": "20px"}} />
+              {t("connect wallet")}
+            </button>
+          </div>
+      }
 
     </div>
   );

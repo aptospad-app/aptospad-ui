@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./index.module.scss";
-import {useAppDispatch, useAppSelector, WalletActions, ChooseWalletPopupActions} from "@/MyRedux";
+import {useAppDispatch, useAppSelector, LoadingSpinnerActions, ChooseWalletPopupActions} from "@/MyRedux";
 import {Modal} from "react-bootstrap";
 import {CommonUtility} from "@/Utilities";
 import {toast} from "react-toastify";
@@ -11,19 +11,19 @@ export default function ChooseWalletPopup() {
   const {wallet, chooseWalletPopup} = useAppSelector((state) => state);
   const aptosWalletAdapter = useWallet();
 
-  const closeChooseWalletPopup = () => {
-    dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false));
-  };
-
   const onSelecteWallet = async (index: number) => {
     try {
       const selectedWallet = aptosWalletAdapter.wallets[index];
       if (selectedWallet.readyState === "NotDetected") {
         throw new Error("Wallet provider not installed, please install first and then reload the page.");
       }
+      dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false));
+      dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
       await aptosWalletAdapter.connect(selectedWallet.adapter.name);
+      dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
     } catch (error: any) {
-      closeChooseWalletPopup();
+      dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
+      dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false));
       toast.error(error.message);
     }
   };
@@ -35,7 +35,7 @@ export default function ChooseWalletPopup() {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       keyboard={true}
-      onHide={closeChooseWalletPopup}
+      onHide={() => dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false))}
       contentClassName={`${style["choose-wallet-popup"]}`}
     >
       <Modal.Header closeButton>
