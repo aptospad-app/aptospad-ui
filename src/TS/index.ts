@@ -16,6 +16,7 @@
  */
 export * from "./Interfaces/Api.interface";
 export * from "./Interfaces/Home.interface";
+export * from "./Interfaces/Wallet.interface";
 
 /**
  * Types

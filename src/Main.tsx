@@ -9,6 +9,7 @@ import {HelmetProvider} from "react-helmet-async";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import LoadingSpinner from "./Components/LoadingSpinner";
+import ChooseWalletPopup from "./Components/ChooseWalletPopup";
 import Splash from "./Components/Splash";
 
 const App = React.lazy(() => import("./App"));
@@ -20,7 +21,8 @@ export default function Main() {
   const {i18n} = useTranslation();
   const {
     language,
-    loadingSpinner
+    loadingSpinner,
+    chooseWalletPopup
   } = useAppSelector((state) => state);
 
   /**
@@ -71,6 +73,9 @@ export default function Main() {
         delayHide={500}
       />
 
+      {
+        chooseWalletPopup && <ChooseWalletPopup />
+      }
       {
         loadingSpinner && <LoadingSpinner />
       }
