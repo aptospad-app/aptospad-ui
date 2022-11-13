@@ -57,7 +57,7 @@ export default function HomeScreen() {
                 </div>
               </div>
               <div id={`${style["description-photo"]}`} className="col-12 col-md-6 d-none d-md-flex h-100">
-                <img className="h-100" src="/images/logo-icon.svg" alt="" />
+                <img className="hi" src="/images/logo-icon.svg" alt="" />
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function HomeScreen() {
 
         <div id={`${style["block-5"]}`}>
           <div className="d-flex justify-content-center">
-            <img src="/images/shake-hands-icon.png" alt="" />
+            <img className="w-100" src="/images/shake-hands-icon.png" alt="" />
           </div>
           <h2 className={`${style["title"]} text-center fw-bold pt-5`}>
             The great place when investors <br/> and projects meet together
