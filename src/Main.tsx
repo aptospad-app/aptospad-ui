@@ -24,9 +24,9 @@ import {
   SafePalWalletAdapter
 } from "@manahippo/aptos-wallet-adapter";
 
-import LoadingSpinner from "./Components/LoadingSpinner";
-import ChooseWalletPopup from "./Components/ChooseWalletPopup";
-import Splash from "./Components/Splash";
+const LoadingSpinner = React.lazy(() => import("./Components/LoadingSpinner"));
+const ChooseWalletPopup = React.lazy(() => import("./Components/ChooseWalletPopup"));
+const Splash = React.lazy(() => import("./Components/Splash"));
 
 const App = React.lazy(() => import("./App"));
 const HomeScreen = React.lazy(() => import("./Pages/Home"));
