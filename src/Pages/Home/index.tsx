@@ -130,10 +130,10 @@ export default function HomeScreen() {
         </div>
 
         <div id={`${style["block-5"]}`}>
-          <div className="d-flex justify-content-center">
-            <img className="w-100" src="/images/shake-hands-icon.png" alt="" />
+          <div className={`${style["banner"]} d-flex justify-content-center`}>
+            <img src="/images/shake-hands-icon.png" alt="" />
           </div>
-          <h2 className={`${style["title"]} text-center fw-bold pt-5`}>
+          <h2 className={`${style["title"]} text-center fw-bold pt-3`}>
             The great place when investors <br/> and projects meet together
           </h2>
           <div className={`${style["cosmos"]} container-fluid`}>

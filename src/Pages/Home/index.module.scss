@@ -133,6 +133,13 @@
     padding-top: 70px;
     border-bottom: 1px solid rgba(10, 140, 233, 0.3);
 
+    .banner {
+      img {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
     .title {
       line-height: 50px;
     }
