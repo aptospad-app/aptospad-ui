@@ -1,18 +1,18 @@
-import {AptosPayload, TransactionProvider} from "./TransactionProvider";
+import {AptosPayload, TransactionProvider, TxParam} from "./TransactionProvider";
 import {WalletGenerateError, WalletNotFound, WalletSignError} from "@/Services/Wallet/errors";
 
 export class FewchaTransactionProvider extends TransactionProvider {
-  async sendTransactionOnAptos(options: any, payload: AptosPayload): Promise<any> {
+  async sendTransactionOnAptos(txParam: TxParam, payload: AptosPayload): Promise<any> {
     try {
       if (!("fewcha" in window)) {
         throw new WalletNotFound();
       }
 
       const fewcha = (window as any).fewcha;
-      const sender = this.aptosWalletAdapter.account?.address;
+      const sender = txParam.sender;
       console.log("Fewcha use sender: " + sender);
 
-      const rawTransaction = await fewcha.generateTransaction(payload, options);
+      const rawTransaction = await fewcha.generateTransaction(payload, txParam.options);
       if (rawTransaction.status !== 200) {
         throw new WalletGenerateError();
       }
@@ -26,7 +26,7 @@ export class FewchaTransactionProvider extends TransactionProvider {
       console.error(error);
       throw error;
     } finally {
-      console.log("Fewcha submit transaction: " + payload + ", with options: " + options);
+      console.log("Fewcha submit transaction: " + payload + ", with options: " + txParam.options);
     }
   }
 }

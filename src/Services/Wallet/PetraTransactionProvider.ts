@@ -1,8 +1,8 @@
-import {AptosPayload, TransactionProvider} from "@/Services/Wallet/TransactionProvider";
+import {AptosPayload, TransactionProvider, TxParam} from "@/Services/Wallet/TransactionProvider";
 import {WalletNotFound} from "@/Services/Wallet/errors";
 
 export class PetraTransactionProvider extends TransactionProvider {
-  async sendTransactionOnAptos(options: any, payload: AptosPayload): Promise<any> {
+  async sendTransactionOnAptos(txParam: TxParam, payload: AptosPayload): Promise<any> {
     try {
       if (!("aptos" in window)) {
         throw new WalletNotFound();
@@ -14,7 +14,7 @@ export class PetraTransactionProvider extends TransactionProvider {
       console.error(error);
       throw error;
     } finally {
-      console.log("Petra submit transaction: " + payload + ", with options: " + options);
+      console.log("Petra submit transaction: " + payload + ", with options: " + txParam.options);
     }
   }
 }
