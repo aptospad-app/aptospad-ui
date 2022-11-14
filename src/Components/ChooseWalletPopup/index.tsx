@@ -44,7 +44,11 @@ export default function ChooseWalletPopup() {
       <Modal.Body>
         {
           aptosWalletAdapter.wallets.map((item, index) => {
-            if (item.adapter.name === "Petra") {
+            if (
+              item.adapter.name === "Petra" ||
+              item.adapter.name === "Martian" ||
+              item.adapter.name === "Pontem"
+            ) {
               return (
                 <div className="wallets-list" key={index} onClick={() => onSelecteWallet(index)}>
                   <img src={item.adapter.icon} className="me-4" alt="" />
