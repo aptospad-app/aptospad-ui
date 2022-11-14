@@ -8,7 +8,10 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
 export default function ChooseWalletPopup() {
   const dispatch = useAppDispatch();
-  const {wallet, chooseWalletPopup} = useAppSelector((state) => state);
+  const {
+    wallet,
+    chooseWalletPopup
+  } = useAppSelector((state) => state);
   const aptosWalletAdapter = useWallet();
 
   const onSelecteWallet = async (index: number) => {
@@ -21,11 +24,15 @@ export default function ChooseWalletPopup() {
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
       await aptosWalletAdapter.connect(selectedWallet.adapter.name);
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
+
+      aptosWalletAdapter.wallet = selectedWallet;
+      aptosWalletAdapter.account = selectedWallet.adapter.publicAccount;
     } catch (error: any) {
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
       dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false));
       toast.error(error.message);
     }
+    console.log(aptosWalletAdapter);
   };
 
   return (
@@ -47,7 +54,7 @@ export default function ChooseWalletPopup() {
             if (item.adapter.name === "Petra") {
               return (
                 <div className="wallets-list" key={index} onClick={() => onSelecteWallet(index)}>
-                  <img src={item.adapter.icon} className="me-4" alt="" />
+                  <img src={item.adapter.icon} className="me-4" alt=""/>
                   {item.adapter.name}
                 </div>
               );

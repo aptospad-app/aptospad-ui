@@ -1,13 +1,15 @@
-import {useWallet, WalletContextState} from "@manahippo/aptos-wallet-adapter";
+import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
 import {AptosPayload, TransactionProvider, TxParam} from "./Wallet/TransactionProvider";
 import {MartianTransactionProvider} from "./Wallet/MartianTransactionProvider";
-import {WalletNotFound} from "@/Services/Wallet/errors";
+import {WalletNameEmpty, WalletNotFound} from "@/Services/Wallet/errors";
 import {FewchaTransactionProvider} from "@/Services/Wallet/FewchaTransactionProvider";
 import {FletchTransactionProvider} from "@/Services/Wallet/FletchTransactionProvider";
 import {PetraTransactionProvider} from "@/Services/Wallet/PetraTransactionProvider";
 import {PontemTransactionProvider} from "@/Services/Wallet/PontemTransactionProvider";
 import {RiseTransactionProvider} from "@/Services/Wallet/RiseTransactionProvider";
 import {SpikaTransactionProvider} from "@/Services/Wallet/SpikaTransactionProvider";
+
+const ownerAddress = process.env.APTOSPAD_OWNER_ADDRESS;
 
 export class AptospadTransactionService {
   private aptosWalletAdapter: WalletContextState;
@@ -17,7 +19,10 @@ export class AptospadTransactionService {
   }
 
   selectTxProvider(walletName: string): TransactionProvider {
-    switch (walletName) {
+    if (!walletName) {
+      throw new WalletNameEmpty();
+    }
+    switch (walletName.toLowerCase()) {
       case "martian":
         return new MartianTransactionProvider();
       case "fewcha":
@@ -37,38 +42,63 @@ export class AptospadTransactionService {
     }
   }
 
-  async register(): Promise<any> {
+  async addWhiteList(account: string, cap: BigInt): Promise<any> {
     const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
     const txProvider = this.selectTxProvider(walletName);
 
-    const address = this.aptosWalletAdapter.account?.address as string;
+    const sender = this.aptosWalletAdapter.account?.address as string;
+    const funcContract = `${ownerAddress}::scripts::addWhiteList`;
+
     const payload: AptosPayload = {
-      "arguments": [],
-      "function": "aptospad::aptospad_swap::withdrawAptos",
-      "type_arguments": ["aptospad::aptospad_coin::AptosPadCoin"],
+      "arguments": [account, cap.toString()],
+      "function": funcContract,
+      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
       "type": ""
     };
     const param: TxParam = {
-      "sender": address,
+      "sender": sender,
       "options": undefined
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
   }
 
-  async withdrawAptos(debit: string, amount: BigInt): Promise<any> {
+  async withdrawAptos(debitAddress: string, amount: BigInt): Promise<any> {
     const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
     const txProvider = this.selectTxProvider(walletName);
 
-    const address = this.aptosWalletAdapter.account?.address as string;
+    const sender = this.aptosWalletAdapter.account?.address as string;
+    const funcContract = `${ownerAddress}::scripts::withdrawAptos`;
+
     const payload: AptosPayload = {
-      "arguments": [debit, amount.toString()],
-      "function": "aptospad::aptospad_swap::withdrawAptos",
-      "type_arguments": ["aptospad::aptospad_coin::AptosPadCoin"],
+      "arguments": [debitAddress, amount.toString()],
+      "function": funcContract,
+      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
       "type": ""
     };
     const param: TxParam = {
-      "sender": address,
+      "sender": sender,
+      "options": undefined
+    };
+
+    return await txProvider.sendTransactionOnAptos(param, payload);
+  }
+
+  async withdrawAptosPad(debitAddress: string, amount: BigInt): Promise<any> {
+    const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
+    const txProvider = this.selectTxProvider(walletName);
+
+    const sender = this.aptosWalletAdapter.account?.address as string;
+    const funcContract = `${ownerAddress}::scripts::withdrawAptosPad`;
+
+    const payload: AptosPayload = {
+      "arguments": [debitAddress, amount.toString()],
+      "function": funcContract,
+      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
+      "type": ""
+    };
+    const param: TxParam = {
+      "sender": sender,
       "options": undefined
     };
 

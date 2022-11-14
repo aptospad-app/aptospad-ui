@@ -12,6 +12,10 @@ export class WalletNotFound extends WalletError {
   "name" = "WalletNotFound";
 }
 
+export class WalletNameEmpty extends WalletError {
+  "name" = "WalletNameEmpty";
+}
+
 export class WalletGenerateError extends WalletError {
   "name" = "GenerateTransactionFailed";
 }
