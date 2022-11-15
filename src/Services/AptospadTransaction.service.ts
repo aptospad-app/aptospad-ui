@@ -45,18 +45,14 @@ export class AptospadTransactionService {
   async addWhiteList(account: string, cap: BigInt): Promise<any> {
     const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
     const txProvider = this.selectTxProvider(walletName);
-
-    const sender = this.aptosWalletAdapter.account?.address as string;
-    const funcContract = `${ownerAddress}::scripts::addWhiteList`;
-
     const payload: AptosPayload = {
       "arguments": [account, cap.toString()],
-      "function": funcContract,
-      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
-      "type": ""
+      "function": `${ownerAddress}::scripts::addWhiteList`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": sender,
+      "sender": this.aptosWalletAdapter.account?.address as string,
       "options": undefined
     };
 
@@ -66,18 +62,14 @@ export class AptospadTransactionService {
   async withdrawAptos(debitAddress: string, amount: BigInt): Promise<any> {
     const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
     const txProvider = this.selectTxProvider(walletName);
-
-    const sender = this.aptosWalletAdapter.account?.address as string;
-    const funcContract = `${ownerAddress}::scripts::withdrawAptos`;
-
     const payload: AptosPayload = {
       "arguments": [debitAddress, amount.toString()],
-      "function": funcContract,
-      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
-      "type": ""
+      "function": `${ownerAddress}::scripts::withdrawAptos`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": sender,
+      "sender": this.aptosWalletAdapter.account?.address as string,
       "options": undefined
     };
 
@@ -87,18 +79,82 @@ export class AptospadTransactionService {
   async withdrawAptosPad(debitAddress: string, amount: BigInt): Promise<any> {
     const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
     const txProvider = this.selectTxProvider(walletName);
-
-    const sender = this.aptosWalletAdapter.account?.address as string;
-    const funcContract = `${ownerAddress}::scripts::withdrawAptosPad`;
-
     const payload: AptosPayload = {
       "arguments": [debitAddress, amount.toString()],
-      "function": funcContract,
-      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
-      "type": ""
+      "function": `${ownerAddress}::scripts::withdrawAptosPad`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": sender,
+      "sender": this.aptosWalletAdapter.account?.address as string,
+      "options": undefined
+    };
+
+    return await txProvider.sendTransactionOnAptos(param, payload);
+  }
+
+  async launchPadSeason(): Promise<any> {
+    const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
+    const txProvider = this.selectTxProvider(walletName);
+    const payload: AptosPayload = {
+      "arguments": [],
+      "function": `${ownerAddress}::scripts::launchPadSeason`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
+    };
+    const param: TxParam = {
+      "sender": this.aptosWalletAdapter.account?.address as string,
+      "options": undefined
+    };
+
+    return await txProvider.sendTransactionOnAptos(param, payload);
+  }
+
+  async initializeAptosPad(totalSupply: BigInt, aptosFund: BigInt): Promise<any> {
+    const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
+    const txProvider = this.selectTxProvider(walletName);
+    const payload: AptosPayload = {
+      "arguments": [totalSupply.toString(), aptosFund.toString()],
+      "function": `${ownerAddress}::scripts::initializeWithResourceAccount`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
+    };
+    const param: TxParam = {
+      "sender": this.aptosWalletAdapter.account?.address as string,
+      "options": undefined
+    };
+
+    return await txProvider.sendTransactionOnAptos(param, payload);
+  }
+
+  async resetSeason(): Promise<any> {
+    const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
+    const txProvider = this.selectTxProvider(walletName);
+    const payload: AptosPayload = {
+      "arguments": [],
+      "function": `${ownerAddress}::scripts::resetSeason`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
+    };
+    const param: TxParam = {
+      "sender": this.aptosWalletAdapter.account?.address as string,
+      "options": undefined
+    };
+
+    return await txProvider.sendTransactionOnAptos(param, payload);
+  }
+
+  async bidAptosPad(amount: BigInt): Promise<any> {
+    const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
+    const txProvider = this.selectTxProvider(walletName);
+    const payload: AptosPayload = {
+      "arguments": [amount.toString()],
+      "function": `${ownerAddress}::scripts::bidAptosPad`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
+    };
+    const param: TxParam = {
+      "sender": this.aptosWalletAdapter.account?.address as string,
       "options": undefined
     };
 
