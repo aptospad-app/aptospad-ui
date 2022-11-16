@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./index.scss";
 import {Link, NavLink, useLocation, matchPath} from "react-router-dom";
 import {useAppSelector} from "@/MyRedux";
@@ -6,6 +6,8 @@ import {useTranslation} from "react-i18next";
 import WalletInteractComponent from "./Components/WalletInteract";
 import LanguageComponent from "./Components/Language";
 import {toast} from "react-toastify";
+import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg";
+import {ReactComponent as Crew3Icon} from "@/Assets/Images/Social/Crew3.svg";
 
 function Header() {
   const location = useLocation();
@@ -26,8 +28,20 @@ function Header() {
     return false;
   };
 
-  const toggleSubMenu = (toggle: boolean) => {
-    document.querySelector("#header #wrap-sub-menu")!.style.display = toggle ? "block" : "none";
+  const closeMenu = () => {
+    [...document.getElementsByClassName("menu-item")].forEach(
+      (element, index, array) => {
+        element.classList.remove("open");
+      }
+    );
+  };
+
+  const handleClickMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    const isOpen = e.currentTarget.classList.contains("open");
+    closeMenu();
+    if (!isOpen) {
+      e.currentTarget.classList.add("open");
+    }
   };
 
   return (
@@ -41,30 +55,157 @@ function Header() {
       <div className="header-left d-none d-lg-block">
         <ul className="menu m-0 p-0 d-flex">
           <li>
+            <div
+              className={`menu-item menu-blue ${isSubMenuActive() ? "active" : ""}`}
+              onClick={handleClickMenu}
+            >
+              <span className="text">
+                Products
+                <i className="fa fa-caret-down ms-1" aria-hidden="true"></i>
+              </span>
+
+              <div className="container wrap-sub-menu">
+                <div className="row sub-menu">
+                  <div className="col-6">
+                    <NavLink to="/ido-projects" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-terminal" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">IDO Projects</p>
+                        <p className="sub-text">Browser upcoming sale</p>
+                      </div>
+                    </NavLink>
+                  </div>
+                  <div className="col-6">
+                    <NavLink to="/community-voting" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-users" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Community voting</p>
+                        <p className="sub-text">Vote for projects</p>
+                      </div>
+                    </NavLink>
+                  </div>
+                  <div className="col-6">
+                    <NavLink to="/staking" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-optin-monster" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Stake ATP</p>
+                        <p className="sub-text">Buy ATP and stake it</p>
+                      </div>
+                    </NavLink>
+                  </div>
+                  <div className="col-6">
+                    <NavLink to="/governance" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-sticky-note-o" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Governance</p>
+                        <p className="sub-text">Vote for ecosystem changes</p>
+                      </div>
+                    </NavLink>
+                  </div>
+                  <div className="col-6">
+                    <NavLink to="/swap" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-exchange" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Swap</p>
+                        <p className="sub-text">Trade your tokens</p>
+                      </div>
+                    </NavLink>
+                  </div>
+                  <div className="col-6">
+                    <NavLink to="/portfolio" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-list-ol" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Portfolio</p>
+                        <p className="sub-text">Manage your allocations</p>
+                      </div>
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              className={`menu-item menu-blue ${isSubMenuActive() ? "active" : ""}`}
+              onClick={handleClickMenu}
+            >
+              <span className="text">
+                Community
+                <i className="fa fa-caret-down ms-1" aria-hidden="true"></i>
+              </span>
+
+              <div className="container wrap-sub-menu">
+                <div className="row sub-menu">
+                  <div className="col-6">
+                    <a href="https://twitter.com/Aptospad_DAO" target="_blank" rel="noreferrer" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-twitter" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Twitter</p>
+                        <p className="sub-text"></p>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div className="col-6">
+                    <a href="https://discord.gg/aptospad" target="_blank" rel="noreferrer" className="sub-menu-item">
+                      <div className="icon">
+                        <DiscordIcon />
+                      </div>
+                      <div className="description">
+                        <p className="text">Discord</p>
+                        <p className="sub-text"></p>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div className="col-6">
+                    <a href="/" target="_blank" rel="noreferrer" className="sub-menu-item">
+                      <div className="icon">
+                        <Crew3Icon />
+                      </div>
+                      <div className="description">
+                        <p className="text">Crew3</p>
+                        <p className="sub-text"></p>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div className="col-6">
+                    <a href="/" target="_blank" rel="noreferrer" className="sub-menu-item">
+                      <div className="icon">
+                        <i className="fa fa-medium" aria-hidden="true"></i>
+                      </div>
+                      <div className="description">
+                        <p className="text">Medium</p>
+                        <p className="sub-text"></p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
             <NavLink
-              to="/idos"
+              to="/buy"
               className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <span className="text">IDOs</span>
+              <span className="text">Buy ATP</span>
             </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/staking"
-              className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
-            >
-              <span className="text">Staking</span>
-            </NavLink>
-          </li>
-          <li>
-            <a className="menu-blue" href="https://discord.gg/aptospad" target="_blank" rel="noreferrer">
-              <span className="text">Community</span>
-            </a>
-          </li>
-          <li>
-            <a className="menu-blue" href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
-              <span className="text">Document</span>
-            </a>
           </li>
         </ul>
       </div>

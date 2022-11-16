@@ -90,23 +90,31 @@
           font-size: 10px;
         }
 
-        #wrap-sub-menu {
-          display: block;
+        &.open {
+          .wrap-sub-menu {
+            display: block;
+          }
+        }
+
+        .wrap-sub-menu {
+          display: none;
           position: absolute;
           bottom: #{$headerBottomHeight}px;
-          right: 0;
+          right: 50%;
+          transform: translate(50%, 0);
 
-          #sub-menu {
+          .sub-menu {
             list-style-type: none;
             min-width: 200px;
             background-color: #0f0f1c;
-            filter: drop-shadow(rgba(128, 138, 157, 0.12) 0px 1px 2px) drop-shadow(rgba(128, 138, 157, 0.5) 0px 8px 32px);
+            // filter: drop-shadow(rgba(128, 138, 157, 0.12) 0px 1px 2px) drop-shadow(rgba(128, 138, 157, 0.5) 0px 8px 32px);
             >li {
               >a {
                 display: block;
                 padding: 10px 20px;
                 font-size: 13px;
                 color: #FFF;
+                text-align: center;
                 &:hover,
                 &.active {
                   background-color: #313241;
