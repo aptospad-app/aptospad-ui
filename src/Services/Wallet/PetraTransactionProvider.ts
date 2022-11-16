@@ -9,12 +9,12 @@ export class PetraTransactionProvider extends TransactionProvider {
       }
       const petra = (window as any).aptos;
 
-      return await petra.signAndSubmitTransaction(payload);
+      return await petra.signAndSubmitTransaction(payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;
     } finally {
-      console.log("Petra submit transaction: " + payload + ", with options: " + txParam.options);
+      console.log("Submit transaction: " + JSON.stringify(payload) + ", with options: " + txParam.options);
     }
   }
 }

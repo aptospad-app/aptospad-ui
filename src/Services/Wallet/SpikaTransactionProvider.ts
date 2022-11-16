@@ -9,12 +9,12 @@ export class SpikaTransactionProvider extends TransactionProvider {
       }
       const spika = (window as any).spika;
 
-      return await spika.signAndSubmitTransaction(payload);
+      return await spika.signAndSubmitTransaction(payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;
     } finally {
-      console.log("Spika submit transaction: " + payload + ", with options: " + txParam.options);
+      console.log("Submit transaction: " + JSON.stringify(payload) + ", with options: " + txParam.options);
     }
   }
 }

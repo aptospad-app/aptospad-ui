@@ -8,14 +8,18 @@ import {PetraTransactionProvider} from "@/Services/Wallet/PetraTransactionProvid
 import {PontemTransactionProvider} from "@/Services/Wallet/PontemTransactionProvider";
 import {RiseTransactionProvider} from "@/Services/Wallet/RiseTransactionProvider";
 import {SpikaTransactionProvider} from "@/Services/Wallet/SpikaTransactionProvider";
+import {AptosClient} from "aptos";
 
 const ownerAddress = process.env.APTOSPAD_OWNER_ADDRESS;
+const aptosNodeUrl = process.env.APTOS_FULL_NODE as string | "";
 
 export class AptospadTransactionService {
   private aptosWalletAdapter: WalletContextState;
+  private aptosClient: AptosClient;
 
   constructor(aptosWalletAdapter: WalletContextState) {
     this.aptosWalletAdapter = aptosWalletAdapter;
+    this.aptosClient = new AptosClient(aptosNodeUrl);
   }
 
   selectTxProvider(walletName: string): TransactionProvider {
@@ -33,7 +37,7 @@ export class AptospadTransactionService {
         return new PetraTransactionProvider();
       case "pontem":
         return new PontemTransactionProvider();
-      case "rise":
+      case "rise wallet":
         return new RiseTransactionProvider();
       case "spika":
         return new SpikaTransactionProvider();
@@ -52,8 +56,7 @@ export class AptospadTransactionService {
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
@@ -69,8 +72,7 @@ export class AptospadTransactionService {
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
@@ -86,8 +88,7 @@ export class AptospadTransactionService {
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
@@ -103,25 +104,23 @@ export class AptospadTransactionService {
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
   }
 
-  async initializeAptosPad(totalSupply: BigInt, aptosFund: BigInt): Promise<any> {
+  async initializeAptosPad(aptosFund: BigInt): Promise<any> {
     const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
     const txProvider = this.selectTxProvider(walletName);
     const payload: AptosPayload = {
-      "arguments": [totalSupply.toString(), aptosFund.toString()],
-      "function": `${ownerAddress}::scripts::initializeWithResourceAccount`,
-      "type_arguments": [],
+      "arguments": [aptosFund.toString()],
+      "function": `${ownerAddress}::scripts::initializeAptosPad`,
+      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
@@ -137,8 +136,7 @@ export class AptospadTransactionService {
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);
@@ -154,8 +152,23 @@ export class AptospadTransactionService {
       "type": "entry_function_payload"
     };
     const param: TxParam = {
-      "sender": this.aptosWalletAdapter.account?.address as string,
-      "options": undefined
+      "sender": this.aptosWalletAdapter.account?.address as string
+    };
+
+    return await txProvider.sendTransactionOnAptos(param, payload);
+  }
+
+  async setApttSwapConfig(softCap: BigInt, hardCap: BigInt, enableRefund: boolean, aptToApttRate: BigInt): Promise<any> {
+    const walletName = this.aptosWalletAdapter.wallet?.adapter.name as string;
+    const txProvider = this.selectTxProvider(walletName);
+    const payload: AptosPayload = {
+      "arguments": [softCap.toString(), hardCap.toString(), enableRefund, aptToApttRate.toString()],
+      "function": `${ownerAddress}::scripts::setApttSwapConfig`,
+      "type_arguments": [],
+      "type": "entry_function_payload"
+    };
+    const param: TxParam = {
+      "sender": this.aptosWalletAdapter.account?.address as string
     };
 
     return await txProvider.sendTransactionOnAptos(param, payload);

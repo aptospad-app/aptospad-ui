@@ -9,12 +9,12 @@ export class RiseTransactionProvider extends TransactionProvider {
       }
       const rise = (window as any).rise;
 
-      return await rise.signAndSubmitTransaction(payload);
+      return await rise.signAndSubmitTransaction(payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;
     } finally {
-      console.log("Rise submit transaction: " + payload + ", with options: " + txParam.options);
+      console.log("Submit transaction: " + JSON.stringify(payload) + ", with options: " + txParam.options);
     }
   }
 }

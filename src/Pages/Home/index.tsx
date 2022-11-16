@@ -6,9 +6,12 @@ import ReactTooltip from "react-tooltip";
 import Card from "./Components/Card";
 import Project from "./Components/Project";
 import {ITF_WhyChooseThisToken} from "@/TS";
+import {useWallet} from "@manahippo/aptos-wallet-adapter";
+import {AptospadTransactionService} from "@/Services/AptospadTransaction.service";
 
 export default function HomeScreen() {
   const {t} = useTranslation();
+  const aptospadAdapter = useWallet();
   const whyChooseThisToken: ITF_WhyChooseThisToken[] = [
     {
       "icon": "/images/like-icon.png",
@@ -32,6 +35,18 @@ export default function HomeScreen() {
     ReactTooltip.rebuild();
   });
 
+  const handlerUpComingProject = async () => {
+    const aptosPadTxService = new AptospadTransactionService(aptospadAdapter);
+    const address = aptospadAdapter.account?.address as string;
+    // const response = await aptosPadTxService.addWhiteList(address, BigInt("100"));
+    // const response = await aptosPadTxService.bidAptosPad(BigInt("100"));
+    // const response = await aptosPadTxService.initializeAptosPad(BigInt("1000000"));
+    const response = await aptosPadTxService.setApttSwapConfig(BigInt("10000"), BigInt("10000"), true, BigInt("50"));
+
+    // const response = await aptosPadTxService.getWhiteList(address);
+    console.log(response);
+  };
+
   return (
     <React.Fragment>
       <div id={`${style["Home"]}`}>
@@ -45,7 +60,7 @@ export default function HomeScreen() {
                   The DAO platform on Aptos to accelerate <br/> the future ideals
                 </p>
                 <div className="d-flex">
-                  <button className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project</button>
+                  <button onClick={handlerUpComingProject} className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project</button>
                   <a
                     href="https://forms.gle/1XXuWt819wmcuiv69"
                     className="cbtn cbtn-lg cbtn-outline-gradient-blue"
@@ -57,7 +72,7 @@ export default function HomeScreen() {
                 </div>
               </div>
               <div id={`${style["description-photo"]}`} className="col-12 col-md-6 d-none d-md-flex h-100">
-                <img className="h-100" src="/images/logo-icon.svg" alt="" />
+                <img className="h-100" src="/images/logo-icon.svg" alt=""/>
               </div>
             </div>
           </div>
@@ -70,8 +85,8 @@ export default function HomeScreen() {
               {
                 whyChooseThisToken.map((item, index) => {
                   return (
-                    <div key={index} className={`${style["item"]} col-12 col-md-6`} >
-                      <Card data={item} />
+                    <div key={index} className={`${style["item"]} col-12 col-md-6`}>
+                      <Card data={item}/>
                     </div>
                   );
                 })
@@ -108,22 +123,22 @@ export default function HomeScreen() {
           <div className={`${style["wrap"]} container-fluid`}>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project/>
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project/>
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project/>
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project/>
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project/>
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project/>
               </div>
             </div>
           </div>
@@ -131,7 +146,7 @@ export default function HomeScreen() {
 
         <div id={`${style["block-5"]}`}>
           <div className="d-flex justify-content-center">
-            <img src="/images/shake-hands-icon.png" alt="" />
+            <img src="/images/shake-hands-icon.png" alt=""/>
           </div>
           <h2 className={`${style["title"]} text-center fw-bold pt-5`}>
             The great place when investors <br/> and projects meet together
@@ -140,7 +155,9 @@ export default function HomeScreen() {
             <div id={`${style["cosmos-bg"]}`}></div>
             <div className={`${style["main-planet"]} ${style["main-planet-1"]} cbtn cbtn-outline-gradient-blue`}>
               <p className="mb-0">
-                <span className={`${style["highlight"]}`}>Investors</span> are also the project supporters. The OGs, ATPP token holders and community supporters are always access to the project sales earlier and better price
+                <span className={`${style["highlight"]}`}>Investors</span> are also the project supporters. The OGs,
+                ATPP token holders and community supporters are always access to the project sales earlier and better
+                price
               </p>
               <div
                 className={`${style["sub-planet"]} ${style["sub-planet-white"]}`}
@@ -181,7 +198,8 @@ export default function HomeScreen() {
             </div>
             <div className={`${style["main-planet"]} ${style["main-planet-2"]} cbtn cbtn-outline-gradient-blue`}>
               <p className="mb-0">
-                <span className={`${style["highlight"]}`}>Project owners/builders</span> commit to fulfill the projects and bring benefits to the early supports.
+                <span className={`${style["highlight"]}`}>Project owners/builders</span> commit to fulfill the projects
+                and bring benefits to the early supports.
               </p>
               <div
                 className={`${style["sub-planet"]} ${style["sub-planet-white"]}`}

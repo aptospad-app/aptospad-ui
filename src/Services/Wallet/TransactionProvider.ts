@@ -4,12 +4,12 @@ export abstract class TransactionProvider {
 
 export interface AptosPayload {
   function: string,
-  type_arguments: Array<string>,
-  arguments: Array<any>,
+  type_arguments: string[],
+  arguments: any[],
   type: string
 }
 
 export interface TxParam {
   sender: string,
-  options: any
+  options?: any
 }

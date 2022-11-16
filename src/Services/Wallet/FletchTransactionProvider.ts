@@ -9,12 +9,12 @@ export class FletchTransactionProvider extends TransactionProvider {
       }
       const fletch = (window as any).fletch;
 
-      return await fletch.signAndSubmitTransaction(payload);
+      return await fletch.signAndSubmitTransaction(payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;
     } finally {
-      console.log("Fletch submit transaction: " + payload + ", with options: " + txParam.options);
+      console.log("Submit transaction: " + JSON.stringify(payload) + ", with options: " + txParam.options);
     }
   }
 }

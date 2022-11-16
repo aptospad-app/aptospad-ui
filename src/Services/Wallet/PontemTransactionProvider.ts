@@ -17,7 +17,7 @@ export class PontemTransactionProvider extends TransactionProvider {
       console.error(error);
       throw error;
     } finally {
-      console.log("Pontem submit transaction: " + payload + ", with options: " + txParam.options);
+      console.log("Submit transaction: " + JSON.stringify(payload) + ", with options: " + txParam.options);
     }
   }
 }
