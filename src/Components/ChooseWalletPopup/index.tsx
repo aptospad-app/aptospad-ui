@@ -1,8 +1,7 @@
 import React from "react";
 import style from "./index.module.scss";
-import {useAppDispatch, useAppSelector, LoadingSpinnerActions, ChooseWalletPopupActions} from "@/MyRedux";
+import {ChooseWalletPopupActions, LoadingSpinnerActions, useAppDispatch, useAppSelector} from "@/MyRedux";
 import {Modal} from "react-bootstrap";
-import {CommonUtility} from "@/Utilities";
 import {toast} from "react-toastify";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
@@ -54,11 +53,9 @@ export default function ChooseWalletPopup() {
             switch (item.adapter.name) {
               case "Petra":
               case "Martian":
-              case "Fletch":
               case "Fewcha":
               case "Pontem":
               case "Rise Wallet":
-              case "Spika":
                 return (
                   <div className="wallets-list" key={index} onClick={() => onSelecteWallet(index)}>
                     <img src={item.adapter.icon} className="me-4" alt=""/>

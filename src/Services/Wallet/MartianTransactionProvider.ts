@@ -11,10 +11,8 @@ export class MartianTransactionProvider extends TransactionProvider {
       }
 
       const martian = (window as any).martian;
-      const sender = txParam.sender;
-      console.log("Martian use sender: " + sender);
 
-      return await martian.generateSignAndSubmitTransaction(sender, payload, txParam.options);
+      return await martian.generateSignAndSubmitTransaction(txParam.sender, payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;

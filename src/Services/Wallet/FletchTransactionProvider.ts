@@ -9,7 +9,7 @@ export class FletchTransactionProvider extends TransactionProvider {
       }
       const fletch = (window as any).fletch;
 
-      return await fletch.signAndSubmitTransaction(payload, txParam.options);
+      return await fletch.signAndSubmitTransaction(txParam.sender, payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;

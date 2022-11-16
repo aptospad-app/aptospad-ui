@@ -9,8 +9,6 @@ export class FewchaTransactionProvider extends TransactionProvider {
       }
 
       const fewcha = (window as any).fewcha;
-      const sender = txParam.sender;
-      console.log("Fewcha use sender: " + sender);
 
       const rawTransaction = await fewcha.generateTransaction(payload, txParam.options);
       if (rawTransaction.status !== 200) {
@@ -21,7 +19,7 @@ export class FewchaTransactionProvider extends TransactionProvider {
         throw new WalletSignError();
       }
 
-      return await fewcha.submitTransaction(signedTx.data);
+      return await fewcha.signAndSubmitTransaction(txParam.sender, rawTransaction.data);
     } catch (error: any) {
       console.error(error);
       throw error;

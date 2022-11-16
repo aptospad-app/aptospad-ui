@@ -9,7 +9,7 @@ export class RiseTransactionProvider extends TransactionProvider {
       }
       const rise = (window as any).rise;
 
-      return await rise.signAndSubmitTransaction(payload, txParam.options);
+      return await rise.signAndSubmitTransaction(txParam.sender, payload, txParam.options);
     } catch (error: any) {
       console.error(error);
       throw error;
