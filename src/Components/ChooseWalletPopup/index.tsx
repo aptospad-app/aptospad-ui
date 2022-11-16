@@ -47,7 +47,11 @@ export default function ChooseWalletPopup() {
             if (
               item.adapter.name === "Petra" ||
               item.adapter.name === "Martian" ||
-              item.adapter.name === "Pontem"
+              item.adapter.name === "Pontem" ||
+              item.adapter.name === "Fewcha" ||
+              item.adapter.name === "Rise Wallet" ||
+              item.adapter.name === "Spika" ||
+              item.adapter.name === "SafePal"
             ) {
               return (
                 <div className="wallets-list" key={index} onClick={() => onSelecteWallet(index)}>

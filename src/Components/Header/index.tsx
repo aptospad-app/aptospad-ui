@@ -56,11 +56,8 @@ function Header() {
               <span className="text">Staking</span>
             </NavLink>
           </li>
-          <li data-tip={`<div class="text-center">When we get 5000 <a class="text-white" href="https://twitter.com/Aptospad_DAO" target="_blank">Twitter</a> followers, we will share the Discord link. <br/> Help us quickly accomplish our aim.</div>`}>
-            {/* <a className="menu-blue" href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
-              <span className="text">Community</span>
-            </a> */}
-            <a className="menu-blue" href="">
+          <li>
+            <a className="menu-blue" href="https://discord.gg/aptospad" target="_blank" rel="noreferrer">
               <span className="text">Community</span>
             </a>
           </li>
