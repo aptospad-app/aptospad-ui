@@ -98,10 +98,10 @@
 
         .wrap-sub-menu {
           display: none;
-          position: absolute;
+          position: fixed;
           bottom: #{$headerBottomHeight}px;
-          right: 50%;
-          transform: translate(50%, 0);
+          left: 0;
+          right: 0;
 
           .sub-menu {
             list-style-type: none;
