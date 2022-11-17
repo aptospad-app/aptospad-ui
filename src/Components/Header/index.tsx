@@ -29,19 +29,19 @@ function Header() {
   };
 
   const closeMenu = () => {
-    [...document.getElementsByClassName("menu-item")].forEach(
+    [...document.getElementsByClassName("wrap-sub-menu")].forEach(
       (element, index, array) => {
-        element.classList.remove("open");
+        element.style.display = "none";
       }
     );
   };
 
-  const handleClickMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    const isOpen = e.currentTarget.classList.contains("open");
-    closeMenu();
-    if (!isOpen) {
-      e.currentTarget.classList.add("open");
-    }
+  const handleMouseOverMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.currentTarget.getElementsByClassName("wrap-sub-menu")[0].style.display = "block";
+  };
+
+  const handleMouseOutMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.currentTarget.getElementsByClassName("wrap-sub-menu")[0].style.display = "none";
   };
 
   return (
@@ -56,8 +56,10 @@ function Header() {
         <ul className="menu m-0 p-0 d-flex">
           <li>
             <div
-              className={`menu-item menu-blue ${isSubMenuActive() ? "active" : ""}`}
-              onClick={handleClickMenu}
+              className={`menu-blue ${isSubMenuActive() ? "active" : ""}`}
+              onClick={closeMenu}
+              onMouseOver={handleMouseOverMenu}
+              onMouseOut={handleMouseOutMenu}
             >
               <span className="text">
                 Products
@@ -138,8 +140,10 @@ function Header() {
           </li>
           <li>
             <div
-              className={`menu-item menu-blue ${isSubMenuActive() ? "active" : ""}`}
-              onClick={handleClickMenu}
+              className={`menu-blue ${isSubMenuActive() ? "active" : ""}`}
+              onClick={closeMenu}
+              onMouseOver={handleMouseOverMenu}
+              onMouseOut={handleMouseOutMenu}
             >
               <span className="text">
                 Community
