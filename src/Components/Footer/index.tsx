@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="row">
         <div className="col-12 col-md-6">
           <img className="mb-4" src="/images/logo-icon-text.png" alt="" />
-          <p>Contact: hello@aptospad.app</p>
+          <p className={style["contact"]}>Contact: hello@aptospad.app</p>
         </div>
         <div className="col-12 col-md-2">
           <ul className={`${style["list"]}`}>

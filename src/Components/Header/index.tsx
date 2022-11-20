@@ -159,7 +159,7 @@ function Header() {
                       </div>
                       <div className="description">
                         <p className="text">Twitter</p>
-                        <p className="sub-text"></p>
+                        <p className="sub-text">Follow the latest news, features and projects from AptosPad</p>
                       </div>
                     </a>
                   </div>
@@ -171,7 +171,7 @@ function Header() {
                       </div>
                       <div className="description">
                         <p className="text">Discord</p>
-                        <p className="sub-text"></p>
+                        <p className="sub-text">Become part of AptosPad community and chat away</p>
                       </div>
                     </a>
                   </div>
@@ -183,19 +183,19 @@ function Header() {
                       </div>
                       <div className="description">
                         <p className="text">Crew3</p>
-                        <p className="sub-text"></p>
+                        <p className="sub-text">Join Crew3 to do quests and earn XP</p>
                       </div>
                     </a>
                   </div>
 
                   <div className="col-6">
-                    <a href="/" target="_blank" rel="noreferrer" className="sub-menu-item">
+                    <a href="https://medium.com/@aptospaddao" target="_blank" rel="noreferrer" className="sub-menu-item">
                       <div className="icon">
                         <i className="fa fa-medium" aria-hidden="true"></i>
                       </div>
                       <div className="description">
                         <p className="text">Medium</p>
-                        <p className="sub-text"></p>
+                        <p className="sub-text">Learn more about Aptospad and IDO projects through articles</p>
                       </div>
                     </a>
                   </div>
