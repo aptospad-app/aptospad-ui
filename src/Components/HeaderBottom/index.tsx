@@ -71,7 +71,7 @@ export default function HeaderBottom() {
                   <NavLink
                     to="/staking"
                   >
-                    <span className="text ms-2">Stake ATP</span>
+                    <span className="text ms-2">Stake APD</span>
                   </NavLink>
                 </li>
                 <li>

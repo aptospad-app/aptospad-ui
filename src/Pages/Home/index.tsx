@@ -108,22 +108,22 @@ export default function HomeScreen() {
           <div className={`${style["wrap"]} container-fluid`}>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project id={"1"} />
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project id={"1"} />
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project id={"1"} />
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project id={"1"} />
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project id={"1"} />
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project />
+                <Project id={"1"} />
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function HomeScreen() {
             <div id={`${style["cosmos-bg"]}`}></div>
             <div className={`${style["main-planet"]} ${style["main-planet-1"]} cbtn cbtn-outline-gradient-blue`}>
               <p className="mb-0">
-                <span className={`${style["highlight"]}`}>Investors</span> are also the project supporters. The OGs, ATPP token holders and community supporters are always access to the project sales earlier and better price
+                <span className={`${style["highlight"]}`}>Investors</span> are also the project supporters. The OGs, APD token holders and community supporters are always access to the project sales earlier and better price
               </p>
               <div
                 className={`${style["sub-planet"]} ${style["sub-planet-white"]}`}

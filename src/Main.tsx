@@ -30,7 +30,8 @@ const Splash = React.lazy(() => import("./Components/Splash"));
 
 const App = React.lazy(() => import("./App"));
 const HomeScreen = React.lazy(() => import("./Pages/Home"));
-const LaunchpadProjectDetailsScreen = React.lazy(() => import("./Pages/LaunchpadProjectDetails"));
+const ProjectsScreen = React.lazy(() => import("./Pages/Projects"));
+const ProjectDetailsScreen = React.lazy(() => import("./Pages/ProjectDetails"));
 const NotFoundScreen = React.lazy(() => import("./Pages/NotFound"));
 
 export default function Main() {
@@ -88,7 +89,8 @@ export default function Main() {
             <Routes>
               <Route path="/" element={<App />}>
                 <Route index element={<HomeScreen />} />
-                <Route path="launchpad/:id" element={<LaunchpadProjectDetailsScreen />} />
+                <Route path="projects" element={<ProjectsScreen />} />
+                <Route path="projects/:id" element={<ProjectDetailsScreen />} />
                 <Route path="*" element={<NotFoundScreen />} />
               </Route>
             </Routes>

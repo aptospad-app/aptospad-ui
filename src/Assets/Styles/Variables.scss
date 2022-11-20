@@ -49,9 +49,11 @@ $loadingSpinnerZIndex: 9999999;
   @include textOverflowEllipsis(4);
 */
 @mixin textOverflowEllipsis($lineNumber) {
-  -webkit-box-orient: vertical;
-  display: -webkit-box;
-  -webkit-line-clamp: $lineNumber;
+  @if $lineNumber > 1 {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: $lineNumber;
+  }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;

@@ -96,8 +96,8 @@ function Header() {
                         <i className="fa fa-optin-monster" aria-hidden="true"></i>
                       </div>
                       <div className="description">
-                        <p className="text">Stake ATP</p>
-                        <p className="sub-text">Buy ATP and stake it</p>
+                        <p className="text">Stake APD</p>
+                        <p className="sub-text">Buy APD and stake it</p>
                       </div>
                     </NavLink>
                   </div>
@@ -208,7 +208,7 @@ function Header() {
               to="/buy"
               className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
             >
-              <span className="text">Buy ATP</span>
+              <span className="text">Buy APD</span>
             </NavLink>
           </li>
         </ul>
