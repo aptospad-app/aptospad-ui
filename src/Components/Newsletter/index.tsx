@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import style from "./index.module.scss";
 import {toast} from "react-toastify";
 import {EmailService} from "@/Services";
+import {RegexUtility} from "@/Utilities";
 
 export default function Newsletter() {
   const [email, setEmail] = useState<string>("");
@@ -9,13 +10,15 @@ export default function Newsletter() {
     if (!email) {
       return toast.error("Please enter your email address");
     }
+    if (!RegexUtility.isEmail(email)) {
+      return toast.error("Please enter a valid email address");
+    }
     if (email) {
       try {
-        toast.success("Subscribed!");
         await EmailService.addNewsletter(email);
         toast.success("Subscribed!");
       } catch (error: any) {
-        // toast.error(error.message);
+        toast.error(error.message);
       }
     }
   };
