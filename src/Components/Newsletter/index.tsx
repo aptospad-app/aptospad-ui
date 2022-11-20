@@ -17,6 +17,7 @@ export default function Newsletter() {
       try {
         await EmailService.addNewsletter(email);
         toast.success("Subscribed!");
+        setEmail("");
       } catch (error: any) {
         toast.error(error.message);
       }
