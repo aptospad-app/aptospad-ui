@@ -10,17 +10,16 @@ export default function Newsletter() {
     if (!email) {
       return toast.error("Please enter your email address");
     }
-    if (!RegexUtility.isEmail(email)) {
+    if (!RegexUtility.isEmail(email.trim())) {
       return toast.error("Please enter a valid email address");
     }
-    if (email) {
-      try {
-        await EmailService.addNewsletter(email);
-        toast.success("Subscribed!");
-        setEmail("");
-      } catch (error: any) {
-        toast.error(error.message);
-      }
+
+    try {
+      await EmailService.addNewsletter(email.trim());
+      toast.success("Subscribed!");
+      setEmail("");
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
