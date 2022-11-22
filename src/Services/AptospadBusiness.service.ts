@@ -99,18 +99,8 @@ export class AptospadBusinessService {
     return this.walletAdapter.signAndSubmitTransaction(payload);
   }
 
-  async resourceOf(accountAddress: MaybeHexString, resourceType: string): Promise<MoveResource | undefined> {
-    try {
-      return await this.walletAdapter.getResource(accountAddress, resourceType);
-    } catch (error: any) {
-      console.error(error);
-
-      return undefined;
-    }
-  }
-
   async getAptosBalanceOf(accountAddress: MaybeHexString): Promise<string> {
-    const resource = await this.resourceOf(accountAddress, "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>");
+    const resource = await this.walletAdapter.resourceOf(accountAddress, "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>");
     console.log("APT of account " + accountAddress + ":" + JSON.stringify(resource));
 
     return (resource?.data as any)?.coin?.value as string | "0";
@@ -118,7 +108,7 @@ export class AptospadBusinessService {
 
   async getAptosPadBalanceOf(accountAddress: MaybeHexString): Promise<string> {
     const resourceType = `${ownerAddress}::aptospad_coin::AptosPadCoin`;
-    const resource = await this.resourceOf(accountAddress, resourceType);
+    const resource = await this.walletAdapter.resourceOf(accountAddress, resourceType);
     console.log("APD of account " + accountAddress + ":" + JSON.stringify(resource));
 
     return (resource?.data as any)?.coin?.value as string | "0";

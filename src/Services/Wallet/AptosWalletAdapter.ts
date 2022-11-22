@@ -7,7 +7,7 @@ const aptosNodeUrl = process.env.APTOS_FULL_NODE_URL as string | "";
 
 export class AptosWalletAdapter {
   private walletContextState: WalletContextState;
-  private aptosClient: AptosClient;
+  private readonly aptosClient: AptosClient;
 
   constructor(walletContextState: WalletContextState) {
     this.walletContextState = walletContextState;
@@ -51,8 +51,14 @@ export class AptosWalletAdapter {
     return walletAdapter?.signMessage(signPayload);
   }
 
-  async getResource(accountAddress: MaybeHexString, resourceType: string): Promise<MoveResource> {
-    return this.aptosClient.getAccountResource(accountAddress, resourceType);
+  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query? : any): Promise<MoveResource | undefined> {
+    try {
+      return await this.aptosClient.getAccountResource(accountAddress, resourceType, query);
+    } catch (error: any) {
+      console.error(error);
+
+      return undefined;
+    }
   }
 }
 
