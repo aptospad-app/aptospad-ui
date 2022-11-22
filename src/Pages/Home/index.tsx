@@ -6,7 +6,7 @@ import Card from "./Components/Card";
 import Project from "./Components/Project";
 import {ITF_WhyChooseThisToken} from "@/TS";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
-import {AptospadTransactionService} from "@/Services/AptospadTransaction.service";
+import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
 
 export default function HomeScreen() {
   const {t} = useTranslation();
@@ -35,13 +35,13 @@ export default function HomeScreen() {
   });
 
   const handlerUpComingProject = async () => {
-    const apdService = new AptospadTransactionService(aptospadAdapter);
+    const apdService = new AptospadBusinessService(aptospadAdapter);
     const address = aptospadAdapter.account?.address as string;
     // const response = await apdService.addWhiteList(address, BigInt("100"));
     // const response = await apdService.bidAptosPad(BigInt("100"));
     // const response = await apdService.initializeAptosPad(BigInt("1000000"));
-    const response = await apdService.setApttSwapConfig(BigInt("10000"), BigInt("10000"), true, BigInt("50"));
-
+    // const response = await apdService.setApttSwapConfig(BigInt("10000"), BigInt("10000"), true, BigInt("50"));
+    const response = await apdService.resourceOf(address, "0x1::coin::CoinStore<0xb708b0421450a012c148ce91c843cc4100f8eb40adcdde2d8f722d18056300d1::abel_coin::AbelCoin>");
     // const response = await apdService.getWhiteList(address);
     console.log(response);
   };
