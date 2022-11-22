@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import style from "./index.module.scss";
-import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
 import Card from "./Components/Card";
@@ -36,14 +35,14 @@ export default function HomeScreen() {
   });
 
   const handlerUpComingProject = async () => {
-    const aptosPadTxService = new AptospadTransactionService(aptospadAdapter);
+    const apdService = new AptospadTransactionService(aptospadAdapter);
     const address = aptospadAdapter.account?.address as string;
-    // const response = await aptosPadTxService.addWhiteList(address, BigInt("100"));
-    // const response = await aptosPadTxService.bidAptosPad(BigInt("100"));
-    // const response = await aptosPadTxService.initializeAptosPad(BigInt("1000000"));
-    const response = await aptosPadTxService.setApttSwapConfig(BigInt("10000"), BigInt("10000"), true, BigInt("50"));
+    // const response = await apdService.addWhiteList(address, BigInt("100"));
+    // const response = await apdService.bidAptosPad(BigInt("100"));
+    // const response = await apdService.initializeAptosPad(BigInt("1000000"));
+    const response = await apdService.setApttSwapConfig(BigInt("10000"), BigInt("10000"), true, BigInt("50"));
 
-    // const response = await aptosPadTxService.getWhiteList(address);
+    // const response = await apdService.getWhiteList(address);
     console.log(response);
   };
 
@@ -60,7 +59,8 @@ export default function HomeScreen() {
                   The DAO platform on Aptos to accelerate <br/> the future ideals
                 </p>
                 <div className="d-flex">
-                  <button onClick={handlerUpComingProject} className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project</button>
+                  <button onClick={handlerUpComingProject} className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project
+                  </button>
                   <a
                     href="https://forms.gle/1XXuWt819wmcuiv69"
                     className="cbtn cbtn-lg cbtn-outline-gradient-blue"
