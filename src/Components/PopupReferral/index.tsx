@@ -80,7 +80,7 @@ export default function PopupReferral() {
         </div>
 
         <div className="mb-3">
-          <p className="mb-0">Referees:
+          <p className="mb-0">Total Referrals:
             <strong className="ms-3">{referralInfo.totalMembers}</strong>
           </p>
         </div>
