@@ -10,7 +10,7 @@
 
 import React from "react";
 import "./index.scss";
-import {useAppDispatch, useAppSelector, WalletActions, ChooseWalletPopupActions} from "@/MyRedux";
+import {useAppDispatch, useAppSelector, WalletActions, PopupsActions} from "@/MyRedux";
 import {useTranslation} from "react-i18next";
 import {toast} from "react-toastify";
 import {CommonUtility} from "@/Utilities";
@@ -19,13 +19,13 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 export default function WalletInteract() {
   const dispatch = useAppDispatch();
   const aptosWalletAdapter = useWallet();
-  const {wallet, chooseWalletPopup} = useAppSelector((state) => state);
+  const {wallet, popups} = useAppSelector((state) => state);
   const {t} = useTranslation();
   let copiedAddress = false;
 
   const openChooseWalletPopup = () => {
     aptosWalletAdapter.disconnect();
-    dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(true));
+    dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": true}));
   };
 
   const copyTextToClipboard = async (value: string) => {
@@ -64,7 +64,7 @@ export default function WalletInteract() {
           : <div className="not-connect">
             <button
               className="cbtn cbtn-outline-gradient-blue"
-              disabled={chooseWalletPopup}
+              disabled={popups.chooseWallet.display}
               onClick={() => openChooseWalletPopup()}
             >
               <img src="/images/wallet.svg" className="me-2" alt="wallet" style={{"width": "20px"}} />

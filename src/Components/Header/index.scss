@@ -20,6 +20,7 @@
       height: 100%;
       > li {
         display: inline-block;
+        cursor: pointer;
         > a,
         > div {
           display: flex;
@@ -30,42 +31,15 @@
           font-weight: 500;
           transition: all 0.15s ease 0s;
           position: relative;
-          &.menu-blue {
-            > .icon,
+          &.menu-item {
+            &.active > .text,
             &:hover > .text {
               color: rgb(81, 192, 225);
-            }
-          }
-          &.menu-purple {
-            > .icon,
-            &:hover > .text {
-              color: rgb(140, 140, 227);
-            }
-          }
-          &.menu-light-purple {
-            > .icon,
-            &:hover > .text {
-              color: #91c2ff;
-            }
-          }
-          &.menu-green {
-            > .icon,
-            &:hover > .text {
-              color: rgb(139, 195, 74);
-            }
-          }
-          &.menu-violet {
-            > .icon,
-            &:hover > .text {
-              color: #9963cb;
             }
           }
 
           &:hover {
             background-color: rgba(255, 255, 255, 0.09) !important;
-          }
-          &.active {
-            background-color: rgba(255, 255, 255, 0.05);
           }
           > i.icon {
             font-size: 21px;
@@ -80,7 +54,7 @@
             top: #{$headerHeight}px;
             left: 0;
             background-color: #1C2332;
-            width: 600px;
+            width: 700px;
 
             .sub-menu {
               > div[class^="col"] {
@@ -92,9 +66,10 @@
                   border-radius: 5px;
                   color: #FFF;
 
-                  &:hover {
+                  &:hover,
+                  &.active {
                     background-color: #0B121E;
-                  }
+                  } 
 
                   .icon {
                     width: 40px;

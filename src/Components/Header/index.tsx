@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
 import "./index.scss";
 import {Link, NavLink, useLocation, matchPath} from "react-router-dom";
-import {useAppSelector} from "@/MyRedux";
+import {useAppDispatch, useAppSelector, PopupsActions} from "@/MyRedux";
 import {useTranslation} from "react-i18next";
+import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import WalletInteractComponent from "./Components/WalletInteract";
 import LanguageComponent from "./Components/Language";
 import {toast} from "react-toastify";
@@ -10,14 +11,24 @@ import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg"
 import {ReactComponent as Crew3Icon} from "@/Assets/Images/Social/Crew3.svg";
 
 function Header() {
+  const dispatch = useAppDispatch();
+  const aptosWalletAdapter = useWallet();
   const location = useLocation();
   const {t} = useTranslation();
 
-  const isSubMenuActive = () => {
-    const subRoutes = [
-      "document",
-      "about-us"
-    ];
+  const isSubMenuActive = (menuName: "products") => {
+    let subRoutes: Array<string> = [];
+
+    if (menuName === "products") {
+      subRoutes = [
+        "ido-projects",
+        "community-voting",
+        "staking",
+        "governance",
+        "swap",
+        "portfolio"
+      ];
+    }
 
     for (const subRoute of subRoutes) {
       if (matchPath(subRoute, location.pathname)) {
@@ -28,12 +39,16 @@ function Header() {
     return false;
   };
 
-  const closeMenu = () => {
-    [...document.getElementsByClassName("wrap-sub-menu")].forEach(
-      (element, index, array) => {
-        element.style.display = "none";
-      }
-    );
+  const toggleSubmenu: React.MouseEventHandler = (e) => {
+    const subMenu = e.currentTarget.querySelector(".wrap-sub-menu");
+    if (!subMenu) {
+      return;
+    }
+    if (subMenu.style.display === "block") {
+      subMenu.style.display = "none";
+    } else {
+      subMenu.style.display = "block";
+    }
   };
 
   const handleMouseOverMenu: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -56,8 +71,8 @@ function Header() {
         <ul className="menu m-0 p-0 d-flex">
           <li>
             <div
-              className={`menu-blue ${isSubMenuActive() ? "active" : ""}`}
-              onClick={closeMenu}
+              className={`menu-item ${isSubMenuActive("products") ? "active" : ""}`}
+              onClick={toggleSubmenu}
               onMouseOver={handleMouseOverMenu}
               onMouseOut={handleMouseOutMenu}
             >
@@ -140,8 +155,8 @@ function Header() {
           </li>
           <li>
             <div
-              className={`menu-blue ${isSubMenuActive() ? "active" : ""}`}
-              onClick={closeMenu}
+              className={`menu-item`}
+              onClick={toggleSubmenu}
               onMouseOver={handleMouseOverMenu}
               onMouseOut={handleMouseOutMenu}
             >
@@ -176,7 +191,7 @@ function Header() {
                     </a>
                   </div>
 
-                  <div className="col-6">
+                  <div className="col-6 disabled">
                     <a href="/" target="_blank" rel="noreferrer" className="sub-menu-item">
                       <div className="icon">
                         <Crew3Icon />
@@ -206,11 +221,21 @@ function Header() {
           <li>
             <NavLink
               to="/buy"
-              className={({isActive}) => isActive ? "menu-blue active" : "menu-blue"}
+              className="menu-item"
             >
               <span className="text">Buy APD</span>
             </NavLink>
           </li>
+          {
+            aptosWalletAdapter.connected &&
+            (
+              <li onClick={() => dispatch(PopupsActions.togglePopup({"popupName": "referral", "display": true}))}>
+                <div className={`menu-item`}>
+                  <span className="text">Referral</span>
+                </div>
+              </li>
+            )
+          }
         </ul>
       </div>
 

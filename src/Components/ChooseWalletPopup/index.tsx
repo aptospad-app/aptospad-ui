@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./index.module.scss";
-import {useAppDispatch, useAppSelector, LoadingSpinnerActions, ChooseWalletPopupActions} from "@/MyRedux";
+import {useAppDispatch, useAppSelector, LoadingSpinnerActions, PopupsActions} from "@/MyRedux";
 import {Modal} from "react-bootstrap";
 import {CommonUtility} from "@/Utilities";
 import {toast} from "react-toastify";
@@ -8,7 +8,7 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
 export default function ChooseWalletPopup() {
   const dispatch = useAppDispatch();
-  const {wallet, chooseWalletPopup} = useAppSelector((state) => state);
+  const {wallet, popups} = useAppSelector((state) => state);
   const aptosWalletAdapter = useWallet();
 
   const onSelecteWallet = async (index: number) => {
@@ -17,25 +17,25 @@ export default function ChooseWalletPopup() {
       if (selectedWallet.readyState === "NotDetected") {
         throw new Error("Wallet provider not installed, please install first and then reload the page.");
       }
-      dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false));
+      dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": false}));
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
       await aptosWalletAdapter.connect(selectedWallet.adapter.name);
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
     } catch (error: any) {
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
-      dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false));
+      dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": false}));
       toast.error(error.message);
     }
   };
 
   return (
     <Modal
-      show={chooseWalletPopup}
+      show={true}
       // size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       keyboard={true}
-      onHide={() => dispatch(ChooseWalletPopupActions.toggleChooseWalletPopup(false))}
+      onHide={() => dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": false}))}
       contentClassName={`${style["choose-wallet-popup"]}`}
     >
       <Modal.Header closeButton>
