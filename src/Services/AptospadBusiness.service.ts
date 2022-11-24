@@ -1,6 +1,6 @@
 import {AptosPayload, AptosWalletAdapter} from "@/Services/Wallet/AptosWalletAdapter";
 import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
-import {MaybeHexString, MoveResource} from "aptos";
+import {MaybeHexString} from "aptos";
 
 const ownerAddress = process.env.APTOSPAD_OWNER_ADDRESS;
 

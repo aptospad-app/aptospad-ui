@@ -41,7 +41,7 @@ export default function HomeScreen() {
     // const response = await apdService.bidAptosPad(BigInt("100"));
     // const response = await apdService.initializeAptosPad(BigInt("1000000"));
     // const response = await apdService.setApttSwapConfig(BigInt("10000"), BigInt("10000"), true, BigInt("50"));
-    const response = await apdService.resourceOf(address, "0x1::coin::CoinStore<0xb708b0421450a012c148ce91c843cc4100f8eb40adcdde2d8f722d18056300d1::abel_coin::AbelCoin>");
+    const response = await apdService.getAptosBalanceOf(address);
     // const response = await apdService.getWhiteList(address);
     console.log(response);
   };
