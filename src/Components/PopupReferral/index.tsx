@@ -60,9 +60,15 @@ export default function PopupReferral() {
       contentClassName={`${style["popup-referral"]}`}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Referral</Modal.Title>
+        <Modal.Title>
+          Referral
+          <div className="mb-3 text-info h6">
+            Share your referral link with friends to earn rewards.
+          </div>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+
         <div className="mb-3">
           <p className="mb-0">Referrer:
             <strong className="ms-4">{referralInfo.referrer ? CommonUtility.stringEllipsisMiddle(referralInfo.referrer as any, 6) : "No one"}</strong>

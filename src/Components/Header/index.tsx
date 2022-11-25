@@ -59,6 +59,14 @@ function Header() {
     e.currentTarget.getElementsByClassName("wrap-sub-menu")[0].style.display = "none";
   };
 
+  const onClikcReferral: React.MouseEventHandler<HTMLElement> = (e) => {
+    if (aptosWalletAdapter.connected) {
+      dispatch(PopupsActions.togglePopup({"popupName": "referral", "display": true}));
+    } else {
+      toast.warn("First, you must connect your wallet.");
+    }
+  };
+
   return (
     <div id="header" className="container-fluid">
       <div id="logo" className="me-4">
@@ -226,16 +234,11 @@ function Header() {
               <span className="text">Buy APD</span>
             </NavLink>
           </li>
-          {
-            aptosWalletAdapter.connected &&
-            (
-              <li onClick={() => dispatch(PopupsActions.togglePopup({"popupName": "referral", "display": true}))}>
-                <div className={`menu-item`}>
-                  <span className="text">Referral</span>
-                </div>
-              </li>
-            )
-          }
+          <li onClick={onClikcReferral}>
+            <div className={`menu-item`}>
+              <span className="text">Referral</span>
+            </div>
+          </li>
         </ul>
       </div>
 
