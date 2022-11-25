@@ -39,6 +39,7 @@ const GovernanceScreen = React.lazy(() => import("./Pages/Governance"));
 const SwapScreen = React.lazy(() => import("./Pages/Swap"));
 const PortfolioScreen = React.lazy(() => import("./Pages/Portfolio"));
 const BuyScreen = React.lazy(() => import("./Pages/Buy"));
+const BuyTestScreen = React.lazy(() => import("./Pages/BuyTest"));
 const NotFoundScreen = React.lazy(() => import("./Pages/NotFound"));
 
 export default function Main() {
@@ -104,6 +105,7 @@ export default function Main() {
                 <Route path="swap" element={<SwapScreen />} />
                 <Route path="portfolio" element={<PortfolioScreen />} />
                 <Route path="buy" element={<BuyScreen />} />
+                <Route path="buy-test" element={<BuyTestScreen />} />
                 <Route path="*" element={<NotFoundScreen />} />
               </Route>
             </Routes>
