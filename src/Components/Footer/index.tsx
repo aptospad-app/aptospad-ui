@@ -7,7 +7,7 @@ export default function Footer() {
     <div id={`${style["Footer"]}`} className="container-fluid">
       <div className="row">
         <div className="col-12 col-md-6">
-          <img className="mb-4" src="/images/logo-icon-text.png" alt="" />
+          <img className="mb-4" src="/images/logo-icon-text.svg" alt="" style={{"height": "45px"}} />
           <p className={style["contact"]}>Contact: hello@aptospad.app</p>
         </div>
         <div className="col-12 col-md-2">

@@ -71,7 +71,7 @@ function Header() {
     <div id="header" className="container-fluid">
       <div id="logo" className="me-4">
         <Link to="/" className="h-100 d-flex align-items-center">
-          <img className="logo-icon" src="/images/logo-icon-text.png" alt="" />
+          <img className="logo-icon" src="/images/logo-icon-text.svg" alt="" />
         </Link>
       </div>
 
