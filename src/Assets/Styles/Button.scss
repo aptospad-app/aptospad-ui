@@ -44,8 +44,16 @@
       color: #00f1ff;
     }
 
+    &.active {
+      color: #00f1ff;
+    }
+
     &:focus {
-      box-shadow: inset 2px 1000px 1px #03132f;
+      box-shadow: inset 2px 1000px 1px #03132f !important;
     }
   }
+}
+
+.btn-gradient-blue {
+  background-image: linear-gradient(to right, #5AB2F7, #45B9E4, #10CBB2, #04CFA6);
 }

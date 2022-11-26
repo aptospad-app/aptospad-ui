@@ -6,4 +6,5 @@
 .Toastify__toast-container--top-center,
 .Toastify__toast-container--top-right {
   top: #{$headerHeight + 20}px !important;
+  z-index: $toastZIndex !important;
 }

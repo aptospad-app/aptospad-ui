@@ -1,6 +1,11 @@
 #Footer {
   padding-top: 45px;
   padding-bottom: 45px;
+  border-top: 1px solid rgba(10, 140, 233, 0.3);
+
+  .contact {
+    color: #45C9D8;
+  }
 
   .list {
     list-style-type: none;

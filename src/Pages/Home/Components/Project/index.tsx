@@ -9,14 +9,18 @@ import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg"
 import {ReactComponent as GlobalIcon} from "@/Assets/Images/Social/Global.svg";
 import {ReactComponent as PaperIcon} from "@/Assets/Images/Social/Paper.svg";
 
-export default function Project() {
+interface ITF_ProjectProps {
+  id: string;
+}
+
+export default function Project(props: ITF_ProjectProps) {
   return (
     <div id={`${style["Project"]}`}>
-      <Link className={`${style["overlay"]}`} to="/"></Link>
+      <Link className={`${style["overlay"]}`} to="/projects/1"></Link>
       <div className="d-flex justify-content-between">
         <div className={`${style["name"]}`}>
           <h2 className={`${style["text"]}`}>Template Project</h2>
-          <p className={`${style["text-secondary"]}`}>$ATPP</p>
+          <p className={`${style["text-secondary"]}`}>$APD</p>
         </div>
         <div className={`${style["project-avatar"]}`}>
           <div className={`${style["avatar"]}`}>
@@ -61,7 +65,7 @@ export default function Project() {
         </div>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <span className="text-white">Price</span>
-          <span className={`${style["text-blue"]} text-uppercase`}>ATPP = 0,015 USDT</span>
+          <span className={`${style["text-blue"]} text-uppercase`}>APD = 0,015 USDT</span>
         </div>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="text-white">Max Allocation</span>
@@ -75,7 +79,7 @@ export default function Project() {
         <ProgressBar className={`${style["progress"]} mb-1`} variant="success" now={0} label={`${0}%`} visuallyHidden />
         <div className="d-flex justify-content-between align-items-center mb-3">
           <span className="text-secondary text-uppercase">0 USDT</span>
-          <span className={`text-secondary text-uppercase`}>0 / 266,666,667 ATP</span>
+          <span className={`text-secondary text-uppercase`}>0 / 266,666,667 APD</span>
         </div>
 
         {/* <div className="d-flex justify-content-end">

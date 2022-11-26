@@ -1,0 +1,37 @@
+.popup-referral {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), rgb(18, 17, 34);
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 20px;
+  :global {
+    .modal-header {
+      border-bottom: none;
+      .modal-title {
+        flex: 1;
+        text-align: center;
+      }
+      .btn-close {
+        background: initial;
+        opacity: 1;
+        &::before {
+          font-family: "FontAwesome";
+          content: "\f00d";
+          color: rgba(255, 255, 255, 0.87);
+          font-size: 1.4rem;
+          line-height: 0px;
+        }
+      }
+    }
+    .modal-body {
+      padding: 10px 45px;
+      max-height: 60vh;
+      overflow: auto;
+
+      #copy-referral {
+        border: 0;
+        &:hover {
+          background-color: #cacaca;
+        }
+      }
+    }
+  }
+}

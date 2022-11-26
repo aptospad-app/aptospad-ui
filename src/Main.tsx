@@ -24,13 +24,22 @@ import {
   SafePalWalletAdapter
 } from "@manahippo/aptos-wallet-adapter";
 
-const LoadingSpinner = React.lazy(() => import("./Components/LoadingSpinner"));
-const ChooseWalletPopup = React.lazy(() => import("./Components/ChooseWalletPopup"));
-const Splash = React.lazy(() => import("./Components/Splash"));
+import LoadingSpinner from "./Components/LoadingSpinner";
+import ChooseWalletPopup from "./Components/ChooseWalletPopup";
+import PopupReferral from "./Components/PopupReferral";
 
+const Splash = React.lazy(() => import("./Components/Splash"));
 const App = React.lazy(() => import("./App"));
 const HomeScreen = React.lazy(() => import("./Pages/Home"));
-const LaunchpadProjectDetailsScreen = React.lazy(() => import("./Pages/LaunchpadProjectDetails"));
+const ProjectsScreen = React.lazy(() => import("./Pages/Projects"));
+const ProjectDetailsScreen = React.lazy(() => import("./Pages/ProjectDetails"));
+const StakingScreen = React.lazy(() => import("./Pages/Staking"));
+const CommunityVotingScreen = React.lazy(() => import("./Pages/CommunityVoting"));
+const GovernanceScreen = React.lazy(() => import("./Pages/Governance"));
+const SwapScreen = React.lazy(() => import("./Pages/Swap"));
+const PortfolioScreen = React.lazy(() => import("./Pages/Portfolio"));
+const BuyScreen = React.lazy(() => import("./Pages/Buy"));
+const BuyTestScreen = React.lazy(() => import("./Pages/BuyTest"));
 const NotFoundScreen = React.lazy(() => import("./Pages/NotFound"));
 
 export default function Main() {
@@ -38,7 +47,7 @@ export default function Main() {
   const {
     language,
     loadingSpinner,
-    chooseWalletPopup
+    popups
   } = useAppSelector((state) => state);
   const wallets = [
     // new HippoWalletAdapter(),
@@ -88,7 +97,15 @@ export default function Main() {
             <Routes>
               <Route path="/" element={<App />}>
                 <Route index element={<HomeScreen />} />
-                <Route path="launchpad/:id" element={<LaunchpadProjectDetailsScreen />} />
+                <Route path="ido-projects" element={<ProjectsScreen />} />
+                <Route path="projects/:id" element={<ProjectDetailsScreen />} />
+                <Route path="staking" element={<StakingScreen />} />
+                <Route path="community-voting" element={<CommunityVotingScreen />} />
+                <Route path="governance" element={<GovernanceScreen />} />
+                <Route path="swap" element={<SwapScreen />} />
+                <Route path="portfolio" element={<PortfolioScreen />} />
+                <Route path="buy" element={<BuyScreen />} />
+                <Route path="buy-test" element={<BuyTestScreen />} />
                 <Route path="*" element={<NotFoundScreen />} />
               </Route>
             </Routes>
@@ -111,7 +128,10 @@ export default function Main() {
         />
 
         {
-          chooseWalletPopup && <ChooseWalletPopup />
+          popups.chooseWallet.display && <ChooseWalletPopup />
+        }
+        {
+          popups.referral.display && <PopupReferral />
         }
         {
           loadingSpinner && <LoadingSpinner />

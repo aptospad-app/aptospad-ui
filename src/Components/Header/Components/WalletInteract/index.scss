@@ -5,15 +5,15 @@
     cursor: pointer;
     position: relative;
     .wallet-account-address {
-      font-size: 13px;
+      font-size: 15px;
       position: relative;
       z-index: 1;
     }
     .network-icon {
-      width: 15px;
+      width: 20px;
     }
     .network-name {
-      font-size: 12px;
+      font-size: 13px;
     }
     &:hover {
       .bound {

@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="row">
         <div className="col-12 col-md-6">
           <img className="mb-4" src="/images/logo-icon-text.png" alt="" />
-          <p>Contact: hello@aptospad.app</p>
+          <p className={style["contact"]}>Contact: hello@aptospad.app</p>
         </div>
         <div className="col-12 col-md-2">
           <ul className={`${style["list"]}`}>
@@ -34,15 +34,9 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              {/* <a href="https://discord.gg/rb8tJQ4yAa" target="_blank" rel="noreferrer">
+              <a href="https://discord.gg/aptospad" target="_blank" rel="noreferrer">
                 Discord
-              </a> */}
-              <Link
-                to="/"
-                data-tip={`<div class="text-center">When we get 5000 <a class="text-white" href="https://twitter.com/Aptospad_DAO" target="_blank">Twitter</a> followers, we will share the Discord link. <br/> Help us quickly accomplish our aim.</div>`}
-              >
-                  Discord
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
