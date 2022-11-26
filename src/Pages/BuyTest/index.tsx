@@ -1,9 +1,40 @@
-import React from "react";
+import React, {useState} from "react";
 import style from "./index.module.scss";
 import {ProgressBar} from "react-bootstrap";
 import {CommonUtility} from "@/Utilities";
+import {useWallet} from "@manahippo/aptos-wallet-adapter";
+import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
+import {LoadingSpinnerActions, useAppDispatch} from "@/MyRedux";
+import {toast} from "react-toastify";
 
 export default function Buy() {
+  const [amountAPT, setAmountAPT] = useState<string>("");
+  const aptosWalletAdapter = useWallet();
+  const dispatch = useAppDispatch();
+
+  async function handleBuyToken() {
+    try {
+      if (!aptosWalletAdapter.connected) {
+        throw new Error("Please connect wallet");
+      }
+      if (!amountAPT) {
+        return toast.error("Please enter amount APT");
+      }
+      console.log("Buy aptospad with " + amountAPT + " APT...");
+
+      const aptosPadService = new AptospadBusinessService(aptosWalletAdapter);
+      dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
+      const response = await aptosPadService.bidAptosPad(BigInt(amountAPT));
+
+      console.log("Result after buy APD: " + response);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setAmountAPT("");
+      dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
+    }
+  }
+
   return (
     <div id={style["buy-test"]} className="py-5">
       <div className="bg"></div>
@@ -42,7 +73,7 @@ export default function Buy() {
           <div className="block-1__3 col-12 col-md-6">
             <h1 className="h4">Fundraise goal</h1>
             <h3 className="h1">$1,000,000</h3>
-            <ProgressBar className="goal-progress mb-3" now={11} label={`${11}%`} />
+            <ProgressBar className="goal-progress mb-3" now={11} label={`${11}%`}/>
             <h5>16,938/250,000 APT</h5>
           </div>
         </div>
@@ -70,22 +101,26 @@ export default function Buy() {
                 <div id="amount">
                   <label className="text-green-1 mb-1">Amount APT</label>
                   <div className="fake-input">
-                    <input type="text" />
+                    <input
+                      type="text"
+                      value={amountAPT}
+                      onChange={(e) => setAmountAPT(e.currentTarget.value)}
+                    />
                     <button type="button" className="btn ms-2">Max</button>
                   </div>
                 </div>
-                <img id="arrow-right" src="/images/arrow-right-icon.svg" alt="" />
+                <img id="arrow-right" src="/images/arrow-right-icon.svg" alt=""/>
                 <div id="receive">
                   <label className="text-green-1 mb-1">Get APD</label>
                   <div className="fake-input ps-3 pe-3">
-                    <input type="text" disabled />
+                    <input type="text" disabled/>
                   </div>
                 </div>
               </div>
 
               <div className="d-flex justify-content-center">
-                <button type="button" className="btn btn-gradient-blue w-50 fw-bold">
-                      Buy Token
+                <button onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
+                  Buy Token
                 </button>
               </div>
             </form>

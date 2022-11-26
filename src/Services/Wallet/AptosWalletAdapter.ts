@@ -12,8 +12,6 @@ export class AptosWalletAdapter {
   constructor(walletContextState: WalletContextState) {
     this.walletContextState = walletContextState;
     this.aptosClient = new AptosClient(aptosNodeUrl);
-    console.log(this.aptosClient);
-    console.log(walletContextState);
   }
 
   selectAdapter(walletName: string): WalletAdapter | undefined {
@@ -51,7 +49,7 @@ export class AptosWalletAdapter {
     return walletAdapter?.signMessage(signPayload);
   }
 
-  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query? : any): Promise<MoveResource | undefined> {
+  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query?: any): Promise<MoveResource | undefined> {
     try {
       return await this.aptosClient.getAccountResource(accountAddress, resourceType, query);
     } catch (error: any) {

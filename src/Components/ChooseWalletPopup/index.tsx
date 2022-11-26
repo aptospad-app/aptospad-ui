@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./index.module.scss";
-import {ChooseWalletPopupActions, LoadingSpinnerActions, useAppDispatch, useAppSelector} from "@/MyRedux";
-import {useAppDispatch, useAppSelector, LoadingSpinnerActions, PopupsActions} from "@/MyRedux";
+import {LoadingSpinnerActions, PopupsActions, useAppDispatch, useAppSelector} from "@/MyRedux";
 import {Modal} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
@@ -29,7 +28,6 @@ export default function ChooseWalletPopup() {
       dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": false}));
       toast.error(error.message);
     }
-    console.log(aptosWalletAdapter);
   };
 
   return (

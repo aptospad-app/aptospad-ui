@@ -9,10 +9,22 @@ import {ReactComponent as SpeakerIcon} from "@/Assets/Images/Social/Speaker.svg"
 import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg";
 import {ReactComponent as GlobalIcon} from "@/Assets/Images/Social/Global.svg";
 import {ReactComponent as PaperIcon} from "@/Assets/Images/Social/Paper.svg";
+import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
+import {useWallet} from "@manahippo/aptos-wallet-adapter";
 
 export default function LaunchpadProjectDetailsScreen() {
   const {id} = useParams();
   const [tab, setTab] = useState<"info" | "sale" | "join">("info");
+  const aptosWalletAdapter = useWallet();
+
+  async function handleBuyToken() {
+    const aptosPadService = new AptospadBusinessService(aptosWalletAdapter);
+
+    const amount = BigInt("10");
+    const response = await aptosPadService.bidAptosPad(amount);
+
+    console.log("Result after buy APD: " + response);
+  }
 
   return (
     <div id={`${style["project-details"]}`}>
@@ -229,7 +241,7 @@ export default function LaunchpadProjectDetailsScreen() {
                   </div>
 
                   <div className="d-flex justify-content-center">
-                    <button type="button" className="btn btn-gradient-blue w-50 fw-bold">
+                    <button onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
                       Buy Token
                     </button>
                   </div>
