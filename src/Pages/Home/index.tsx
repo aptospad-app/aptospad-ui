@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import style from "./index.module.scss";
-import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
 import Card from "./Components/Card";
