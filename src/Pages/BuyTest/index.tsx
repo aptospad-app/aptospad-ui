@@ -20,19 +20,23 @@ export default function Buy() {
   useEffect(() => {
     (async () => {
       if (walletContext.connected) {
-        const userAddress = walletContext.account?.address as string;
-        const octaBalance = await apdService.getAptosBalanceOf(userAddress);
-        const aptBalance = Number(octaBalance) / Math.pow(10, 8);
-        setAptBalanceOfUser(String(aptBalance));
-        setApdService(new AptospadBusinessService(walletContext));
+        try {
+          const userAddress = walletContext.account?.address as string;
+          const octaBalance = await apdService.getAptosBalanceOf(userAddress);
+          const aptBalance = Number(octaBalance) / Math.pow(10, 8);
+          setAptBalanceOfUser(String(aptBalance));
+          setApdService(new AptospadBusinessService(walletContext));
 
-        const config = await apdService.getApttSwapConfig();
-        if (config) {
-          setApdConfig(config);
-        }
-        const registry = await apdService.getLaunchPadRegistry();
-        if (registry) {
-          setLaunchPadRegistry(registry);
+          const config = await apdService.getApttSwapConfig();
+          if (config) {
+            setApdConfig(config);
+          }
+          const registry = await apdService.getLaunchPadRegistry();
+          if (registry) {
+            setLaunchPadRegistry(registry);
+          }
+        } catch (error: any) {
+          console.error(error.message);
         }
       }
     })();
@@ -40,8 +44,6 @@ export default function Buy() {
 
   async function handleBuyToken() {
     try {
-      console.log("Buy aptospad with" + amountAPTBid + " APT...");
-
       if (!walletContext.connected) {
         throw new Error("Please connect wallet");
       }
@@ -133,7 +135,7 @@ export default function Buy() {
                   <div className="fake-input">
                     <input
                       type="text"
-                      value={Intl.NumberFormat().format(Number(amountAPTBid))}
+                      value={amountAPTBid}
                       onChange={(e) => setAmountAPTBid(e.currentTarget.value.replace(/,/g, ""))}
                     />
                     <button type="button" className="btn ms-2">Max</button>

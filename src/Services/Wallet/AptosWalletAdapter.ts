@@ -1,17 +1,18 @@
 import {WalletAdapter, WalletContextState} from "@manahippo/aptos-wallet-adapter";
-import {AptosClient, MaybeHexString, MoveResource, Types} from "aptos";
+import {FaucetClient, MaybeHexString, MoveResource, Types} from "aptos";
 import {WalletNameEmpty, WalletNotFound} from "@/Services/Wallet/errors";
 import {SignMessagePayload, SignMessageResponse} from "@manahippo/aptos-wallet-adapter/src/WalletAdapters/BaseAdapter";
 
 const aptosNodeUrl = process.env.APTOS_FULL_NODE_URL as string | "";
+const aptosFaucetUrl = process.env.APTOS_FAUCET_URL as string | "";
 
 export class AptosWalletAdapter {
   private walletContextState: WalletContextState;
-  private readonly aptosClient: AptosClient;
+  private readonly aptosClient: FaucetClient;
 
   constructor(walletContextState: WalletContextState) {
     this.walletContextState = walletContextState;
-    this.aptosClient = new AptosClient(aptosNodeUrl);
+    this.aptosClient = new FaucetClient(aptosNodeUrl, aptosFaucetUrl);
   }
 
   selectAdapter(walletName: string): WalletAdapter | undefined {
@@ -53,10 +54,14 @@ export class AptosWalletAdapter {
     try {
       return await this.aptosClient.getAccountResource(accountAddress, resourceType, query);
     } catch (error: any) {
-      console.error(error);
+      console.error(error.message);
 
       return undefined;
     }
+  }
+
+  get faucetClient(): FaucetClient {
+    return this.aptosClient;
   }
 }
 

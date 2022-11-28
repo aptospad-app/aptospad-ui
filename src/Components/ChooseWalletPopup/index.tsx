@@ -8,21 +8,21 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 export default function ChooseWalletPopup() {
   const dispatch = useAppDispatch();
   const {wallet, popups} = useAppSelector((state) => state);
-  const aptosWalletAdapter = useWallet();
+  const walletContext = useWallet();
 
   const onSelecteWallet = async (index: number) => {
     try {
-      const selectedWallet = aptosWalletAdapter.wallets[index];
+      const selectedWallet = walletContext.wallets[index];
       if (selectedWallet.readyState === "NotDetected") {
         throw new Error("Wallet provider not installed, please install first and then reload the page.");
       }
       dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": false}));
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
-      await aptosWalletAdapter.connect(selectedWallet.adapter.name);
+      await walletContext.connect(selectedWallet.adapter.name);
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
 
-      aptosWalletAdapter.wallet = selectedWallet;
-      aptosWalletAdapter.account = selectedWallet.adapter.publicAccount;
+      walletContext.wallet = selectedWallet;
+      walletContext.account = selectedWallet.adapter.publicAccount;
     } catch (error: any) {
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
       dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": false}));
@@ -45,7 +45,7 @@ export default function ChooseWalletPopup() {
       </Modal.Header>
       <Modal.Body>
         {
-          aptosWalletAdapter.wallets.map((item, index) => {
+          walletContext.wallets.map((item, index) => {
             if (
               item.adapter.name === "Petra" ||
               item.adapter.name === "Martian" ||

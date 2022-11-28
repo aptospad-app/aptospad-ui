@@ -114,15 +114,39 @@ export class AptospadBusinessService {
   }
 
   async getApttSwapConfig(): Promise<ApttSwapConfig> {
-    const resourceType = `${ownerAddress}::config::ApttSwapConfig`;
+    try {
+      const resourceType = `${ownerAddress}::config::ApttSwapConfig`;
 
-    return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+      return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
   }
 
   async getLaunchPadRegistry(): Promise<LaunchPadRegistry> {
-    const resourceType = `${ownerAddress}::aptospad_swap::LaunchPadRegistry`;
+    try {
+      const resourceType = `${ownerAddress}::aptospad_swap::LaunchPadRegistry`;
 
-    return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+      return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
+  // @TODO
+  async fundAccount(address: MaybeHexString, amount: number): Promise<string[] | undefined> {
+    try {
+      console.log("Funding..." + address + "," + amount);
+      const response = await this.walletAdapter.faucetClient.fundAccount(address, amount);
+      console.log("Aptos fund to account " + address + " amount " + amount + ":");
+      console.log(response);
+
+      return response;
+    } catch (error: any) {
+      console.log(error);
+
+      return undefined;
+    }
   }
 }
 
