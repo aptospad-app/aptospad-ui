@@ -111,7 +111,7 @@ export default function Buy() {
             <h1 className="h4">Fundraise goal</h1>
             <h3 className="h1">${Intl.NumberFormat().format(aptPrice * fundraiseGoal)}</h3>
             <ProgressBar className="goal-progress mb-3" now={5} label={`${launchPadRegistry.totalBid / fundraiseGoal * 100}%`}/>
-            <h5>{Intl.NumberFormat().format(launchPadRegistry.totalBid)}/{fundraiseGoal}<span
+            <h5>{Intl.NumberFormat().format(launchPadRegistry.totalBid)} / {Intl.NumberFormat().format(fundraiseGoal)}<span
               className="text-green-1"> APT</span></h5>
           </div>
         </div>
