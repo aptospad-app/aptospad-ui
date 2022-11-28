@@ -2,7 +2,7 @@ import {AptosPayload, AptosWalletAdapter} from "@/Services/Wallet/AptosWalletAda
 import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
 import {MaybeHexString} from "aptos";
 
-const ownerAddress = process.env.APTOSPAD_OWNER_ADDRESS;
+const ownerAddress = process.env.APTOSPAD_OWNER_ADDRESS as string;
 
 export class AptospadBusinessService {
   private walletAdapter: AptosWalletAdapter;
@@ -101,7 +101,6 @@ export class AptospadBusinessService {
 
   async getAptosBalanceOf(accountAddress: MaybeHexString): Promise<string> {
     const resource = await this.walletAdapter.resourceOf(accountAddress, "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>");
-    console.log("APT of account " + accountAddress + ":" + JSON.stringify(resource));
 
     return (resource?.data as any)?.coin?.value as string | "0";
   }
@@ -113,4 +112,34 @@ export class AptospadBusinessService {
 
     return (resource?.data as any)?.coin?.value as string | "0";
   }
+
+  async getApttSwapConfig(): Promise<ApttSwapConfig> {
+    const resourceType = `${ownerAddress}::config::ApttSwapConfig`;
+
+    return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+  }
+
+  async getLaunchPadRegistry(): Promise<LaunchPadRegistry> {
+    const resourceType = `${ownerAddress}::aptospad_swap::LaunchPadRegistry`;
+
+    return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+  }
+}
+
+export interface ApttSwapConfig {
+  emgergency?: boolean,
+  softCap?: number,
+  hardCap?: number,
+  refund?: number,
+  aptToApttRate: number,
+  state?: number,
+  bypassWhiteList?: boolean
+}
+
+export interface LaunchPadRegistry {
+  investors?: any,
+  totalBid: number,
+  bidaptospad_events?: any,
+  distributeaptospad_events?: any,
+  whitelist_events?: any,
 }

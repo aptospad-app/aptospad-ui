@@ -49,7 +49,7 @@ export class AptosWalletAdapter {
     return walletAdapter?.signMessage(signPayload);
   }
 
-  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query?: any): Promise<MoveResource | undefined> {
+  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query?: any): Promise<MoveResource | any | undefined> {
     try {
       return await this.aptosClient.getAccountResource(accountAddress, resourceType, query);
     } catch (error: any) {
