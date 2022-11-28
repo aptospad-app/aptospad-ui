@@ -1,75 +1,24 @@
 import {AptosPayload, AptosWalletAdapter} from "@/Services/Wallet/AptosWalletAdapter";
 import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
 import {MaybeHexString} from "aptos";
+import BaseService from "@/Services/Base.service";
 
-const ownerAddress = process.env.APTOSPAD_OWNER_ADDRESS as string;
+const APTOSPAD_SOURCE_ADDRESS = process.env.APTOSPAD_SOURCE_ADDRESS as string;
+const APTOSPAD_ADDRESS = process.env.APTOSPAD_ADDRESS as string;
+const PRICE_URL = process.env.PRICE_URL as string;
 
-export class AptospadBusinessService {
+export class AptospadBusinessService extends BaseService {
   private walletAdapter: AptosWalletAdapter;
 
   constructor(walletContext: WalletContextState) {
+    super();
     this.walletAdapter = new AptosWalletAdapter(walletContext);
-  }
-
-  async addWhiteList(account: string, cap: BigInt): Promise<any> {
-    const payload: AptosPayload = {
-      "arguments": [account, cap.toString()],
-      "function": `${ownerAddress}::scripts::addWhiteList`,
-      "type_arguments": [],
-      "type": "entry_function_payload"
-    };
-
-    return this.walletAdapter.signAndSubmitTransaction(payload);
-  }
-
-  async withdrawAptos(debitAddress: string, amount: BigInt): Promise<any> {
-    const payload: AptosPayload = {
-      "arguments": [debitAddress, amount.toString()],
-      "function": `${ownerAddress}::scripts::withdrawAptos`,
-      "type_arguments": [],
-      "type": "entry_function_payload"
-    };
-
-    return this.walletAdapter.signAndSubmitTransaction(payload);
   }
 
   async withdrawAptosPad(debitAddress: string, amount: BigInt): Promise<any> {
     const payload: AptosPayload = {
       "arguments": [debitAddress, amount.toString()],
-      "function": `${ownerAddress}::scripts::withdrawAptosPad`,
-      "type_arguments": [],
-      "type": "entry_function_payload"
-    };
-
-    return this.walletAdapter.signAndSubmitTransaction(payload);
-  }
-
-  async launchPadSeason(): Promise<any> {
-    const payload: AptosPayload = {
-      "arguments": [],
-      "function": `${ownerAddress}::scripts::launchPadSeason`,
-      "type_arguments": [],
-      "type": "entry_function_payload"
-    };
-
-    return this.walletAdapter.signAndSubmitTransaction(payload);
-  }
-
-  async initializeAptosPad(aptosFund: BigInt): Promise<any> {
-    const payload: AptosPayload = {
-      "arguments": [aptosFund.toString()],
-      "function": `${ownerAddress}::scripts::initializeAptosPad`,
-      "type_arguments": [`${ownerAddress}::aptospad_coin::AptosPadCoin`],
-      "type": "entry_function_payload"
-    };
-
-    return this.walletAdapter.signAndSubmitTransaction(payload);
-  }
-
-  async resetSeason(): Promise<any> {
-    const payload: AptosPayload = {
-      "arguments": [],
-      "function": `${ownerAddress}::scripts::resetSeason`,
+      "function": `${APTOSPAD_SOURCE_ADDRESS}::scripts::withdrawAptosPad`,
       "type_arguments": [],
       "type": "entry_function_payload"
     };
@@ -80,18 +29,7 @@ export class AptospadBusinessService {
   async bidAptosPad(amount: BigInt): Promise<any> {
     const payload: AptosPayload = {
       "arguments": [amount.toString()],
-      "function": `${ownerAddress}::scripts::bidAptosPad`,
-      "type_arguments": [],
-      "type": "entry_function_payload"
-    };
-
-    return this.walletAdapter.signAndSubmitTransaction(payload);
-  }
-
-  async setApttSwapConfig(softCap: BigInt, hardCap: BigInt, enableRefund: boolean, aptToApttRate: BigInt): Promise<any> {
-    const payload: AptosPayload = {
-      "arguments": [softCap.toString(), hardCap.toString(), enableRefund, aptToApttRate.toString()],
-      "function": `${ownerAddress}::scripts::setApttSwapConfig`,
+      "function": `${APTOSPAD_ADDRESS}::scripts::bidAptosPad`,
       "type_arguments": [],
       "type": "entry_function_payload"
     };
@@ -106,7 +44,7 @@ export class AptospadBusinessService {
   }
 
   async getAptosPadBalanceOf(accountAddress: MaybeHexString): Promise<string> {
-    const resourceType = `${ownerAddress}::aptospad_coin::AptosPadCoin`;
+    const resourceType = `${APTOSPAD_ADDRESS}::aptospad_coin::AptosPadCoin`;
     const resource = await this.walletAdapter.resourceOf(accountAddress, resourceType);
     console.log("APD of account " + accountAddress + ":" + JSON.stringify(resource));
 
@@ -115,21 +53,25 @@ export class AptospadBusinessService {
 
   async getApttSwapConfig(): Promise<ApttSwapConfig> {
     try {
-      const resourceType = `${ownerAddress}::config::ApttSwapConfig`;
+      const resourceType = `${APTOSPAD_ADDRESS}::config::ApttSwapConfig`;
+      const response = await this.walletAdapter.resourceOf(APTOSPAD_SOURCE_ADDRESS, resourceType);
 
-      return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+      return response.data;
     } catch (error: any) {
-      throw new Error(error.message);
+      console.log(error);
+      throw new Error("Cannot load AptospadConfig.");
     }
   }
 
   async getLaunchPadRegistry(): Promise<LaunchPadRegistry> {
     try {
-      const resourceType = `${ownerAddress}::aptospad_swap::LaunchPadRegistry`;
+      const resourceType = `${APTOSPAD_ADDRESS}::aptospad_swap::LaunchPadRegistry`;
+      const response = await this.walletAdapter.resourceOf(APTOSPAD_SOURCE_ADDRESS, resourceType);
 
-      return await this.walletAdapter.resourceOf(ownerAddress, resourceType);
+      return response.data;
     } catch (error: any) {
-      throw new Error(error.message);
+      console.log(error);
+      throw new Error("Cannot load LunchPadRegistry.");
     }
   }
 
@@ -146,6 +88,16 @@ export class AptospadBusinessService {
       console.log(error);
 
       return undefined;
+    }
+  }
+
+  async loadPriceOfAPT(): Promise<{ price: string }> {
+    try {
+      const response = await this.axiosInstance().get(`${PRICE_URL}?symbol=APTUSDT`);
+
+      return response.data as { price: string };
+    } catch (error: any) {
+      throw new Error("Cannot get price of APT from Binance");
     }
   }
 }
