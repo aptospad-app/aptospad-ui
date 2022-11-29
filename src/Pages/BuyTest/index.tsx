@@ -17,7 +17,7 @@ export default function Buy() {
   const [apdConfig, setApdConfig] = useState<ApttSwapConfig>({"aptToApttRate": 0});
   const [launchPadRegistry, setLaunchPadRegistry] = useState<LaunchPadRegistry>({"totalBid": 0});
   const [minBuy, setMinBuy] = useState<number>(0.1);
-  const [maxBuy, setMaxBuy] = useState<number>(15);
+  const [maxBuy, setMaxBuy] = useState<number>(100);
   const [hardCap, setHardCap] = useState<number>(0);
   const [aptPrice, setAptPrice] = useState<number>(0);
   const [tokenPrice, setTokenPrice] = useState<number>(0.02);
