@@ -22,7 +22,7 @@ export default function Buy() {
   const [aptPrice, setAptPrice] = useState<number>(0);
   const [tokenPrice, setTokenPrice] = useState<number>(0.02);
   const [ticketPrice, setTicketPrice] = useState<number>(50);
-  const [maxAllocation, setMaxAllocation] = useState<number>(70);
+  const [maxAllocation, setMaxAllocation] = useState<number>(500);
   const [yourTicket, setYourTicket] = useState<number>(0);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function Buy() {
 
   return (
     <div id={style["buy-test"]} className="py-5">
-      <div className="bg"></div>
+      <div className="bg"/>
 
       <div className="main-content container">
         <h1 className="text-center text-green-1 mb-5">Test AptosPad Token Sale</h1>
@@ -91,7 +91,9 @@ export default function Buy() {
                     <div className="col-6">Token Price:</div>
                     <div className="col-6">${tokenPrice}</div>
                     <div className="col-6">Max allocation:</div>
-                    <div className="col-6">${maxAllocation} <span className="text-green-1">~ {aptPrice === 0 ? 0 : Math.round(maxAllocation / aptPrice)} APT</span></div>
+                    <div className="col-6">${maxAllocation} <span
+                      className="text-green-1">~ {aptPrice === 0 ? 0 : Math.round(maxAllocation / aptPrice)} APT</span>
+                    </div>
                     <div className="col-6">Ticket Price:</div>
                     <div className="col-6">${ticketPrice}</div>
                   </div>
@@ -150,7 +152,7 @@ export default function Buy() {
                   <div className="fake-input">
                     <input
                       type="number"
-                      placeholder={`Ensure min ${minBuy} and max ${maxBuy}`}
+                      placeholder={`Enter amount in range ${minBuy} ~ ${maxBuy}`}
                       value={amountAPTBid}
                       onChange={(e) => setAmountAPTBid(e.currentTarget.value.replace(/,/g, ""))}
                     />
@@ -171,7 +173,8 @@ export default function Buy() {
               </div>
 
               <div className="d-flex justify-content-center">
-                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
+                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
+                        className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>
