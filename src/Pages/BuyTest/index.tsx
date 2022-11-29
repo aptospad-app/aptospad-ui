@@ -68,7 +68,11 @@ export default function Buy() {
 
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
       const response = await apdService.bidAptosPad(BigInt(Number(amountAPTBid) * Math.pow(10, 8)));
-      console.log("Result after buy APD: " + response);
+      console.log("Result after buy APD: " + JSON.stringify(response));
+      if (response && response.hash) {
+        dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
+        await Alert(<p className="text-danger">You used {amountAPTBid} APT to buy {Number(amountAPTBid) * apdConfig.aptToApttRate} APD</p>);
+      }
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -118,7 +122,8 @@ export default function Buy() {
             <h1 className="h4">Fundraising Goals</h1>
             <h3 className="h1">$2,000,000</h3>
             {/* <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3> */}
-            <ProgressBar className="goal-progress mb-3" now={10} label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}/>
+            <ProgressBar className="goal-progress mb-3" now={10}
+                         label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}/>
             <h5>
               {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / 400,000
               <span className="text-green-1"> APT</span>
@@ -178,7 +183,7 @@ export default function Buy() {
 
               <div className="d-flex justify-content-center">
                 <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
-                  className="btn btn-gradient-blue w-50 fw-bold">
+                        className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>

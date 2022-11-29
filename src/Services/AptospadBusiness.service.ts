@@ -26,7 +26,7 @@ export class AptospadBusinessService extends BaseService {
     return this.walletAdapter.signAndSubmitTransaction(payload);
   }
 
-  async bidAptosPad(amount: BigInt): Promise<any> {
+  async bidAptosPad(amount: BigInt): Promise<{hash: string} | undefined> {
     const payload: AptosPayload = {
       "arguments": [amount.toString()],
       "function": `${APTOSPAD_ADDRESS}::scripts::bidAptosPad`,
