@@ -23,6 +23,7 @@ export default function Buy() {
   const [tokenPrice, setTokenPrice] = useState<number>(0.02);
   const [ticketPrice, setTicketPrice] = useState<number>(50);
   const [maxAllocation, setMaxAllocation] = useState<number>(70);
+  const [yourTicket, setYourTicket] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
@@ -100,7 +101,7 @@ export default function Buy() {
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Your ticket:</div>
-                    <div className="col-6">Na</div>
+                    <div className="col-6">{yourTicket === 0 ? `Na` : yourTicket}</div>
                     <div className="col-6">Min Buy:</div>
                     <div className="col-6">{minBuy}<span className="text-green-1"> APT</span></div>
                     <div className="col-6">Max Buy:</div>
