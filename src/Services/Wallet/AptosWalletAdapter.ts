@@ -1,5 +1,5 @@
 import {WalletAdapter, WalletContextState} from "@manahippo/aptos-wallet-adapter";
-import {FaucetClient, MaybeHexString, MoveResource, Types} from "aptos";
+import {FaucetClient, MaybeHexString, Types} from "aptos";
 import {WalletNameEmpty, WalletNotFound} from "@/Services/Wallet/errors";
 import {SignMessagePayload, SignMessageResponse} from "@manahippo/aptos-wallet-adapter/src/WalletAdapters/BaseAdapter";
 
@@ -50,7 +50,7 @@ export class AptosWalletAdapter {
     return walletAdapter?.signMessage(signPayload);
   }
 
-  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query?: any): Promise<MoveResource | any | undefined> {
+  async resourceOf(accountAddress: MaybeHexString, resourceType: string, query?: any): Promise<any | undefined> {
     try {
       return await this.aptosClient.getAccountResource(accountAddress, resourceType, query);
     } catch (error: any) {
