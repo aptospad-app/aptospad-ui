@@ -18,7 +18,7 @@ export class AptospadBusinessService extends BaseService {
   async withdrawAptosPad(debitAddress: string, amount: BigInt): Promise<any> {
     const payload: AptosPayload = {
       "arguments": [debitAddress, amount.toString()],
-      "function": `${APTOSPAD_SOURCE_ADDRESS}::scripts::withdrawAptosPad`,
+      "function": `${APTOSPAD_ADDRESS}::scripts::withdrawAptosPad`,
       "type_arguments": [],
       "type": "entry_function_payload"
     };

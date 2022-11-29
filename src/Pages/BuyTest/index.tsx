@@ -11,7 +11,7 @@ export default function Buy() {
   const walletContext = useWallet();
   const dispatch = useAppDispatch();
 
-  const [amountAPTBid, setAmountAPTBid] = useState<string>("0");
+  const [amountAPTBid, setAmountAPTBid] = useState<string>("");
   const [apdService, setApdService] = useState<AptospadBusinessService>(new AptospadBusinessService(walletContext));
   const [aptBalanceOfUser, setAptBalanceOfUser] = useState<string>("");
   const [apdConfig, setApdConfig] = useState<ApttSwapConfig>({"aptToApttRate": 0});
@@ -20,6 +20,9 @@ export default function Buy() {
   const [maxBuy, setMaxBuy] = useState<number>(15);
   const [fundraiseGoal, setFundraiseGoal] = useState<number>(0);
   const [aptPrice, setAptPrice] = useState<number>(0);
+  const [tokenPrice, setTokenPrice] = useState<number>(0.02);
+  const [ticketPrice, setTicketPrice] = useState<number>(50);
+  const [maxAllocation, setMaxAllocation] = useState<number>(70);
 
   useEffect(() => {
     (async () => {
@@ -32,7 +35,7 @@ export default function Buy() {
           setApdService(new AptospadBusinessService(walletContext));
 
           const config = await apdService.getApttSwapConfig();
-          setApdConfig(config || config);
+          setApdConfig(config || apdConfig);
           setFundraiseGoal((config.hardCap || fundraiseGoal) / Math.pow(10, 8));
 
           const registry = await apdService.getLaunchPadRegistry();
@@ -85,11 +88,11 @@ export default function Buy() {
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Token Price:</div>
-                    <div className="col-6">$0.02</div>
+                    <div className="col-6">${tokenPrice}</div>
                     <div className="col-6">Max allocation:</div>
-                    <div className="col-6">$500 <span className="text-green-1">~ 15 APT</span></div>
+                    <div className="col-6">${maxAllocation} <span className="text-green-1">~ {aptPrice === 0 ? 0 : Math.round(maxAllocation / aptPrice)} APT</span></div>
                     <div className="col-6">Ticket Price:</div>
-                    <div className="col-6">$50</div>
+                    <div className="col-6">${ticketPrice}</div>
                   </div>
                 </div>
               </div>
@@ -110,7 +113,7 @@ export default function Buy() {
           <div className="block-1__3 col-12 col-md-6">
             <h1 className="h4">Fundraise goal</h1>
             <h3 className="h1">${Intl.NumberFormat().format(aptPrice * fundraiseGoal)}</h3>
-            <ProgressBar className="goal-progress mb-3" now={5} label={`${launchPadRegistry.totalBid / fundraiseGoal * 100}%`}/>
+            <ProgressBar className="goal-progress mb-3" now={5} label={`${fundraiseGoal === 0 ? 0 : launchPadRegistry.totalBid / fundraiseGoal * 100}%`}/>
             <h5>{Intl.NumberFormat().format(launchPadRegistry.totalBid)} / {Intl.NumberFormat().format(fundraiseGoal)}<span
               className="text-green-1"> APT</span></h5>
           </div>
