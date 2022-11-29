@@ -6,6 +6,7 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {AptospadBusinessService, ApttSwapConfig, LaunchPadRegistry} from "@/Services/AptospadBusiness.service";
 import {LoadingSpinnerActions, useAppDispatch} from "@/MyRedux";
 import {toast} from "react-toastify";
+import {Alert} from "@/Components/Alert";
 
 export default function Buy() {
   const walletContext = useWallet();

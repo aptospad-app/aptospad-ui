@@ -8,6 +8,7 @@ $modalZIndex: 999999;
 $tooltipZIndex: 999999;
 $toastZIndex: 9999999;
 $loadingSpinnerZIndex: 9999999;
+$zIndexAlert: 9999998;
 
 @mixin spinInfinite($time: 20s) {
   animation: spin-infinite infinite $time linear;
