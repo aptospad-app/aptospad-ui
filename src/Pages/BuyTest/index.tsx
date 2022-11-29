@@ -18,7 +18,7 @@ export default function Buy() {
   const [launchPadRegistry, setLaunchPadRegistry] = useState<LaunchPadRegistry>({"totalBid": 0});
   const [minBuy, setMinBuy] = useState<number>(0.1);
   const [maxBuy, setMaxBuy] = useState<number>(15);
-  const [fundraiseGoal, setFundraiseGoal] = useState<number>(0);
+  const [hardCap, setHardCap] = useState<number>(0);
   const [aptPrice, setAptPrice] = useState<number>(0);
   const [tokenPrice, setTokenPrice] = useState<number>(0.02);
   const [ticketPrice, setTicketPrice] = useState<number>(50);
@@ -37,7 +37,7 @@ export default function Buy() {
 
           const config = await apdService.getApttSwapConfig();
           setApdConfig(config || apdConfig);
-          setFundraiseGoal((config.hardCap || fundraiseGoal) / Math.pow(10, 8));
+          setHardCap(config.hardCap || hardCap);
 
           const registry = await apdService.getLaunchPadRegistry();
           setLaunchPadRegistry(registry || launchPadRegistry);
@@ -66,7 +66,7 @@ export default function Buy() {
       console.log("Buy aptospad with " + amountAPTBid + " APT...");
 
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
-      const response = await apdService.bidAptosPad(BigInt(amountAPTBid));
+      const response = await apdService.bidAptosPad(BigInt(Number(amountAPTBid) * Math.pow(10, 8)));
       console.log("Result after buy APD: " + response);
     } catch (error: any) {
       toast.error(error.message);
@@ -115,10 +115,12 @@ export default function Buy() {
           </div>
           <div className="block-1__3 col-12 col-md-6">
             <h1 className="h4">Fundraise goal</h1>
-            <h3 className="h1">${Intl.NumberFormat().format(aptPrice * fundraiseGoal)}</h3>
-            <ProgressBar className="goal-progress mb-3" now={5} label={`${fundraiseGoal === 0 ? 0 : launchPadRegistry.totalBid / fundraiseGoal * 100}%`}/>
-            <h5>{Intl.NumberFormat().format(launchPadRegistry.totalBid)} / {Intl.NumberFormat().format(fundraiseGoal)}<span
-              className="text-green-1"> APT</span></h5>
+            <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3>
+            <ProgressBar className="goal-progress mb-3" now={10} label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / hardCap).toFixed(1)}%`}/>
+            <h5>
+              {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / {Intl.NumberFormat().format(hardCap / Math.pow(10, 8))}
+              <span className="text-green-1"> APT</span>
+            </h5>
           </div>
         </div>
 
@@ -173,8 +175,7 @@ export default function Buy() {
               </div>
 
               <div className="d-flex justify-content-center">
-                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
-                        className="btn btn-gradient-blue w-50 fw-bold">
+                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>
