@@ -89,7 +89,7 @@ export default function Buy() {
         <h1 className="text-center text-green-1 mb-5">Test AptosPad Token Sale</h1>
         <div className="row mb-5">
           <div className="col-12 col-md-6">
-            <div className="row">
+            <div className="row h-100">
               <div className="col-12 mb-4">
                 <div className="card">
                   <div className="row">
@@ -104,7 +104,7 @@ export default function Buy() {
                   </div>
                 </div>
               </div>
-              <div className="col-12">
+              <div className="col-12 align-self-end">
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Your ticket:</div>
@@ -118,16 +118,28 @@ export default function Buy() {
               </div>
             </div>
           </div>
-          <div className="block-1__3 col-12 col-md-6">
-            <h1 className="h4">Fundraising Goals</h1>
-            <h3 className="h1">$2,000,000</h3>
-            {/* <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3> */}
-            <ProgressBar className="goal-progress mb-3" now={10}
-                         label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}/>
-            <h5>
-              {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / 400,000
-              <span className="text-green-1"> APT</span>
-            </h5>
+          <div className="col-12 col-md-6">
+            <div className="row h-100">
+              <div id="block-1__3" className="col-12 mb-4">
+                <h1 className="h4">Fundraising Goals</h1>
+                <h3 className="h1">$2,000,000</h3>
+                {/* <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3> */}
+                <ProgressBar className="goal-progress mb-3" now={10} label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}/>
+                <h5 className="mb-0">
+                  {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / 400,000
+                  <span className="text-green-1"> APT</span>
+                </h5>
+              </div>
+
+              <div className="col-12">
+                <div className="card">
+                  <div className="row">
+                    <div className="col-6">Token distribution Time:</div>
+                    <div className="col-6 text-green-1 fw-bold">December 2nd, 2022 <br /> 5:00 PM - UTC</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -183,7 +195,7 @@ export default function Buy() {
 
               <div className="d-flex justify-content-center">
                 <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
-                        className="btn btn-gradient-blue w-50 fw-bold">
+                  className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>
