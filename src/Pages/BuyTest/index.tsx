@@ -92,7 +92,7 @@ export default function Buy() {
                     <div className="col-6">${tokenPrice}</div>
                     <div className="col-6">Max allocation:</div>
                     <div className="col-6">${maxAllocation} <span
-                      className="text-green-1">~ {aptPrice === 0 ? 0 : Math.round(maxAllocation / aptPrice)} APT</span>
+                      className="text-green-1">~ 15 APT</span>
                     </div>
                     <div className="col-6">Ticket Price:</div>
                     <div className="col-6">${ticketPrice}</div>
@@ -114,11 +114,12 @@ export default function Buy() {
             </div>
           </div>
           <div className="block-1__3 col-12 col-md-6">
-            <h1 className="h4">Fundraise goal</h1>
-            <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3>
-            <ProgressBar className="goal-progress mb-3" now={10} label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / hardCap).toFixed(1)}%`}/>
+            <h1 className="h4">Fundraising Goals</h1>
+            <h3 className="h1">$2,000,000</h3>
+            {/* <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3> */}
+            <ProgressBar className="goal-progress mb-3" now={10} label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}/>
             <h5>
-              {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / {Intl.NumberFormat().format(hardCap / Math.pow(10, 8))}
+              {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / 400,000
               <span className="text-green-1"> APT</span>
             </h5>
           </div>
@@ -156,7 +157,7 @@ export default function Buy() {
                       type="number"
                       placeholder={`Enter amount in range ${minBuy} ~ ${maxBuy}`}
                       value={amountAPTBid}
-                      onChange={(e) => setAmountAPTBid(e.currentTarget.value.replace(/,/g, ""))}
+                      onChange={(e) => setAmountAPTBid(e.currentTarget.value)}
                     />
                     <button onClick={() => setAmountAPTBid(String(maxBuy))} type="button" className="btn ms-2">Max
                     </button>
