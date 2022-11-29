@@ -97,7 +97,7 @@ export default function Buy() {
                     <div className="col-6">${tokenPrice}</div>
                     <div className="col-6">Max allocation:</div>
                     <div className="col-6">${maxAllocation} <span
-                      className="text-green-1">~ 15 APT</span>
+                      className="text-green-1">~ 100 APT</span>
                     </div>
                     <div className="col-6">Ticket Price:</div>
                     <div className="col-6">${ticketPrice}</div>
@@ -134,8 +134,10 @@ export default function Buy() {
               <div className="col-12">
                 <div className="card">
                   <div className="row">
+                    <div className="col-6">Your investment:</div>
+                    <div className="col-6 text-green-1">123 APT</div>
                     <div className="col-6">Token distribution Time:</div>
-                    <div className="col-6 text-green-1 fw-bold">December 2nd, 2022 <br /> 5:00 PM - UTC</div>
+                    <div className="col-6 text-green-1">December 2nd, 2022 <br /> 5:00 PM - UTC</div>
                   </div>
                 </div>
               </div>
