@@ -176,7 +176,8 @@ export default function Buy() {
               </div>
 
               <div className="d-flex justify-content-center">
-                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
+                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
+                  className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>
