@@ -141,3 +141,20 @@ export interface TokenDistribute {
   investor?: string,
   refund?: number
 }
+
+export interface AptospadBuyView {
+  aptBalanceOfUser: number;
+  fundraisingGoals: number;
+  totalBid: number;
+  hardCap: number;
+  yourInvestment: number;
+  tokenPrice: number;
+  maxAllocation: number;
+  ticketPrice: number;
+  yourTicket: number;
+  minBuy: number;
+  maxBuy: number;
+  aptToApdRate: number;
+  userAddress: string;
+  aptPrice: number;
+}
