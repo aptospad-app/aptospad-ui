@@ -70,7 +70,17 @@ export default function Buy() {
   };
 
   function isValidAmountAPTBid(): boolean {
-    return Number(amountAPTBid) < minBuy || Number(amountAPTBid) > maxBuy;
+    const amountBid = Number(amountAPTBid);
+
+    return amountBid < minBuy || amountBid > maxBuy || amountBid >= aptBalanceOfUser;
+  }
+
+  function fillMaxAmountBid() {
+    if (Number(amountAPTBid) <= aptBalanceOfUser) {
+      setAmountAPTBid(String(Math.floor(aptBalanceOfUser)));
+    } else {
+      setAmountAPTBid(String(maxBuy));
+    }
   }
 
   async function handleBuyToken() {
@@ -81,10 +91,18 @@ export default function Buy() {
       if (!amountAPTBid) {
         return toast.error("Please enter amount APT");
       }
+      if (totalBid > hardCap) {
+        return toast.error("Can't buy APD because total bid has been reached.");
+      }
+      if (Number(amountAPTBid) > aptBalanceOfUser) {
+        return toast.error("Not enough wallet balance.");
+      }
       console.log("Buy aptospad with " + amountAPTBid + " APT...");
 
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
-      const response = await apdService.bidAptosPad(BigInt(Number(amountAPTBid) * Math.pow(10, 8)));
+      const bigBidAmount = Math.fround(Number(amountAPTBid) * Math.pow(10, 8));
+
+      const response = await apdService.bidAptosPad(BigInt(bigBidAmount));
       console.log("Result after buy APD: " + JSON.stringify(response));
       if (response && response.hash) {
         await getTokenDistribute();
@@ -145,7 +163,7 @@ export default function Buy() {
                 <ProgressBar
                   className="goal-progress mb-3"
                   now={`${hardCap === 0 ? 0 : Number((totalBid || 0) * 100 / hardCap).toFixed(1)}` as any}
-                  label={`${hardCap === 0 ? 0 : Number((totalBid || 0) * 100 / hardCap).toFixed(1)}%`}
+                  label={`${hardCap === 0 ? 0 : Number(Math.min((totalBid || 0) * 100 / hardCap, 100)).toFixed(1)}%`}
                 />
                 <h5 className="mb-0">
                   {Intl.NumberFormat().format(totalBid)} / {Intl.NumberFormat().format(hardCap)}
@@ -203,7 +221,7 @@ export default function Buy() {
                       value={amountAPTBid}
                       onChange={(e) => setAmountAPTBid(e.currentTarget.value)}
                     />
-                    <button onClick={() => setAmountAPTBid(String(maxBuy))} type="button" className="btn ms-2">
+                    <button onClick={() => fillMaxAmountBid()} type="button" className="btn ms-2">
                       Max
                     </button>
                   </div>
