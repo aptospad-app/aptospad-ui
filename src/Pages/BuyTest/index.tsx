@@ -52,8 +52,8 @@ export default function Buy() {
           const aptPrice = (await apdService.loadPriceOfAPT()).price;
           setAptPrice(Number(aptPrice));
 
-          const tokenDistributeInfo = await apdService.tokenDistribute(userAddress);
-          setTokenDistribute(tokenDistributeInfo);
+          const tokenDistributeResponse = await apdService.tokenDistribute(userAddress);
+          setTokenDistribute(tokenDistributeResponse || tokenDistribute);
         } catch (error: any) {
           toast.error(error.message);
         }
@@ -206,8 +206,7 @@ export default function Buy() {
               </div>
 
               <div className="d-flex justify-content-center">
-                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
-                        className="btn btn-gradient-blue w-50 fw-bold">
+                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>

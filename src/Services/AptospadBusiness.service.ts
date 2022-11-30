@@ -91,7 +91,7 @@ export class AptospadBusinessService extends BaseService {
     }
   }
 
-  async tokenDistribute(address: MaybeHexString): Promise<TokenDistribute> {
+  async tokenDistribute(address: MaybeHexString): Promise<TokenDistribute | undefined> {
     try {
       const resourceType = `${APTOSPAD_ADDRESS}::aptospad_swap::TokenDistribute`;
       const response = await this.walletAdapter.resourceOf(address, resourceType);
@@ -100,7 +100,7 @@ export class AptospadBusinessService extends BaseService {
     } catch (error: any) {
       console.log(error);
 
-      throw new Error("Cannot get TokenDistribute.");
+      return undefined;
     }
   }
 
