@@ -52,14 +52,26 @@ export default function Buy() {
           const aptPrice = (await apdService.loadPriceOfAPT()).price;
           setAptPrice(Number(aptPrice));
 
-          const tokenDistributeResponse = await apdService.tokenDistribute(userAddress);
-          setTokenDistribute(tokenDistributeResponse || tokenDistribute);
+          await getTokenDistribute();
         } catch (error: any) {
           toast.error(error.message);
         }
       }
     })();
   }, [walletContext]);
+
+  const getTokenDistribute = async () => {
+    try {
+      const userAddress = walletContext.account?.address as string;
+      setTokenDistribute({"bid": 0});
+      const tokenDistributeResponse = await apdService.tokenDistribute(userAddress);
+      setTokenDistribute(tokenDistributeResponse || tokenDistribute);
+
+      return true;
+    } catch (error: any) {
+      return false;
+    }
+  };
 
   function isValidAmountAPTBid() {
     return Number(amountAPTBid) < minBuy || Number(amountAPTBid) > maxBuy;
@@ -79,8 +91,9 @@ export default function Buy() {
       const response = await apdService.bidAptosPad(BigInt(Number(amountAPTBid) * Math.pow(10, 8)));
       console.log("Result after buy APD: " + JSON.stringify(response));
       if (response && response.hash) {
+        await getTokenDistribute();
         dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
-        await Alert(<p className="text-danger">You used {amountAPTBid} APT to
+        await Alert(<p className="text-success">You used {amountAPTBid} APT to
           buy {Number(amountAPTBid) * apdConfig.aptToApttRate} APD</p>);
       }
     } catch (error: any) {
@@ -134,7 +147,11 @@ export default function Buy() {
                 <h1 className="h4">Fundraising Goals</h1>
                 <h3 className="h1">$2,000,000</h3>
                 {/* <h3 className="h1">${Intl.NumberFormat().format(aptPrice * hardCap / Math.pow(10, 8))}</h3> */}
-                <ProgressBar className="goal-progress mb-3" now={10} label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}/>
+                <ProgressBar
+                  className="goal-progress mb-3"
+                  now={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}` as any}
+                  label={`${hardCap === 0 ? 0 : Number(launchPadRegistry.totalBid * 100 / 400_000_000_000_00).toFixed(1)}%`}
+                />
                 <h5 className="mb-0">
                   {Intl.NumberFormat().format(launchPadRegistry.totalBid / Math.pow(10, 8))} / 400,000
                   <span className="text-green-1"> APT</span>
@@ -145,7 +162,7 @@ export default function Buy() {
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Your investment:</div>
-                    <div className="col-6 text-green-1">{tokenDistribute.bid / Math.pow(10, 8)} APT</div>
+                    <div className="col-6 text-green-1">{tokenDistribute.bid ? `${tokenDistribute.bid / Math.pow(10, 8)} APT` : "Na"}</div>
                     <div className="col-6">Token distribution Time:</div>
                     <div className="col-6 text-green-1">December 2nd, 2022 <br/> 5:00 PM - UTC</div>
                   </div>
@@ -206,7 +223,8 @@ export default function Buy() {
               </div>
 
               <div className="d-flex justify-content-center">
-                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
+                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
+                  className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>
