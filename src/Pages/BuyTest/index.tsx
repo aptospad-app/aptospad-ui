@@ -180,7 +180,15 @@ export default function Buy() {
                   <div className="col-6">Your address:</div>
                   <div className="col-6">
                     {
-                      walletContext.connected ? CommonUtility.stringEllipsisMiddle(walletContext.account?.address as string) : ""
+                      walletContext.connected
+                        ? <a
+                          className="text-info"
+                          href={`https://explorer.aptoslabs.com/account/${walletContext.account?.address}?network=testnet`}
+                          target="_blank" rel="noreferrer"
+                        >
+                          {CommonUtility.stringEllipsisMiddle(walletContext.account?.address as string)}
+                        </a>
+                        : ""
                     }
                   </div>
                   <div className="col-6">Your balance:</div>
