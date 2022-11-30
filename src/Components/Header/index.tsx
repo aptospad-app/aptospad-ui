@@ -245,7 +245,7 @@ function Header() {
               className="cbtn btn-gradient-blue py-1"
               style={{"height": "initial"}}
             >
-              Buy IDO Testnet
+              Testnet
             </NavLink>
           </li>
         </ul>
