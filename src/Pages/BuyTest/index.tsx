@@ -3,7 +3,12 @@ import style from "./index.module.scss";
 import {ProgressBar} from "react-bootstrap";
 import {CommonUtility} from "@/Utilities";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
-import {AptospadBusinessService, ApttSwapConfig, LaunchPadRegistry} from "@/Services/AptospadBusiness.service";
+import {
+  AptospadBusinessService,
+  ApttSwapConfig,
+  LaunchPadRegistry,
+  TokenDistribute
+} from "@/Services/AptospadBusiness.service";
 import {LoadingSpinnerActions, useAppDispatch} from "@/MyRedux";
 import {toast} from "react-toastify";
 import {Alert} from "@/Components/Alert";
@@ -25,6 +30,7 @@ export default function Buy() {
   const [ticketPrice, setTicketPrice] = useState<number>(50);
   const [maxAllocation, setMaxAllocation] = useState<number>(500);
   const [yourTicket, setYourTicket] = useState<number>(0);
+  const [tokenDistribute, setTokenDistribute] = useState<TokenDistribute>({"bid": 0});
 
   useEffect(() => {
     (async () => {
@@ -45,6 +51,9 @@ export default function Buy() {
 
           const aptPrice = (await apdService.loadPriceOfAPT()).price;
           setAptPrice(Number(aptPrice));
+
+          const tokenDistributeInfo = await apdService.tokenDistribute(userAddress);
+          setTokenDistribute(tokenDistributeInfo);
         } catch (error: any) {
           toast.error(error.message);
         }
@@ -71,7 +80,8 @@ export default function Buy() {
       console.log("Result after buy APD: " + JSON.stringify(response));
       if (response && response.hash) {
         dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
-        await Alert(<p className="text-danger">You used {amountAPTBid} APT to buy {Number(amountAPTBid) * apdConfig.aptToApttRate} APD</p>);
+        await Alert(<p className="text-danger">You used {amountAPTBid} APT to
+          buy {Number(amountAPTBid) * apdConfig.aptToApttRate} APD</p>);
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -135,9 +145,9 @@ export default function Buy() {
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Your investment:</div>
-                    <div className="col-6 text-green-1">123 APT</div>
+                    <div className="col-6 text-green-1">{tokenDistribute.bid / Math.pow(10, 8)} APT</div>
                     <div className="col-6">Token distribution Time:</div>
-                    <div className="col-6 text-green-1">December 2nd, 2022 <br /> 5:00 PM - UTC</div>
+                    <div className="col-6 text-green-1">December 2nd, 2022 <br/> 5:00 PM - UTC</div>
                   </div>
                 </div>
               </div>
@@ -197,7 +207,7 @@ export default function Buy() {
 
               <div className="d-flex justify-content-center">
                 <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button"
-                  className="btn btn-gradient-blue w-50 fw-bold">
+                        className="btn btn-gradient-blue w-50 fw-bold">
                   Buy Token
                 </button>
               </div>

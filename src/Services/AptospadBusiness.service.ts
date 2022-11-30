@@ -26,7 +26,7 @@ export class AptospadBusinessService extends BaseService {
     return this.walletAdapter.signAndSubmitTransaction(payload);
   }
 
-  async bidAptosPad(amount: BigInt): Promise<{hash: string} | undefined> {
+  async bidAptosPad(amount: BigInt): Promise<{ hash: string } | undefined> {
     const payload: AptosPayload = {
       "arguments": [amount.toString()],
       "function": `${APTOSPAD_ADDRESS}::scripts::bidAptosPad`,
@@ -91,6 +91,19 @@ export class AptospadBusinessService extends BaseService {
     }
   }
 
+  async tokenDistribute(address: MaybeHexString): Promise<TokenDistribute> {
+    try {
+      const resourceType = `${APTOSPAD_ADDRESS}::aptospad_swap::TokenDistribute`;
+      const response = await this.walletAdapter.resourceOf(address, resourceType);
+
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+
+      throw new Error("Cannot get TokenDistribute.");
+    }
+  }
+
   async loadPriceOfAPT(): Promise<{ price: string }> {
     try {
       const response = await this.axiosInstance().get(`${PRICE_URL}?symbol=APTUSDT`);
@@ -118,4 +131,13 @@ export interface LaunchPadRegistry {
   bidaptospad_events?: any,
   distributeaptospad_events?: any,
   whitelist_events?: any,
+}
+
+export interface TokenDistribute {
+  bid: number,
+  cap?: number,
+  distributed?: number,
+  distributedToken?: number,
+  investor?: string,
+  refund?: number
 }
