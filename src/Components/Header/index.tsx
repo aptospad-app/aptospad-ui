@@ -239,6 +239,15 @@ function Header() {
               <span className="text">Referral</span>
             </div>
           </li>
+          <li className="d-flex align-items-center mx-2">
+            <NavLink
+              to="/buy-test"
+              className="cbtn btn-gradient-blue py-1"
+              style={{"height": "initial"}}
+            >
+              Testnet
+            </NavLink>
+          </li>
         </ul>
       </div>
 

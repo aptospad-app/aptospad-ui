@@ -12,7 +12,7 @@ export default function PopupReferral() {
   const aptosWalletAdapter = useWallet();
   const {loadingSpinner} = useAppSelector((state) => state);
   let copiedAddress = false;
-  const referralLink = `${process.env.URL}?ref=${aptosWalletAdapter.account?.address}`;
+  const referralLink = `${process.env.URL}/buy-test?ref=${aptosWalletAdapter.account?.address}`;
   const [referralInfo, setReferralInfo] = useState({
     "referrer": null,
     "totalMembers": 0

@@ -7,4 +7,8 @@
 .Toastify__toast-container--top-right {
   top: #{$headerHeight + 20}px !important;
   z-index: $toastZIndex !important;
+
+  .Toastify__toast-body {
+    word-break: break-word;
+  }
 }
