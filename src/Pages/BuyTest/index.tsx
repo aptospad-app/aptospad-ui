@@ -124,7 +124,7 @@ export default function Buy() {
   }
 
   return (
-    <div id={style["buy-test"]} className="py-5">
+    <div id={style["buy"]} className="py-5">
       <div className="bg"/>
 
       <div className="main-content container">
@@ -136,10 +136,12 @@ export default function Buy() {
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Token Price:</div>
-                    <div className="col-6">${tokenPrice.toFixed(3)}</div>
+                    <div className="col-6">$0.02</div>
                     <div className="col-6">Max allocation:</div>
-                    <div className="col-6">${Math.round(maxBuy * aptPrice)} <span
-                      className="text-green-1">~ 100 APT</span>
+                    <div className="col-6">$500
+                      <span
+                        className="text-green-1">~ 100 APT
+                      </span>
                     </div>
                     <div className="col-6">Ticket Price:</div>
                     <div className="col-6">${ticketPrice}</div>
@@ -150,7 +152,7 @@ export default function Buy() {
                 <div className="card">
                   <div className="row">
                     <div className="col-6">Your ticket:</div>
-                    <div className="col-6">{yourTicket}</div>
+                    <div className="col-6">Na</div>
                     <div className="col-6">Min Buy:</div>
                     <div className="col-6">{minBuy}<span className="text-green-1"> APT</span></div>
                     <div className="col-6">Max Buy:</div>
@@ -164,7 +166,8 @@ export default function Buy() {
             <div className="row h-100">
               <div id="block-1__3" className="col-12 mb-4">
                 <h1 className="h4">Fundraising Goals</h1>
-                <h3 className="h1">${Intl.NumberFormat().format(Math.fround(hardCap * aptPrice))}</h3>
+                <h3 className="h1">$2,000,000</h3>
+                {/* <h3 className="h1">${Intl.NumberFormat().format(Math.fround(hardCap * aptPrice))}</h3> */}
                 <ProgressBar
                   className="goal-progress mb-3"
                   now={`${hardCap === 0 ? 0 : Number((totalBid || 0) * 100 / hardCap).toFixed(1)}` as any}
