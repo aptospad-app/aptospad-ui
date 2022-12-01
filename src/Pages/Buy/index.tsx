@@ -8,11 +8,13 @@ import {LoadingSpinnerActions, useAppDispatch} from "@/MyRedux";
 import {toast} from "react-toastify";
 import {Alert} from "@/Components/Alert";
 
+const APTOS_NETWORK_NAME = process.env.APTOS_NETWORK_NAME as string;
+
 export default function Buy() {
   const walletContext = useWallet();
   const dispatch = useAppDispatch();
 
-  const [amountAPTBid, setAmountAPTBid] = useState<string>("");
+  const [bidAmountAPT, setBidAmountAPT] = useState<string>("");
   const [apdService, setApdService] = useState<AptospadBusinessService>(new AptospadBusinessService(walletContext));
   const [aptBalanceOfUser, setAptBalanceOfUser] = useState<number>(0);
   const [totalBid, setTotalBid] = useState<number>(0);
@@ -70,16 +72,16 @@ export default function Buy() {
   };
 
   function isValidAmountAPTBid(): boolean {
-    const amountBid = Number(amountAPTBid);
+    const amountBid = Number(bidAmountAPT);
 
     return amountBid < minBuy || amountBid > maxBuy || amountBid >= aptBalanceOfUser;
   }
 
   function fillMaxAmountBid() {
-    if (Number(amountAPTBid) <= aptBalanceOfUser) {
-      setAmountAPTBid(String(Math.floor(aptBalanceOfUser)));
+    if (Number(bidAmountAPT) <= aptBalanceOfUser) {
+      setBidAmountAPT(String(Math.floor(aptBalanceOfUser)));
     } else {
-      setAmountAPTBid(String(maxBuy));
+      setBidAmountAPT(String(maxBuy));
     }
   }
 
@@ -88,32 +90,36 @@ export default function Buy() {
       if (!walletContext.connected) {
         throw new Error("Please connect wallet");
       }
-      if (!amountAPTBid) {
+      if (!bidAmountAPT) {
         return toast.error("Please enter amount APT");
       }
       if (totalBid > hardCap) {
         return toast.error("Can't buy APD because total bid has been reached.");
       }
-      if (Number(amountAPTBid) > aptBalanceOfUser) {
+      if (Number(bidAmountAPT) > aptBalanceOfUser) {
         return toast.error("Not enough wallet balance.");
       }
-      console.log("Buy aptospad with " + amountAPTBid + " APT...");
+      if (walletContext.network.name?.toLowerCase() !== APTOS_NETWORK_NAME.toLowerCase()) {
+        return toast.error("Wallet network must be " + APTOS_NETWORK_NAME);
+      }
 
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
-      const bigBidAmount = Math.fround(Number(amountAPTBid) * Math.pow(10, 8));
+      const bigBidAmount = Math.fround(Number(bidAmountAPT) * Math.pow(10, 8));
 
       const response = await apdService.bidAptosPad(BigInt(bigBidAmount));
       console.log("Result after buy APD: " + JSON.stringify(response));
       if (response && response.hash) {
         await getTokenDistribute();
         dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
-        await Alert(<p className="text-success">You used {amountAPTBid} APT to
-          buy {Number(amountAPTBid) * aptToApdRate} APD</p>);
+        await Alert(
+          <p className="text-success">
+            You used {Number(bidAmountAPT).toFixed(2)} APT to buy {(Number(bidAmountAPT) * aptToApdRate).toFixed(2)} APD
+          </p>);
       }
     } catch (error: any) {
       toast.error(error.message);
     } finally {
-      setAmountAPTBid("");
+      setBidAmountAPT("");
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(false));
     }
   }
@@ -166,7 +172,7 @@ export default function Buy() {
                   label={`${hardCap === 0 ? 0 : Number(Math.min((totalBid || 0) * 100 / hardCap, 100)).toFixed(1)}%`}
                 />
                 <h5 className="mb-0">
-                  {Intl.NumberFormat().format(totalBid)} / {Intl.NumberFormat().format(hardCap)}
+                  {Intl.NumberFormat().format(Math.floor(totalBid))} / {Intl.NumberFormat().format(hardCap)}
                   <span className="text-green-1"> APT</span>
                 </h5>
               </div>
@@ -176,7 +182,7 @@ export default function Buy() {
                   <div className="row">
                     <div className="col-6">Your investment:</div>
                     <div
-                      className="col-6 text-green-1">{yourInvestment ? `${yourInvestment} APT` : "Na"}</div>
+                      className="col-6 text-green-1">{yourInvestment ? `${yourInvestment.toFixed(2)} APT` : "Na"}</div>
                     <div className="col-6">Token distribution Time:</div>
                     <div className="col-6 text-green-1">December 2nd, 2022 <br/> 5:00 PM - UTC</div>
                   </div>
@@ -218,8 +224,8 @@ export default function Buy() {
                     <input
                       type="number"
                       placeholder={`Enter amount in range ${minBuy} ~ ${maxBuy}`}
-                      value={amountAPTBid}
-                      onChange={(e) => setAmountAPTBid(e.currentTarget.value)}
+                      value={bidAmountAPT}
+                      onChange={(e) => setBidAmountAPT(e.currentTarget.value)}
                     />
                     <button onClick={() => fillMaxAmountBid()} type="button" className="btn ms-2">
                       Max
@@ -232,14 +238,19 @@ export default function Buy() {
                   <div className="fake-input ps-3 pe-3">
                     <input
                       type="text" disabled
-                      value={Intl.NumberFormat().format(Number(amountAPTBid) * aptToApdRate)}
+                      value={Intl.NumberFormat().format(Number(bidAmountAPT) * aptToApdRate)}
                     />
                   </div>
                 </div>
               </div>
 
               <div className="d-flex justify-content-center">
-                <button disabled={isValidAmountAPTBid()} onClick={handleBuyToken} type="button" className="btn btn-gradient-blue w-50 fw-bold">
+                <button
+                  disabled={isValidAmountAPTBid()}
+                  onClick={handleBuyToken}
+                  type="button"
+                  className="btn btn-gradient-blue w-50 fw-bold"
+                >
                   Buy Token
                 </button>
               </div>

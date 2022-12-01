@@ -44,9 +44,8 @@ export class AptospadBusinessService extends BaseService {
   }
 
   async getAptosPadBalanceOf(accountAddress: MaybeHexString): Promise<string> {
-    const resourceType = `${APTOSPAD_ADDRESS}::aptospad_coin::AptosPadCoin`;
+    const resourceType = `0x1::coin::CoinStore<${APTOSPAD_SOURCE_ADDRESS}::aptospad_coin::AptosPadCoin>`;
     const resource = await this.walletAdapter.resourceOf(accountAddress, resourceType);
-    console.log("APD of account " + accountAddress + ":" + JSON.stringify(resource));
 
     return (resource?.data as any)?.coin?.value as string | "0";
   }
@@ -110,7 +109,7 @@ export class AptospadBusinessService extends BaseService {
 
       return response.data as { price: string };
     } catch (error: any) {
-      throw new Error("Cannot get price of APT from Binance");
+      throw new Error("Cannot get price of APT");
     }
   }
 }
