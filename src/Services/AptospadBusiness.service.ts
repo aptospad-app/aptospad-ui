@@ -50,7 +50,7 @@ export class AptospadBusinessService extends BaseService {
     return (resource?.data as any)?.coin?.value as string | "0";
   }
 
-  async getApttSwapConfig(): Promise<ApttSwapConfig> {
+  async getApttSwapConfig(): Promise<ApttSwapConfig | undefined> {
     try {
       const resourceType = `${APTOSPAD_ADDRESS}::config::ApttSwapConfig`;
       const response = await this.walletAdapter.resourceOf(APTOSPAD_SOURCE_ADDRESS, resourceType);
@@ -58,31 +58,17 @@ export class AptospadBusinessService extends BaseService {
       return response.data;
     } catch (error: any) {
       console.log(error);
-      throw new Error("Cannot load AptospadConfig.");
+
+      return undefined;
     }
   }
 
-  async getLaunchPadRegistry(): Promise<LaunchPadRegistry> {
+  async getLaunchPadRegistry(): Promise<LaunchPadRegistry | undefined> {
     try {
       const resourceType = `${APTOSPAD_ADDRESS}::aptospad_swap::LaunchPadRegistry`;
       const response = await this.walletAdapter.resourceOf(APTOSPAD_SOURCE_ADDRESS, resourceType);
 
       return response.data;
-    } catch (error: any) {
-      console.log(error);
-      throw new Error("Cannot load LunchPadRegistry.");
-    }
-  }
-
-  // @TODO
-  async fundAccount(address: MaybeHexString, amount: number): Promise<string[] | undefined> {
-    try {
-      console.log("Funding..." + address + "," + amount);
-      const response = await this.walletAdapter.faucetClient.fundAccount(address, amount);
-      console.log("Aptos fund to account " + address + " amount " + amount + ":");
-      console.log(response);
-
-      return response;
     } catch (error: any) {
       console.log(error);
 
@@ -103,11 +89,11 @@ export class AptospadBusinessService extends BaseService {
     }
   }
 
-  async loadPriceOfAPT(): Promise<{ price: string }> {
+  async loadPriceOfAPT(): Promise<{ price: number }> {
     try {
       const response = await this.axiosInstance().get(`${PRICE_URL}?symbol=APTUSDT`);
 
-      return response.data as { price: string };
+      return response?.data as { price: number } || {"price": 0};
     } catch (error: any) {
       throw new Error("Cannot get price of APT");
     }
@@ -119,14 +105,14 @@ export interface ApttSwapConfig {
   softCap?: number,
   hardCap?: number,
   refund?: number,
-  aptToApttRate: number,
+  aptToApttRate?: number,
   state?: number,
   bypassWhiteList?: boolean
 }
 
 export interface LaunchPadRegistry {
   investors?: any,
-  totalBid: number,
+  totalBid?: number,
   bidaptospad_events?: any,
   distributeaptospad_events?: any,
   whitelist_events?: any,

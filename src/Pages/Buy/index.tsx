@@ -21,12 +21,11 @@ export default function Buy() {
   const [hardCap, setHardCap] = useState<number>(0);
   const [yourInvestment, setYourInvestment] = useState<number>(0);
   const [tokenPrice, setTokenPrice] = useState<number>(0);
-  const [maxAllocation, setMaxAllocation] = useState<number>(500);
   const [ticketPrice, setTicketPrice] = useState<number>(0);
   const [minBuy, setMinBuy] = useState<number>(0.1);
   const [maxBuy, setMaxBuy] = useState<number>(100);
   const [aptToApdRate, setAptToApdRate] = useState<number>(100);
-  const [aptPrice, setAptPrice] = useState<number>(0);
+  const [aptPrice, setAptPrice] = useState<number>(4.7);
   const [yourTicket, setYourTicket] = useState<number>(0);
 
   useEffect(() => {
@@ -40,15 +39,15 @@ export default function Buy() {
           setAptBalanceOfUser(Number(balanceOfUser) / Math.pow(10, 8));
 
           const config = await apdService.getApttSwapConfig();
-          setHardCap((config.hardCap || 0) / Math.pow(10, 8));
-          setAptToApdRate(config.aptToApttRate);
+          setHardCap((config?.hardCap || 0) / Math.pow(10, 8));
+          setAptToApdRate(config?.aptToApttRate || 100);
 
           const registry = await apdService.getLaunchPadRegistry();
-          setTotalBid((registry.totalBid || 0) / Math.pow(10, 8));
+          setTotalBid((registry?.totalBid || 0) / Math.pow(10, 8));
 
-          const aptPrice = (await apdService.loadPriceOfAPT()).price;
-          setAptPrice(Number(aptPrice));
-          setTokenPrice(Number(aptPrice) / aptToApdRate);
+          const priceOfApt = (await apdService.loadPriceOfAPT()).price;
+          setAptPrice(priceOfApt);
+          setTokenPrice(aptPrice / aptToApdRate);
 
           await getTokenDistribute();
         } catch (error: any) {
