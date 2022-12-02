@@ -28,7 +28,7 @@ export default function Buy() {
   const [aptToApdRate, setAptToApdRate] = useState<number>(100);
   const [aptPrice, setAptPrice] = useState<number>(4.7);
   const [yourTicket, setYourTicket] = useState<number>(0);
-  const [distributed, setDistributed] = useState<boolean>(false);
+  const [isDistributed, setIsDistributed] = useState<boolean>(false);
   const [distributedToken, setDistributedToken] = useState<number>(0);
   const [distributeTime, setDistributeTime] = useState<Date>(new Date(Date.parse("December 2, 2022, 17:00:00 UTC")));
 
@@ -68,7 +68,7 @@ export default function Buy() {
       setYourInvestment((response?.bid || 0) / Math.pow(10, 8));
       const distributedToken = Number(response?.distributedToken) / Math.pow(10, 8);
       setDistributedToken(distributedToken);
-      setDistributed(distributedToken > 0);
+      setIsDistributed(distributedToken > 0);
       setYourTicket(response?.cap || 0);
 
       return true;
@@ -136,7 +136,7 @@ export default function Buy() {
 
       <div className="main-content container">
         <h1
-          className="text-center text-green-1 mb-5">{distributed ? `Testnet Ended` : `Testnet AptosPad Token Sale`}</h1>
+          className="text-center text-green-1 mb-5">{isDistributed ? `Testnet Ended` : `Testnet AptosPad Token Sale`}</h1>
         <div className="row mb-5">
           <div className="col-12 col-md-6">
             <div className="row h-100">
@@ -190,9 +190,9 @@ export default function Buy() {
               <div className="col-12">
                 <div className="card">
                   <div className="row">
-                    <div className="col-6">{distributed ? `Your token` : `Your investment:`}</div>
+                    <div className="col-6">{isDistributed ? `Your token` : `Your investment:`}</div>
                     <div
-                      className="col-6 text-green-1">{distributed ? `${distributedToken} APD` : (yourInvestment ? `${yourInvestment.toFixed(2)} APT` : "Na")}</div>
+                      className="col-6 text-green-1">{isDistributed ? `${distributedToken} APD` : (yourInvestment ? `${yourInvestment.toFixed(2)} APT` : "Na")}</div>
                     <div className="col-6">Token distribution Time:</div>
                     <div className="col-6 text-green-1">
                       {
@@ -274,7 +274,7 @@ export default function Buy() {
 
               <div className="d-flex justify-content-center">
                 <button
-                  disabled={isValidAmountAPTBid()}
+                  disabled={isValidAmountAPTBid() || isDistributed}
                   onClick={handleBuyToken}
                   type="button"
                   className="btn btn-gradient-blue w-50 fw-bold"
