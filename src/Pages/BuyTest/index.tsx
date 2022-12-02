@@ -106,7 +106,7 @@ export default function Buy() {
         return toast.error("Not enough wallet balance.");
       }
       if (walletContext.network.name?.toLowerCase() !== APTOS_NETWORK_NAME.toLowerCase()) {
-        return toast.error("Wallet network must be " + APTOS_NETWORK_NAME);
+        return toast.error("Please select " + APTOS_NETWORK_NAME + " in wallet");
       }
 
       dispatch(LoadingSpinnerActions.toggleLoadingSpinner(true));
