@@ -190,7 +190,7 @@ export default function Buy() {
               <div className="col-12">
                 <div className="card">
                   <div className="row">
-                    <div className="col-6">{isDistributed ? `Your token` : `Your investment:`}</div>
+                    <div className="col-6">{isDistributed ? `Your token:` : `Your investment:`}</div>
                     <div
                       className="col-6 text-green-1">{isDistributed ? `${distributedToken} APD` : (yourInvestment ? `${yourInvestment.toFixed(2)} APT` : "Na")}</div>
                     <div className="col-6">Token distribution Time:</div>
@@ -250,6 +250,7 @@ export default function Buy() {
                   <label className="text-green-1 mb-1">Amount APT</label>
                   <div className="fake-input">
                     <input
+                      disabled={isDistributed}
                       type="number"
                       placeholder={`Enter amount in range ${minBuy} ~ ${maxBuy}`}
                       value={bidAmountAPT}
@@ -274,7 +275,7 @@ export default function Buy() {
 
               <div className="d-flex justify-content-center">
                 <button
-                  disabled={isValidAmountAPTBid() || isDistributed}
+                  disabled={isValidAmountAPTBid()}
                   onClick={handleBuyToken}
                   type="button"
                   className="btn btn-gradient-blue w-50 fw-bold"
