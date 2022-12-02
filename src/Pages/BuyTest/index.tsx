@@ -28,7 +28,7 @@ export default function Buy() {
   const [aptToApdRate, setAptToApdRate] = useState<number>(100);
   const [aptPrice, setAptPrice] = useState<number>(4.7);
   const [yourTicket, setYourTicket] = useState<number>(0);
-  const [isDistributed, setIsDistributed] = useState<boolean>(false);
+  const [isDistributed, setIsDistributed] = useState<boolean>(true);
   const [distributedToken, setDistributedToken] = useState<number>(0);
   const [distributeTime, setDistributeTime] = useState<Date>(new Date(Date.parse("December 2, 2022, 17:00:00 UTC")));
 
@@ -68,7 +68,6 @@ export default function Buy() {
       setYourInvestment((response?.bid || 0) / Math.pow(10, 8));
       const distributedToken = Number(response?.distributedToken) / Math.pow(10, 8);
       setDistributedToken(distributedToken);
-      setIsDistributed(distributedToken > 0);
       setYourTicket(response?.cap || 0);
 
       return true;
