@@ -135,8 +135,7 @@ export default function Buy() {
       <div className="bg"/>
 
       <div className="main-content container">
-        <h1
-          className="text-center text-green-1 mb-5">{isDistributed ? `Testnet Ended` : `Testnet AptosPad Token Sale`}</h1>
+        <h1 className="text-center text-green-1 mb-5">{isDistributed ? `Testnet Ended` : `Testnet AptosPad Token Sale`}</h1>
         <div className="row mb-5">
           <div className="col-12 col-md-6">
             <div className="row h-100">
@@ -275,7 +274,7 @@ export default function Buy() {
 
               <div className="d-flex justify-content-center">
                 <button
-                  disabled={isValidAmountAPTBid()}
+                  disabled={isValidAmountAPTBid() || isDistributed}
                   onClick={handleBuyToken}
                   type="button"
                   className="btn btn-gradient-blue w-50 fw-bold"
