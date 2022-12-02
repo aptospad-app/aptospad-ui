@@ -38,16 +38,28 @@ export class AptospadBusinessService extends BaseService {
   }
 
   async getAptosBalanceOf(accountAddress: MaybeHexString): Promise<string> {
-    const resource = await this.walletAdapter.resourceOf(accountAddress, "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>");
+    try {
+      const resource = await this.walletAdapter.resourceOf(accountAddress, "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>");
 
-    return (resource?.data as any)?.coin?.value as string | "0";
+      return (resource?.data as any)?.coin?.value as string;
+    } catch (error: any) {
+      console.error(error);
+
+      return "0";
+    }
   }
 
   async getAptosPadBalanceOf(accountAddress: MaybeHexString): Promise<string> {
-    const resourceType = `0x1::coin::CoinStore<${APTOSPAD_SOURCE_ADDRESS}::aptospad_coin::AptosPadCoin>`;
-    const resource = await this.walletAdapter.resourceOf(accountAddress, resourceType);
+    try {
+      const resourceType = `0x1::coin::CoinStore<${APTOSPAD_SOURCE_ADDRESS}::aptospad_coin::AptosPadCoin>`;
+      const resource = await this.walletAdapter.resourceOf(accountAddress, resourceType);
 
-    return (resource?.data as any)?.coin?.value as string | "0";
+      return (resource?.data as any)?.coin?.value as string;
+    } catch (error: any) {
+      console.error(error);
+
+      return "0";
+    }
   }
 
   async getApttSwapConfig(): Promise<ApttSwapConfig | undefined> {
@@ -93,9 +105,11 @@ export class AptospadBusinessService extends BaseService {
     try {
       const response = await this.axiosInstance().get(`${PRICE_URL}?symbol=APTUSDT`);
 
-      return response?.data as { price: number } || {"price": 0};
+      return response?.data as { price: number };
     } catch (error: any) {
-      throw new Error("Cannot get price of APT");
+      console.error(error);
+
+      return {"price": 0};
     }
   }
 }
