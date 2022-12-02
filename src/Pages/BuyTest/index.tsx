@@ -3,11 +3,10 @@ import style from "./index.module.scss";
 import {ProgressBar} from "react-bootstrap";
 import {CommonUtility} from "@/Utilities";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
-import {AptospadBusinessService, AptospadBuyView, LaunchPadRegistry} from "@/Services/AptospadBusiness.service";
+import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
 import {LoadingSpinnerActions, useAppDispatch} from "@/MyRedux";
 import {toast} from "react-toastify";
 import {Alert} from "@/Components/Alert";
-import {use} from "i18next";
 
 const APTOS_NETWORK_NAME = process.env.APTOS_NETWORK_NAME as string;
 
@@ -28,16 +27,18 @@ export default function Buy() {
   const [aptToApdRate, setAptToApdRate] = useState<number>(100);
   const [aptPrice, setAptPrice] = useState<number>(4.7);
   const [yourTicket, setYourTicket] = useState<number>(0);
-  const [isDistributed, setIsDistributed] = useState<boolean>(true);
+  const [isDistributed, setIsDistributed] = useState<boolean>(false);
   const [distributedToken, setDistributedToken] = useState<number>(0);
   const [distributeTime, setDistributeTime] = useState<Date>(new Date(Date.parse("December 2, 2022, 17:00:00 UTC")));
-
+  const finishTime = new Date(Date.parse("December 2, 2022, 12:00:00 UTC"));
   useEffect(() => {
     (async () => {
       if (walletContext.connected) {
         try {
           setApdService(new AptospadBusinessService(walletContext));
           const userAddress = walletContext.account?.address as string;
+
+          setIsDistributed(finishTime.getTime() <= Date.now());
 
           const balanceOfUser = await apdService.getAptosBalanceOf(userAddress);
           setAptBalanceOfUser(Number(balanceOfUser) / Math.pow(10, 8));
