@@ -192,7 +192,7 @@ export default function Buy() {
                   <div className="row">
                     <div className="col-6">{isDistributed ? `Your token:` : `Your investment:`}</div>
                     <div
-                      className="col-6 text-green-1">{isDistributed ? `${distributedToken} APD` : (yourInvestment ? `${yourInvestment.toFixed(2)} APT` : "Na")}</div>
+                      className="col-6 text-green-1">{isDistributed ? `${distributedToken.toFixed(2)} APD` : (yourInvestment ? `${yourInvestment.toFixed(2)} APT` : "Na")}</div>
                     <div className="col-6">Token distribution Time:</div>
                     <div className="col-6 text-green-1">
                       {
@@ -256,7 +256,7 @@ export default function Buy() {
                       value={bidAmountAPT}
                       onChange={(e) => setBidAmountAPT(e.currentTarget.value)}
                     />
-                    <button onClick={() => fillMaxAmountBid()} type="button" className="btn ms-2">
+                    <button disabled={isDistributed} onClick={() => fillMaxAmountBid()} type="button" className="btn ms-2">
                       Max
                     </button>
                   </div>
