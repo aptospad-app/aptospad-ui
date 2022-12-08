@@ -16,7 +16,7 @@ interface ITF_ProjectProps {
 export default function Project(props: ITF_ProjectProps) {
   return (
     <div id={`${style["Project"]}`}>
-      <Link className={`${style["overlay"]}`} to="/projects/1"></Link>
+      <Link className={`${style["overlay"]}`} to="/"></Link>
       <div className="d-flex justify-content-between">
         <div className={`${style["name"]}`}>
           <h2 className={`${style["text"]}`}>Template Project</h2>
