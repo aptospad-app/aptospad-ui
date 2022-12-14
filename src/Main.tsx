@@ -21,7 +21,8 @@ import {
   TokenPocketWalletAdapter,
   ONTOWalletAdapter,
   // BloctoWalletAdapter,
-  SafePalWalletAdapter
+  SafePalWalletAdapter,
+  SpacecyWalletAdapter
   // FoxWalletAdapter,
   // CloverWalletAdapter
 } from "@manahippo/aptos-wallet-adapter";
@@ -65,8 +66,9 @@ export default function Main() {
     new TokenPocketWalletAdapter(),
     new ONTOWalletAdapter(),
     // new BloctoWalletAdapter(),
-    new SafePalWalletAdapter()
-    // new FoxWalletAdapter(),
+    new SafePalWalletAdapter(),
+    new SpacecyWalletAdapter()
+    // new FoxWalletAdapter()
     // new CloverWalletAdapter()
   ];
 

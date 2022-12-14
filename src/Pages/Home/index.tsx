@@ -5,6 +5,7 @@ import ReactTooltip from "react-tooltip";
 import Card from "./Components/Card";
 import {ITF_WhyChooseThisToken} from "@/TS";
 import Newsletter from "@/Components/Newsletter";
+import {Link} from "react-router-dom";
 
 export default function HomeScreen() {
   const {t} = useTranslation();
@@ -44,7 +45,7 @@ export default function HomeScreen() {
                   The DAO platform on Aptos to accelerate <br/> the future ideals
                 </p>
                 <div className="d-flex">
-                  <button className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project</button>
+                  <Link to="/ido-projects" className="cbtn cbtn-lg cbtn-outline-gradient-blue me-2">Upcoming project</Link>
                   <a
                     href="https://forms.gle/1XXuWt819wmcuiv69"
                     className="cbtn cbtn-lg cbtn-outline-gradient-blue"
