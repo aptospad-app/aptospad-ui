@@ -9,6 +9,7 @@ import LanguageComponent from "./Components/Language";
 import {toast} from "react-toastify";
 import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg";
 import {ReactComponent as Crew3Icon} from "@/Assets/Images/Social/Crew3.svg";
+import Notifications from "@/Components/Header/Components/Notification";
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -256,6 +257,9 @@ function Header() {
           <img src="/images/logo-icon.svg" className="me-1" alt="mmo crypto" style={{"width": "24px"}} />
           <span>$0</span>
         </div> */}
+        <div className="stack d-none d-md-flex align-items-center">
+          <Notifications />
+        </div>
         <div className="stack d-none d-md-flex align-items-center">
           <WalletInteractComponent />
         </div>
