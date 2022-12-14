@@ -14,7 +14,7 @@ export default function LaunchpadProjectDetailsScreen() {
   const {id} = useParams();
   const [settings, setSettings] = useState<Settings>({
     "dots": true,
-    "infinite": true,
+    "infinite": false,
     "speed": 500,
     "slidesToShow": 1,
     "slidesToScroll": 1,
