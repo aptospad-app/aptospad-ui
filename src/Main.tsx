@@ -22,6 +22,8 @@ import {
   ONTOWalletAdapter,
   // BloctoWalletAdapter,
   SafePalWalletAdapter
+  // FoxWalletAdapter,
+  // CloverWalletAdapter
 } from "@manahippo/aptos-wallet-adapter";
 
 import LoadingSpinner from "./Components/LoadingSpinner";
@@ -33,6 +35,7 @@ const App = React.lazy(() => import("./App"));
 const HomeScreen = React.lazy(() => import("./Pages/Home"));
 const ProjectsScreen = React.lazy(() => import("./Pages/Projects"));
 const ProjectDetailsScreen = React.lazy(() => import("./Pages/ProjectDetails"));
+const ProjectDetails2Screen = React.lazy(() => import("./Pages/ProjectDetails2"));
 const StakingScreen = React.lazy(() => import("./Pages/Staking"));
 const CommunityVotingScreen = React.lazy(() => import("./Pages/CommunityVoting"));
 const GovernanceScreen = React.lazy(() => import("./Pages/Governance"));
@@ -63,6 +66,8 @@ export default function Main() {
     new ONTOWalletAdapter(),
     // new BloctoWalletAdapter(),
     new SafePalWalletAdapter()
+    // new FoxWalletAdapter(),
+    // new CloverWalletAdapter()
   ];
 
   /**
@@ -99,6 +104,7 @@ export default function Main() {
                 <Route index element={<HomeScreen />} />
                 <Route path="ido-projects" element={<ProjectsScreen />} />
                 <Route path="projects/:id" element={<ProjectDetailsScreen />} />
+                <Route path="project/:id" element={<ProjectDetails2Screen />} />
                 <Route path="staking" element={<StakingScreen />} />
                 <Route path="community-voting" element={<CommunityVotingScreen />} />
                 <Route path="governance" element={<GovernanceScreen />} />

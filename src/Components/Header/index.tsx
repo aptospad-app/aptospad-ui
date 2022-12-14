@@ -242,7 +242,7 @@ function Header() {
           <li className="d-flex align-items-center mx-2">
             <NavLink
               to="/buy-test"
-              className="cbtn btn-gradient-blue py-1"
+              className="cbtn btn-gradient-blue py-1 text-white"
               style={{"height": "initial"}}
             >
               Testnet

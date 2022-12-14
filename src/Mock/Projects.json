@@ -1,0 +1,26 @@
+{
+  "1": {
+    "status": "upcoming",
+    "participants": "",
+    "totalRaise": "500.000",
+    "maxAllocation": "500",
+    "votes": "4000",
+    "likes": "5678"
+  },
+  "2": {
+    "status": "open",
+    "participants": "",
+    "totalRaise": "500.000",
+    "maxAllocation": "450",
+    "votes": "",
+    "likes": "1500"
+  },
+  "3": {
+    "status": "funded",
+    "participants": "",
+    "totalRaise": "500.000",
+    "maxAllocation": "",
+    "votes": "",
+    "likes": ""
+  }
+}

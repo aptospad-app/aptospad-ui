@@ -30,9 +30,8 @@ $formPadding: 25;
         margin-bottom: 30px;
         #common {
           padding: 15px;
-          border: 1px solid #72f7cd;
+          @include borderAndBgGradient;
           border-radius: 11px;
-          background-image: linear-gradient(to right, #001d36, #022038, #072b40, #103d4c, #1d555d, #2e7573);
           margin-bottom: 30px;
 
           .social {

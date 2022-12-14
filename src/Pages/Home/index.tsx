@@ -3,7 +3,6 @@ import style from "./index.module.scss";
 import {useTranslation} from "react-i18next";
 import ReactTooltip from "react-tooltip";
 import Card from "./Components/Card";
-import Project from "./Components/Project";
 import {ITF_WhyChooseThisToken} from "@/TS";
 import Newsletter from "@/Components/Newsletter";
 
@@ -100,32 +99,6 @@ export default function HomeScreen() {
         </div>
 
         <div id={`${style["block-4"]}`}>
-          <h2 className={`${style["title"]} text-center fw-bold mb-5`}>Upcoming IDOs</h2>
-          <div className={`${style["wrap"]} container-fluid`}>
-            <div className="row">
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project id={"1"} />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project id={"1"} />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project id={"1"} />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project id={"1"} />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project id={"1"} />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4 mb-5">
-                <Project id={"1"} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id={`${style["block-5"]}`}>
           <div className={`${style["banner"]} d-flex justify-content-center`}>
             <img src="/images/shake-hands-icon.png" alt="" />
           </div>

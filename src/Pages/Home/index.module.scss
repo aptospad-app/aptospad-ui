@@ -38,13 +38,8 @@
           justify-content: center;
 
           .title {
+            @include textGradient;
             font-size: 25px;
-            background: linear-gradient(180deg, white 0%, rgb(96, 213, 220) 100%);
-            // background: linear-gradient(90deg, rgb(127,225,65) 0%, rgb(38,212,239) 100%);
-            // background: linear-gradient(271.72deg, #a2facf 7.09%, #64acff 96.61%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
             @include MinWidth(sm) {
               font-size: 30px;
@@ -120,16 +115,6 @@
   }
 
   #block-4 {
-    padding-top: 70px;
-    padding-bottom: 70px;
-    border-bottom: 1px solid rgba(10, 140, 233, 0.5);
-    
-    .wrap {
-      max-width: 1200px;
-    }
-  }
-
-  #block-5 {
     padding-top: 70px;
 
     .banner {
