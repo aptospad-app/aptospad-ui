@@ -115,21 +115,21 @@ export default function LaunchpadProjectDetailsScreen() {
                   <div>
                     <img
                       className={style["img"]}
-                      src="/images/demo-project-banners/banner-1.png"
+                      src="/images/demo-project-banners/sbanner-1.png"
                       alt=""
                     />
                   </div>
                   <div>
                     <img
                       className={style["img"]}
-                      src="/images/demo-project-banners/banner-2.png"
+                      src="/images/demo-project-banners/sbanner-2.png"
                       alt=""
                     />
                   </div>
                   <div>
                     <img
                       className={style["img"]}
-                      src="/images/demo-project-banners/banner-3.png"
+                      src="/images/demo-project-banners/sbanner-3.png"
                       alt=""
                     />
                   </div>
