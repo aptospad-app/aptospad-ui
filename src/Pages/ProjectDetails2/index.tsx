@@ -115,21 +115,21 @@ export default function LaunchpadProjectDetailsScreen() {
                   <div>
                     <img
                       className={style["img"]}
-                      src="https://academy-public.coinmarketcap.com/optimized-uploads/92ac70eb0ab84ab5a400d804eac10cb2.png"
+                      src="/images/demo-project-banners/banner-1.png"
                       alt=""
                     />
                   </div>
                   <div>
                     <img
                       className={style["img"]}
-                      src="https://academy-public.coinmarketcap.com/optimized-uploads/149e3939ba1449f1980cf87f664ceec6.jpg"
+                      src="/images/demo-project-banners/banner-2.png"
                       alt=""
                     />
                   </div>
                   <div>
                     <img
                       className={style["img"]}
-                      src="https://academy-public.coinmarketcap.com/optimized-uploads/fd5589e77b4842b8b5632590a239c6e4.png"
+                      src="/images/demo-project-banners/banner-3.png"
                       alt=""
                     />
                   </div>
