@@ -14,12 +14,12 @@ export default function Footer() {
           <ul className={`${style["list"]}`}>
             <li className={`${style["title"]}`}>AptosPad</li>
             <li>
-              <a href="https://github.com/aptospad-app" target="_blank" rel="noreferrer">
+              <a href={process.env.GITHUB} target="_blank" rel="noreferrer">
                 Documents
               </a>
             </li>
             <li>
-              <a href="https://forms.gle/1XXuWt819wmcuiv69" target="_blank" rel="noreferrer">
+              <a href={process.env.APPLY_FOR_PROJECT} target="_blank" rel="noreferrer">
                 Apply for project
               </a>
             </li>
@@ -29,12 +29,12 @@ export default function Footer() {
           <ul className={`${style["list"]}`}>
             <li className={`${style["title"]}`}>Follow Us</li>
             <li>
-              <a href="https://twitter.com/Aptospad_DAO" target="_blank" rel="noreferrer">
+              <a href={process.env.TWITTER} target="_blank" rel="noreferrer">
                 Twitter
               </a>
             </li>
             <li>
-              <a href="https://discord.gg/aptospad" target="_blank" rel="noreferrer">
+              <a href={process.env.DISCORD} target="_blank" rel="noreferrer">
                 Discord
               </a>
             </li>

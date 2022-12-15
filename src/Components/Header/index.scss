@@ -18,20 +18,22 @@
   .header-left {
     > ul.menu {
       height: 100%;
+      user-select: none !important;
       > li {
         display: inline-block;
-        cursor: pointer;
         > a,
         > div {
-          display: flex;
-          align-items: center;
-          height: $headerHeight + px;
-          padding: 0 15px;
-          color: rgba(255, 255, 255, 0.96);
-          font-weight: 500;
-          transition: all 0.15s ease 0s;
           position: relative;
           &.menu-item {
+            > .text {
+              display: flex;
+              align-items: center;
+              height: $headerHeight + px;
+              padding: 0 15px;
+              color: rgba(255, 255, 255, 0.96);
+              font-weight: 500;
+              cursor: pointer;
+            }
             &.active > .text,
             &:hover > .text {
               color: rgb(81, 192, 225);
@@ -39,7 +41,7 @@
           }
 
           &:hover {
-            background-color: rgba(255, 255, 255, 0.09) !important;
+            background-color: #1C2332 !important;
           }
           > i.icon {
             font-size: 21px;
@@ -65,6 +67,7 @@
                   padding: 15px 20px;
                   border-radius: 5px;
                   color: #FFF;
+                  transition: all 0.5s linear 0s;
 
                   &:hover,
                   &.active {

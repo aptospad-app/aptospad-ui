@@ -177,7 +177,7 @@ function Header() {
               <div className="container wrap-sub-menu">
                 <div className="row sub-menu">
                   <div className="col-6">
-                    <a href="https://twitter.com/Aptospad_DAO" target="_blank" rel="noreferrer" className="sub-menu-item">
+                    <a href={process.env.TWITTER} target="_blank" rel="noreferrer" className="sub-menu-item">
                       <div className="icon">
                         <i className="fa fa-twitter" aria-hidden="true"></i>
                       </div>
@@ -189,7 +189,7 @@ function Header() {
                   </div>
 
                   <div className="col-6">
-                    <a href="https://discord.gg/aptospad" target="_blank" rel="noreferrer" className="sub-menu-item">
+                    <a href={process.env.DISCORD} target="_blank" rel="noreferrer" className="sub-menu-item">
                       <div className="icon">
                         <DiscordIcon />
                       </div>
@@ -200,8 +200,8 @@ function Header() {
                     </a>
                   </div>
 
-                  <div className="col-6 disabled">
-                    <a href="/" target="_blank" rel="noreferrer" className="sub-menu-item">
+                  <div className="col-6">
+                    <a href={process.env.CREW3} target="_blank" rel="noreferrer" className="sub-menu-item">
                       <div className="icon">
                         <Crew3Icon />
                       </div>
@@ -213,7 +213,7 @@ function Header() {
                   </div>
 
                   <div className="col-6">
-                    <a href="https://medium.com/@aptospaddao" target="_blank" rel="noreferrer" className="sub-menu-item">
+                    <a href={process.env.MEDIUM} target="_blank" rel="noreferrer" className="sub-menu-item">
                       <div className="icon">
                         <i className="fa fa-medium" aria-hidden="true"></i>
                       </div>
@@ -243,7 +243,7 @@ function Header() {
           <li className="d-flex align-items-center mx-2">
             <NavLink
               to="/buy-test"
-              className="cbtn btn-gradient-blue py-1"
+              className="cbtn btn-gradient-blue py-1 text-white"
               style={{"height": "initial"}}
             >
               Testnet

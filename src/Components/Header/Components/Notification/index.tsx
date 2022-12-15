@@ -40,8 +40,8 @@ export const SdkProvider: FC<any> = (props) => {
   const aptosWallet = useWallet();
   const [dialectAptosWalletAdapter, setDialectAptosWalletAdapter] = useState<DialectAptosWalletAdapter | null>(null);
 
-  const dialectConfig: ConfigProps = useMemo(() => ({
-    "environment": "development",
+  const dialectConfig = useMemo(() => ({
+    "environment": process.env.DIALECT_ENVINROMENT as string | "production",
     "dialectCloud": {
       "tokenStore": "local-storage"
     },
@@ -66,7 +66,7 @@ export const SdkProvider: FC<any> = (props) => {
       // eslint-disable-next-line react/react-in-jsx-scope
       <DialectAptosSdk
         aptosConfig={aptosConfig}
-        config={dialectConfig}
+        config={dialectConfig as ConfigProps}
         gate={() => new Promise((resolve) => setTimeout(() => resolve(true), 3000))}
       >
         {props.children}
@@ -101,7 +101,7 @@ export default function Notifications() {
       {/* eslint-disable-next-line react/react-in-jsx-scope */}
       <NotificationsButton
         dialectId="dialect-notifications"
-        dappAddress={"D1ALECTfeCZt9bAbPWtJk7ntv24vDYGPmyS7swp7DY5h"}
+        dappAddress={process.env.DIALECT_DAPP_ADDRESS as string}
         notifications={[
           {
             "name": "Welcome message",

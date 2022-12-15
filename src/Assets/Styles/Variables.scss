@@ -46,10 +46,6 @@ $zIndexAlert: 9999998;
   }
 }
 
-/*
-  How to use:
-  @include textOverflowEllipsis(4);
-*/
 @mixin textOverflowEllipsis($lineNumber) {
   @if $lineNumber > 1 {
     -webkit-box-orient: vertical;
@@ -61,18 +57,6 @@ $zIndexAlert: 9999998;
   white-space: normal;
 }
 
-/*
-  This one let allow define media query within one class.
-  The media queries affect screen widths with the given breakpoint or larger.
-
-  How to use:
-  @include MaxWidth(xs) {
-    padding-bottom: 11px;
-  }
-
-  References:
-  https://css-tricks.com/media-queries-sass-3-2-and-codekit
-*/
 @mixin MinWidth($point) {
   @if $point == xs {
     @media (min-width: 0px) {
@@ -122,4 +106,27 @@ $zIndexAlert: 9999998;
       @content;
     }
   }
+}
+
+@mixin borderAndBgGradient(
+  $borderWidth: 1px,
+  $bgColors: "#2e7573, #1d555d, #103d4c, #072b40, #022038, #001d36",
+  $bgDirection: "to bottom left",
+  $borderColors: "#72f7cd, #72f7cd",
+  $borderDirection: "to bottom"
+) {
+  border: $borderWidth solid transparent;
+  background: linear-gradient(#{$bgDirection}, #{$bgColors}), linear-gradient(#{$borderDirection}, #{$borderColors});
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+@mixin textGradient(
+  $direction: "180deg",
+  $colors: "#FFF, rgb(96, 213, 220)"
+) {
+  background: linear-gradient(#{$direction}, #{$colors});
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
