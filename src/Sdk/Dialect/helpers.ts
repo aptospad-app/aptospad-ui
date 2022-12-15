@@ -14,18 +14,11 @@ import {
   ThreadMessage,
   TokenStore
 } from "@dialectlabs/sdk";
-import {
-  Aptos,
-  AptosSdkFactory,
-  SignMessagePayload,
-  SignMessageResponse,
-  WalletAdapterProps
-} from "@dialectlabs/blockchain-sdk-aptos";
+import {Aptos, AptosSdkFactory, NodeDialectAptosWalletAdapter} from "@dialectlabs/blockchain-sdk-aptos";
 import {DialectCloudConfigProps, Environment} from "@dialectlabs/sdk/src/sdk/sdk.interface";
-import {AccountKeys} from "@dialectlabs/blockchain-sdk-aptos/src/wallet-adapter/dialect-aptos-wallet-adapter.interface";
-import {HexString} from "aptos";
-import {randomBytes} from "tweetnacl";
 import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
+import {aptosWalletToWalletAdapterProps} from "@/Utilities/Wallet.utility";
+import {Buffer} from "buffer";
 
 export function createAptosSdk(walletContext: WalletContextState): DialectSdk<Aptos> {
   const environment: Environment = process.env.DIALECT_ENVINROMENT as Environment;
@@ -37,37 +30,20 @@ export function createAptosSdk(walletContext: WalletContextState): DialectSdk<Ap
   const aptosChain = {
     "rpcUrl": process.env.APTOS_FULL_NODE_URL as string
   };
-  const walletAdapterProps: WalletAdapterProps = {
-    "publicAccount": walletContext.account as AccountKeys,
-    async signMessage(message: string): Promise<string> {
-      const payload: SignMessagePayload = {
-        "message": message,
-        "nonce": HexString.fromUint8Array(randomBytes(32)).toString()
-      };
-      const response = await walletContext.signMessage(payload) as SignMessageResponse;
-      console.log(response);
-      const rawSignature = response.signature;
-      const hexSignature = HexString.ensure(rawSignature);
-
-      return hexSignature.toString();
-    },
-    async signMessagePayload(payload: SignMessagePayload): Promise<SignMessageResponse> {
-      return await walletContext.signMessage(payload) as SignMessageResponse;
-    }
-  };
+  const walletAdapterProps = aptosWalletToWalletAdapterProps(walletContext);
   const blockChainFactory = AptosSdkFactory.create({
     "wallet": {
-      "address": walletAdapterProps.publicAccount.address,
-      "publicKey": walletAdapterProps.publicAccount.publicKey,
-      "signMessage": walletAdapterProps.signMessage,
-      "signMessagePayload": walletAdapterProps.signMessagePayload
+      "address": walletAdapterProps?.publicAccount.address,
+      "publicKey": walletAdapterProps?.publicAccount.publicKey,
+      "signMessage": walletAdapterProps?.signMessage,
+      "signMessagePayload": walletAdapterProps?.signMessagePayload
     }
   });
 
   return Dialect.sdk({
     environment,
     encryptionKeysStore
-  } as ConfigProps, blockChainFactory);
+  } as ConfigProps, AptosSdkFactory.create({"wallet": NodeDialectAptosWalletAdapter.create(Buffer.from("dee3b784d703cb32e97cab2fb956f12b87d3dbc4026b285a41420b40e0b7959e", "hex"))}));
 }
 
 export async function createAptosThread(sdk: DialectSdk<Aptos>, recipient: string): Promise<Thread> {

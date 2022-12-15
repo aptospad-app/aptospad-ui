@@ -1,8 +1,10 @@
 import {
-  ConfigProps, defaultVariables,
+  ConfigProps,
+  defaultVariables,
   DialectNoBlockchainSdk,
   DialectThemeProvider,
-  DialectUiManagementProvider, IncomingThemeVariables,
+  DialectUiManagementProvider,
+  IncomingThemeVariables,
   NotificationsButton
 } from "@dialectlabs/react-ui";
 import {FC, useEffect, useMemo, useState} from "react";
@@ -10,11 +12,11 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {
   DialectAptosWalletAdapter
 } from "@dialectlabs/blockchain-sdk-aptos/src/wallet-adapter/dialect-aptos-wallet-adapter.interface";
-import {AptosConfigProps} from "@dialectlabs/blockchain-sdk-aptos";
 import {aptosWalletToDialectWallet} from "@/Utilities/Wallet.utility";
 import {DialectAptosSdk} from "@dialectlabs/react-sdk-blockchain-aptos";
 import "./index.scss";
 import {DialectDappsIdentityResolver} from "@dialectlabs/identity-dialect-dapps";
+import {createAptosSdk} from "@/Sdk/Dialect/helpers";
 
 export const themeVariables: IncomingThemeVariables = {
   "dark": {
@@ -50,8 +52,7 @@ export const SdkProvider: FC<any> = (props) => {
     }
   }), []);
 
-  // @ts-ignore
-  const aptosConfig: AptosConfigProps = useMemo(() => ({
+  const aptosConfig = useMemo(() => ({
     "wallet": dialectAptosWalletAdapter
   }), [dialectAptosWalletAdapter]);
 
@@ -93,7 +94,6 @@ const DialectProviders: FC<any> = ({children}) => {
 };
 
 export default function Notifications() {
-  const walletContext = useWallet();
 
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
