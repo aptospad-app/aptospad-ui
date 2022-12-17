@@ -23,6 +23,14 @@ export class HippoSwap {
     this.coinList = new CoinListClient(network as NetworkType)
   }
 
+  listCoin = async (): Promise<any> => {
+    try {
+      return this.coinList.getCoinInfoList()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   aggListQuotes = async (fromSymbol: string, toSymbol: string, inputUiAmt: string): Promise<DetailedRouteAndQuote | null> => {
     console.log("Getting best quote local...");
