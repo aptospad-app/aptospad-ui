@@ -5,7 +5,7 @@ import {
   DialectThemeProvider,
   DialectUiManagementProvider,
   IncomingThemeVariables,
-  NotificationsButton
+  SubscribeButton
 } from "@dialectlabs/react-ui";
 import {FC, useEffect, useMemo, useState} from "react";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
@@ -14,10 +14,8 @@ import {
 } from "@dialectlabs/blockchain-sdk-aptos/src/wallet-adapter/dialect-aptos-wallet-adapter.interface";
 import {aptosWalletToDialectWallet} from "@/Utilities/Wallet.utility";
 import {DialectAptosSdk} from "@dialectlabs/react-sdk-blockchain-aptos";
-import {DialectDappsIdentityResolver} from "@dialectlabs/identity-dialect-dapps";
-
 import "./index.scss";
-import "tailwindcss/tailwind.css";
+import {DialectDappsIdentityResolver} from "@dialectlabs/identity-dialect-dapps";
 
 export const themeVariables: IncomingThemeVariables = {
   "dark": {
@@ -84,7 +82,7 @@ const DialectProviders: FC<any> = ({children}) => {
     // eslint-disable-next-line react/react-in-jsx-scope
     <SdkProvider>
       {/* eslint-disable-next-line react/jsx-no-undef,react/react-in-jsx-scope */}
-      <DialectThemeProvider theme={"light"} >
+      <DialectThemeProvider theme={"light"} variables={themeVariables}>
         {/* eslint-disable-next-line react/react-in-jsx-scope */}
         <DialectUiManagementProvider>
           {children}
@@ -94,22 +92,26 @@ const DialectProviders: FC<any> = ({children}) => {
   );
 };
 
-export default function Notifications() {
+export default function Subscribe() {
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <DialectProviders>
       {/* eslint-disable-next-line react/react-in-jsx-scope */}
-      <NotificationsButton
-        dialectId="dialect-notifications"
-        dappAddress={process.env.DIALECT_DAPP_ADDRESS as string}
+      <SubscribeButton
+        dialectId="dialect-subscribe"
         notifications={[
           {
             "name": "Welcome message",
             "detail": "On signup"
           }
         ]}
+        channels={["web3", "email", "sms", "telegram"]}
         pollingInterval={15000}
-        channels={["web3", "email", "sms"]}
+        onWalletConnect={() => {
+          console.log("Subscribe onWalletConnect....");
+        }}
+        label="Subscribe to dApp updates"
+        dappAddress={process.env.DIALECT_DAPP_ADDRESS as string}
       />
     </DialectProviders>
   );

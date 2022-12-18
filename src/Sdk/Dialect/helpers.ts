@@ -3,7 +3,7 @@
 */
 import {
   ConfigProps,
-  CreateThreadCommand,
+  CreateThreadCommand, Dapp,
   Dialect,
   DialectSdk,
   EncryptionKeysStore,
@@ -16,34 +16,30 @@ import {
 } from "@dialectlabs/sdk";
 import {Aptos, AptosSdkFactory, NodeDialectAptosWalletAdapter} from "@dialectlabs/blockchain-sdk-aptos";
 import {DialectCloudConfigProps, Environment} from "@dialectlabs/sdk/src/sdk/sdk.interface";
-import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
-import {aptosWalletToWalletAdapterProps} from "@/Utilities/Wallet.utility";
-import {Buffer} from "buffer";
 
-export function createAptosSdk(walletContext: WalletContextState): DialectSdk<Aptos> {
+export function createAptosSdk(keyStore?: string): DialectSdk<Aptos> {
   const environment: Environment = process.env.DIALECT_ENVINROMENT as Environment;
   const dialectCloud: DialectCloudConfigProps = {
-    "url": process.env.DIALECT_URL as string,
     "tokenStore": TokenStore.createInMemory()
   };
   const encryptionKeysStore = EncryptionKeysStore.createInMemory();
-  const aptosChain = {
-    "rpcUrl": process.env.APTOS_FULL_NODE_URL as string
-  };
-  const walletAdapterProps = aptosWalletToWalletAdapterProps(walletContext);
-  const blockChainFactory = AptosSdkFactory.create({
-    "wallet": {
-      "address": walletAdapterProps?.publicAccount.address,
-      "publicKey": walletAdapterProps?.publicAccount.publicKey,
-      "signMessage": walletAdapterProps?.signMessage,
-      "signMessagePayload": walletAdapterProps?.signMessagePayload
-    }
-  });
+  const privateKey = Buffer.from(keyStore || process.env.DIALECT_KEY_STORE as string, "hex");
+  const sdkFactory = AptosSdkFactory.create({"wallet": NodeDialectAptosWalletAdapter.create(privateKey)});
 
   return Dialect.sdk({
     environment,
-    encryptionKeysStore
-  } as ConfigProps, AptosSdkFactory.create({"wallet": NodeDialectAptosWalletAdapter.create(Buffer.from("dee3b784d703cb32e97cab2fb956f12b87d3dbc4026b285a41420b40e0b7959e", "hex"))}));
+    encryptionKeysStore,
+    dialectCloud
+  } as ConfigProps, sdkFactory);
+}
+
+export async function createSdkDapp(sdk: DialectSdk<Aptos>): Promise<Dapp> {
+  const dapp = await sdk.dapps.find();
+
+  return dapp || await sdk.dapps.create({
+    "name": "Aptospad Dapp",
+    "description": "Aptospad sdk dapp"
+  });
 }
 
 export async function createAptosThread(sdk: DialectSdk<Aptos>, recipient: string): Promise<Thread> {
