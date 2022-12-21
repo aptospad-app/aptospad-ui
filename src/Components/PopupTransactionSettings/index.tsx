@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import style from "./index.module.scss";
 import {useAppDispatch, useAppSelector, LoadingSpinnerActions, TransactionSettingsActions, PopupsActions} from "@/MyRedux";
 import {Modal} from "react-bootstrap";
@@ -13,6 +13,7 @@ export default function PopupReferral() {
   const walletAdapter = useWallet();
   const {loadingSpinner} = useAppSelector((state) => state);
   const transactionSettings = useAppSelector((state) => state.transactionSettings);
+  const slippageDefault = useRef<string[]>(["0.5", "1", "2"]).current;
   const [form, setForm] = useState<ITF_TransactionSettings>({
     "slippage": (transactionSettings.slippage !== "0" && transactionSettings.slippage !== "0.5" && transactionSettings.slippage !== "1" && transactionSettings.slippage !== "2") ? transactionSettings.slippage : "",
     "deadline": transactionSettings.deadline,
@@ -61,27 +62,20 @@ export default function PopupReferral() {
         <div className="mb-4">
           <p className="text-green-1">Slippage Tolerance</p>
           <div className={style["slippage"]}>
-            <button
-              className={`${style["btn-type-1"]} ${transactionSettings.slippage === "0.5" ? style["active"] : ""}`}
-              type="button"
-              onClick={() => dispatch(TransactionSettingsActions.set({"slippage": "0.5"}))}
-            >
-             0.5%
-            </button>
-            <button
-              className={`${style["btn-type-1"]} ${transactionSettings.slippage === "1" ? style["active"] : ""}`}
-              type="button"
-              onClick={() => dispatch(TransactionSettingsActions.set({"slippage": "1"}))}
-            >
-              1%
-            </button>
-            <button
-              className={`${style["btn-type-1"]} ${transactionSettings.slippage === "2" ? style["active"] : ""}`}
-              type="button"
-              onClick={() => dispatch(TransactionSettingsActions.set({"slippage": "2"}))}
-            >
-              2%
-            </button>
+            {
+              slippageDefault.map((item, key) => {
+                return (
+                  <button
+                    key={key}
+                    className={`${style["btn-type-1"]} ${transactionSettings.slippage === item ? style["active"] : ""}`}
+                    type="button"
+                    onClick={() => dispatch(TransactionSettingsActions.set({"slippage": item}))}
+                  >
+                    {item}%
+                  </button>
+                );
+              })
+            }
             <div className={`${style["input-custom"]} input-group`}>
               <input
                 type="text"
