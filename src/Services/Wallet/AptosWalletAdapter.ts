@@ -16,7 +16,7 @@ export class AptosWalletAdapter {
   }
 
   getWalletContextState(): WalletContextState {
-    return this.walletContextState
+    return this.walletContextState;
   }
 
   selectAdapter(walletName: string): WalletAdapter | undefined {

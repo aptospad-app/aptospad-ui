@@ -21,12 +21,15 @@ export default function PopupReferral() {
   });
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const {target} = e;
-    setForm({...form, [target.name]: target.value});
-    if (target.value) {
-      dispatch(TransactionSettingsActions.set({[target.name]: target.value}));
+    const {name, value} = e.currentTarget;
+    if (!CommonUtility.allowSixDigitsAfterDecimalPoint(value)) {
+      return;
+    }
+    setForm({...form, [name]: value});
+    if (value) {
+      dispatch(TransactionSettingsActions.set({[name]: value}));
     } else {
-      dispatch(TransactionSettingsActions.set({[target.name]: "0"}));
+      dispatch(TransactionSettingsActions.set({[name]: "0"}));
     }
   };
 
@@ -69,7 +72,10 @@ export default function PopupReferral() {
                     key={key}
                     className={`${style["btn-type-1"]} ${transactionSettings.slippage === item ? style["active"] : ""}`}
                     type="button"
-                    onClick={() => dispatch(TransactionSettingsActions.set({"slippage": item}))}
+                    onClick={() => {
+                      dispatch(TransactionSettingsActions.set({"slippage": item}));
+                      setForm({...form, "slippage": ""});
+                    }}
                   >
                     {item}%
                   </button>
