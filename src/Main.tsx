@@ -30,6 +30,7 @@ import {
 import LoadingSpinner from "./Components/LoadingSpinner";
 import ChooseWalletPopup from "./Components/ChooseWalletPopup";
 import PopupReferral from "./Components/PopupReferral";
+import PopupTransactionSettings from "./Components/PopupTransactionSettings";
 
 const Splash = React.lazy(() => import("./Components/Splash"));
 const App = React.lazy(() => import("./App"));
@@ -141,6 +142,10 @@ export default function Main() {
         {
           popups.referral.display && <PopupReferral />
         }
+        {
+          popups.transactionSettings.display && <PopupTransactionSettings />
+        }
+
         {
           loadingSpinner && <LoadingSpinner />
         }

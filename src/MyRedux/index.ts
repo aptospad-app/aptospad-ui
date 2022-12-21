@@ -28,7 +28,8 @@ const persistConfig = {
   "debug": process.env.NODE_ENV === "development",
   "whitelist": [
     "wallet",
-    "language"
+    "language",
+    "transactionSettings"
   ]
 };
 
