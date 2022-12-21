@@ -13,6 +13,11 @@
     "check:all": "bash ./Scripts/CheckAll.sh"
   },
   "dependencies": {
+    "@dialectlabs/blockchain-sdk-aptos": "^1.0.3",
+    "@dialectlabs/identity-dialect-dapps": "^1.0.0",
+    "@dialectlabs/react-sdk-blockchain-aptos": "^1.0.0-beta.5",
+    "@dialectlabs/react-ui": "^1.1.0-beta.12",
+    "@dialectlabs/sdk": "^1.4.0",
     "@manahippo/aptos-wallet-adapter": "^1.0.6",
     "@manahippo/hippo-sdk": "^3.3.10",
     "@reduxjs/toolkit": "^1.8.1",
