@@ -12,7 +12,9 @@ import {
   ThreadId,
   ThreadMemberScope,
   ThreadMessage,
-  TokenStore
+  TokenStore,
+  DialectCloudConfigProps,
+  Environment
 } from "@dialectlabs/sdk";
 import {
   Aptos,
@@ -21,7 +23,6 @@ import {
   SignMessageResponse,
   WalletAdapterProps
 } from "@dialectlabs/blockchain-sdk-aptos";
-import {DialectCloudConfigProps, Environment} from "@dialectlabs/sdk/src/sdk/sdk.interface";
 import {AccountKeys} from "@dialectlabs/blockchain-sdk-aptos/src/wallet-adapter/dialect-aptos-wallet-adapter.interface";
 import {HexString} from "aptos";
 import {randomBytes} from "tweetnacl";
