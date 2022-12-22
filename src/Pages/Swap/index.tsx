@@ -118,8 +118,12 @@ export default function Swap() {
 
   return (
     <div id={style["swap"]} className="container">
-      <form className={style["form"]}>
+      <div className="d-flex gap-5 mb-5">
+        <h2 className="h4 text-green-1" role="button">SWAP</h2>
+        <a className="h4 text-green-2" href="https://app.kanalabs.io" target="_blank" rel="noreferrer">CROSS-CHAIN</a>
+      </div>
 
+      <form className={style["form"]}>
         <div className={`${style["input-has-select"]}`} ref={refPay}>
           <label htmlFor="payAmount" className="text-green-1 text-uppercase mb-2 ms-2" role="button">Pay</label>
           <div className={style["wrap"]}>
