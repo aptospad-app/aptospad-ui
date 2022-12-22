@@ -21,6 +21,8 @@ interface ITF_DefaultForm {
   payAmount: string;
   receive: RawCoinInfo;
   receiveAmount: string;
+  maxGas: string;
+  slip: string;
 }
 
 export default function Swap() {
@@ -37,7 +39,9 @@ export default function Swap() {
     "pay": _.find(coinList, (o) => o.symbol.toUpperCase() === "DEVUSDT")!,
     "payAmount": "1",
     "receive": _.find(coinList, (o) => o.symbol.toUpperCase() === "APT")!,
-    "receiveAmount": "1"
+    "receiveAmount": "1",
+    "maxGas": "10000000",
+    "slip": "0"
   };
   const [form, setForm] = useState<ITF_DefaultForm>(defaultForm);
 

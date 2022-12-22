@@ -27,6 +27,20 @@ class HippoSwap extends AptosWalletAdapter {
     this.hippoWalletClient = new HippoWalletClient(client as any, (new HexString(this.getWalletContextState().account?.address as any) as any), {"fullNodeUrl": aptosNodeUrl} as NetworkConfiguration, coinList);
   }
 
+  getBalanceOf = async (tokenFullName: string): Promise<any> => {
+    try {
+      let tokenInfo = coinList.fullnameToCoinInfo[tokenFullName]
+      if(!tokenInfo) {
+        return null
+      }
+      let tokenStore = !!this.hippoWalletClient && this.hippoWalletClient.fullnameToCoinStore[tokenFullName]
+      if (!tokenStore) return null;
+      return tokenStore ? tokenStore.coin.value.toJsNumber() / Math.pow(10, tokenInfo.decimals) : 0;
+    } catch (error) {
+      throw error
+    }
+  }
+
   aggListQuotes = async (fromSymbol: string, toSymbol: string, inputUiAmt: string): Promise<DetailedRouteAndQuote | null> => {
     console.log("Getting best quote local...");
     const agg = await TradeAggregator.create(client as any);
