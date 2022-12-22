@@ -40,7 +40,7 @@ export const SdkProvider: FC<any> = (props) => {
   const [dialectAptosWalletAdapter, setDialectAptosWalletAdapter] = useState<DialectAptosWalletAdapter | null>(null);
 
   const dialectConfig = useMemo(() => ({
-    "environment": process.env.DIALECT_ENVINROMENT as string | "production",
+    "environment": process.env.DIALECT_ENVINROMENT as string | "development",
     "dialectCloud": {
       "tokenStore": "local-storage"
     },
@@ -82,7 +82,7 @@ const DialectProviders: FC<any> = ({children}) => {
     // eslint-disable-next-line react/react-in-jsx-scope
     <SdkProvider>
       {/* eslint-disable-next-line react/jsx-no-undef,react/react-in-jsx-scope */}
-      <DialectThemeProvider theme={"light"} variables={themeVariables}>
+      <DialectThemeProvider theme={"dark"} >
         {/* eslint-disable-next-line react/react-in-jsx-scope */}
         <DialectUiManagementProvider>
           {children}
@@ -92,25 +92,19 @@ const DialectProviders: FC<any> = ({children}) => {
   );
 };
 
-export default function Subscribe() {
+export default function DialectSubscribe() {
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <DialectProviders>
       {/* eslint-disable-next-line react/react-in-jsx-scope */}
       <SubscribeButton
         dialectId="dialect-subscribe"
-        notifications={[
-          {
-            "name": "Welcome message",
-            "detail": "On signup"
-          }
-        ]}
-        channels={["web3", "email", "sms", "telegram"]}
-        pollingInterval={15000}
+        channels={["web3"]}
+        pollingInterval={1500}
         onWalletConnect={() => {
           console.log("Subscribe onWalletConnect....");
         }}
-        label="Subscribe to dApp updates"
+        label="DialectSubscribe to dApp updates"
         dappAddress={process.env.DIALECT_DAPP_ADDRESS as string}
       />
     </DialectProviders>

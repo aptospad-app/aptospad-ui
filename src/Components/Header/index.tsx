@@ -257,9 +257,9 @@ function Header() {
           <img src="/images/logo-icon.svg" className="me-1" alt="mmo crypto" style={{"width": "24px"}} />
           <span>$0</span>
         </div> */}
-        {/* <div className="stack d-none d-md-flex align-items-center"> */}
-        {/*   <Notifications /> */}
-        {/* </div> */}
+        <div className="stack d-none d-md-flex align-items-center">
+          <Notifications />
+        </div>
         <div className="stack d-none d-md-flex align-items-center">
           <WalletInteractComponent />
         </div>

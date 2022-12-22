@@ -16,6 +16,7 @@ import {
 } from "@dialectlabs/sdk";
 import {Aptos, AptosSdkFactory, NodeDialectAptosWalletAdapter} from "@dialectlabs/blockchain-sdk-aptos";
 import {DialectCloudConfigProps, Environment} from "@dialectlabs/sdk/src/sdk/sdk.interface";
+import {Buffer} from "buffer";
 
 export function createAptosSdk(keyStore?: string): DialectSdk<Aptos> {
   const environment: Environment = process.env.DIALECT_ENVINROMENT as Environment;
@@ -33,7 +34,7 @@ export function createAptosSdk(keyStore?: string): DialectSdk<Aptos> {
   } as ConfigProps, sdkFactory);
 }
 
-export async function createSdkDapp(sdk: DialectSdk<Aptos>): Promise<Dapp> {
+export async function createAptosDapp(sdk: DialectSdk<Aptos>): Promise<Dapp> {
   const dapp = await sdk.dapps.find();
 
   return dapp || await sdk.dapps.create({

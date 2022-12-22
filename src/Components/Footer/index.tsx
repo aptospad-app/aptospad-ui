@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./index.module.scss";
 import {Link} from "react-router-dom";
+import DialectSubscribe from "@/Components/Footer/Components/Subscribe";
 
 export default function Footer() {
   return (
@@ -9,6 +10,7 @@ export default function Footer() {
         <div className="col-12 col-md-6">
           <img className="mb-4" src="/images/logo-icon-text.svg" alt="" style={{"height": "45px"}} />
           <p className={style["contact"]}>Contact: hello@aptospad.app</p>
+          <DialectSubscribe/>
         </div>
         <div className="col-12 col-md-2">
           <ul className={`${style["list"]}`}>

@@ -108,8 +108,8 @@ export default function Notifications() {
             "detail": "On signup"
           }
         ]}
-        pollingInterval={15000}
-        channels={["web3", "email", "sms"]}
+        pollingInterval={1500}
+        channels={["web3"]}
       />
     </DialectProviders>
   );
