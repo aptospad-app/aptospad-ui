@@ -13,6 +13,10 @@ import _ from "lodash";
 import {CommonUtility, CustomHookUtility} from "@/Utilities";
 import {toast} from "react-toastify";
 import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
+import {readConfig} from "@manahippo/hippo-sdk/dist/tools/utils";
+import {TradeAggregator} from "@manahippo/hippo-sdk";
+import {DetailedRouteAndQuote} from "@manahippo/hippo-sdk/dist/aggregator/types";
+import {TxnBuilderTypes} from "aptos";
 
 interface ITF_DefaultForm {
   pay: RawCoinInfo;
@@ -45,6 +49,7 @@ export default function Swap() {
   const [balancePaySwap, setBalancePaySwap] = useState<number>(0);
   const [balanceReceiveSwap, setBalanceReceiveSwap] = useState<number>(0);
   const [rateSwap, setRateSwap] = useState<number>(1);
+  const [quotes, setQuotes] = useState<DetailedRouteAndQuote[]>([]);
 
   const toggleCoinList = (which: "pay" | "receive") => {
     if (which === "pay") {
@@ -64,6 +69,24 @@ export default function Swap() {
     }));
   };
 
+  // compute a list of quotes (ordered by output), for fromSymbol -> toSymbol
+  const aggListQuotes = async (fromSymbol: string, toSymbol: string, inputUiAmt: string) => {
+    const {client} = readConfig();
+    const agg = await TradeAggregator.create(client);
+    const xCoinInfo = agg.coinListClient.getCoinInfoBySymbol(fromSymbol);
+    const yCoinInfo = agg.coinListClient.getCoinInfoBySymbol(toSymbol);
+    const inputAmt = parseFloat(inputUiAmt);
+    const quotes = await agg.getQuotes(inputAmt, xCoinInfo[0], yCoinInfo[0]);
+    for (const quote of quotes) {
+      console.log("###########");
+      quote.route.debugPrint();
+      console.log(`Quote input: ${quote.quote.inputUiAmt}`);
+      console.log(`Quote output: ${quote.quote.outputUiAmt}`);
+    }
+
+    return quotes;
+  };
+
   const onSwapIconClicked = () => {
     const pay = form.receive;
     const receive = form.pay;
@@ -71,15 +94,20 @@ export default function Swap() {
     console.log(pay);
 
     setForm({
-      ...form, ...{
+      ...form,
+      ...{
         pay,
         receive
       }
     });
   };
 
-  const onSwapButtonClicked = () => {
+  const onSwapButtonClicked = async () => {
     console.log(form, transactionSettings);
+    const payload = quotes[0].route.makePayload(Number(form.payAmount), 0);
+    const account = walletAdapter.account?.address;
+    const {client} = readConfig();
+    await sendPayloadTx(client, account, payload as TxnBuilderTypes.TransactionPayloadEntryFunction);
   };
 
   const onSelectCoin = (type: "pay" | "receive", item: RawCoinInfo) => {
@@ -88,7 +116,8 @@ export default function Swap() {
         const pay = item;
         const receive = form.pay;
         setForm({
-          ...form, ...{
+          ...form,
+          ...{
             pay,
             receive
           }
@@ -104,7 +133,8 @@ export default function Swap() {
         const pay = form.receive;
         const receive = item;
         setForm({
-          ...form, ...{
+          ...form,
+          ...{
             pay,
             receive
           }
@@ -127,7 +157,8 @@ export default function Swap() {
         const payAmount = value;
         const receiveAmount = (parseFloat(value) * rateSwap).toFixed(6).toString();
         setForm({
-          ...form, ...{
+          ...form,
+          ...{
             payAmount,
             receiveAmount
           }
@@ -136,7 +167,8 @@ export default function Swap() {
         const receiveAmount = value;
         const payAmount = (parseFloat(value) / rateSwap).toFixed(6).toString();
         setForm({
-          ...form, ...{
+          ...form,
+          ...{
             payAmount,
             receiveAmount
           }
@@ -163,6 +195,9 @@ export default function Swap() {
           const priceOfCoinPay = prices[coinPayId]["usd"];
           const priceOfCoinReceive = prices[coinReceiveId]["usd"];
           setRateSwap(Number(priceOfCoinPay) / Number(priceOfCoinReceive));
+          const quotes = await aggListQuotes(form.pay.symbol, form.receive.symbol, form.payAmount);
+          setQuotes(quotes);
+          console.log(quotes);
         } catch (error) {
           setBalancePaySwap(0);
           setBalanceReceiveSwap(0);
@@ -228,9 +263,7 @@ export default function Swap() {
             </ul>
           </div>
         </div>
-
-        <img className={style["swap-icon"]} src="/images/swap.svg" alt="" role="button" onClick={() => onSwapIconClicked()}/>
-
+        <img className={style["swap-icon"]} src="/images/swap.svg" alt="" role="button" onClick={onSwapIconClicked}/>
         <div className={`${style["input-has-select"]}`} ref={refReceive}>
           <label htmlFor="receiveAmount" className="text-green-1 text-uppercase mb-2 ms-2" role="button">Receive</label>
           <div className={style["wrap"]}>
