@@ -1,20 +1,18 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import style from "./index.module.scss";
-import {Link} from "react-router-dom";
 import {ReactComponent as TelegramIcon} from "@/Assets/Images/Social/Telegram.svg";
 import {ReactComponent as TwitterIcon} from "@/Assets/Images/Social/Twitter.svg";
-import {ReactComponent as SpeakerIcon} from "@/Assets/Images/Social/Speaker.svg";
 import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg";
 import {ReactComponent as GlobalIcon} from "@/Assets/Images/Social/Global.svg";
 import {ReactComponent as PaperIcon} from "@/Assets/Images/Social/Paper.svg";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
-import {useAppDispatch, useAppSelector, TransactionSettingsActions, PopupsActions} from "@/MyRedux";
+import {PopupsActions, useAppDispatch, useAppSelector} from "@/MyRedux";
 import {HippoSwapService} from "@/Services";
 import {RawCoinInfo} from "@manahippo/coin-list";
 import _ from "lodash";
 import {CommonUtility, CustomHookUtility} from "@/Utilities";
-import {AptosWalletAdapter} from "@/Services/Wallet/AptosWalletAdapter";
 import {toast} from "react-toastify";
+import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
 
 interface ITF_DefaultForm {
   pay: RawCoinInfo;
@@ -37,13 +35,16 @@ export default function Swap() {
   const coinList = useRef<RawCoinInfo[]>(HippoSwapService.coinList.getCoinInfoList()).current;
   const defaultForm: ITF_DefaultForm = {
     "pay": _.find(coinList, (o) => o.symbol.toUpperCase() === "DEVUSDT")!,
-    "payAmount": "1",
+    "payAmount": "0",
     "receive": _.find(coinList, (o) => o.symbol.toUpperCase() === "APT")!,
-    "receiveAmount": "1",
+    "receiveAmount": "0",
     "maxGas": "10000000",
     "slip": "0"
   };
   const [form, setForm] = useState<ITF_DefaultForm>(defaultForm);
+  const [balancePaySwap, setBalancePaySwap] = useState<number>(0);
+  const [balanceReceiveSwap, setBalanceReceiveSwap] = useState<number>(0);
+  const [rateSwap, setRateSwap] = useState<number>(1);
 
   const toggleCoinList = (which: "pay" | "receive") => {
     if (which === "pay") {
@@ -57,14 +58,24 @@ export default function Swap() {
 
   const openChooseWalletPopup = () => {
     walletAdapter.disconnect();
-    dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": true}));
+    dispatch(PopupsActions.togglePopup({
+      "popupName": "chooseWallet",
+      "display": true
+    }));
   };
 
   const onSwapIconClicked = () => {
     const pay = form.receive;
     const receive = form.pay;
 
-    setForm({...form, ...{pay, receive}});
+    console.log(pay);
+
+    setForm({
+      ...form, ...{
+        pay,
+        receive
+      }
+    });
   };
 
   const onSwapButtonClicked = () => {
@@ -76,17 +87,33 @@ export default function Swap() {
       if (item.symbol === form.receive.symbol) {
         const pay = item;
         const receive = form.pay;
-        setForm({...form, ...{pay, receive}});
+        setForm({
+          ...form, ...{
+            pay,
+            receive
+          }
+        });
       } else {
-        setForm({...form, [type]: item});
+        setForm({
+          ...form,
+          [type]: item
+        });
       }
     } else {
       if (item.symbol === form.pay.symbol) {
         const pay = form.receive;
         const receive = item;
-        setForm({...form, ...{pay, receive}});
+        setForm({
+          ...form, ...{
+            pay,
+            receive
+          }
+        });
       } else {
-        setForm({...form, [type]: item});
+        setForm({
+          ...form,
+          [type]: item
+        });
       }
     }
 
@@ -98,27 +125,51 @@ export default function Swap() {
     if (CommonUtility.allowSixDigitsAfterDecimalPoint(value)) {
       if (type === "pay") {
         const payAmount = value;
-        const receiveAmount = (parseFloat(value) * 2).toString();
-        setForm({...form, ...{payAmount, receiveAmount}});
+        const receiveAmount = (parseFloat(value) * rateSwap).toFixed(6).toString();
+        setForm({
+          ...form, ...{
+            payAmount,
+            receiveAmount
+          }
+        });
       } else {
         const receiveAmount = value;
-        const payAmount = (parseFloat(value) / 2).toString();
-        setForm({...form, ...{payAmount, receiveAmount}});
+        const payAmount = (parseFloat(value) / rateSwap).toFixed(6).toString();
+        setForm({
+          ...form, ...{
+            payAmount,
+            receiveAmount
+          }
+        });
       }
     }
   };
 
   useEffect(() => {
-    if (walletAdapter.connected) {
-      const newWalletAdapter = new AptosWalletAdapter(walletAdapter);
-      try {
-        const payBalance = newWalletAdapter.resourceOf(walletAdapter.account?.address!, form.pay.token_type.type);
-        const receiveBalance = newWalletAdapter.resourceOf(walletAdapter.account?.address!, form.receive.token_type.type);
-      } catch (error) {
+    (async () => {
+      if (walletAdapter.connected) {
+        const businessService = new AptospadBusinessService(walletAdapter);
+        try {
+          const payBalance = await businessService.getBalanceOf(walletAdapter.account?.address!, form.pay.token_type.type);
+          const receiveBalance = await businessService.getBalanceOf(walletAdapter.account?.address!, form.receive.token_type.type);
+          setBalancePaySwap(Number(payBalance) / Math.pow(10, form.pay.decimals));
+          setBalanceReceiveSwap(Number(receiveBalance) / Math.pow(10, form.receive.decimals));
 
+          const coinPayId = form.pay.coingecko_id;
+          const coinReceiveId = form.receive.coingecko_id;
+          const prices = await businessService.getPriceFromCoinGecko([coinPayId, coinReceiveId], ["usd"]);
+          console.log(prices);
+
+          const priceOfCoinPay = prices[coinPayId]["usd"];
+          const priceOfCoinReceive = prices[coinReceiveId]["usd"];
+          setRateSwap(Number(priceOfCoinPay) / Number(priceOfCoinReceive));
+        } catch (error) {
+          setBalancePaySwap(0);
+          setBalanceReceiveSwap(0);
+        }
       }
-    }
-  }, [walletAdapter.connected]);
+    })();
+  }, [walletAdapter.connected, form]);
 
   return (
     <div id={style["swap"]} className="container">
@@ -133,7 +184,7 @@ export default function Swap() {
           <div className={style["wrap"]}>
             <div className={style["select"]} onClick={() => toggleCoinList("pay")}>
               <div className={style["line-1"]}>
-                <img src={form.pay.logo_url} alt="" />
+                <img src={form.pay.logo_url} alt=""/>
                 <span>{form.pay.symbol}</span>
               </div>
 
@@ -144,7 +195,7 @@ export default function Swap() {
             <div className={style["input"]}>
               <div className={style["line-1"]}>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="0.00"
                   id="payAmount"
                   name="payAmount"
@@ -154,7 +205,8 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected && <div className={style["line-2"]}>{CommonUtility.commaFormatter("1000")}</div>
+                walletAdapter.connected &&
+                <div className={style["line-2"]}>{CommonUtility.commaFormatter(balancePaySwap)}</div>
               }
             </div>
           </div>
@@ -164,7 +216,7 @@ export default function Swap() {
                 coinList.map((item, key) => {
                   return (
                     <li className={`${style["option"]}`} key={key} onClick={() => onSelectCoin("pay", item)}>
-                      <img src={item.logo_url} alt="" />
+                      <img src={item.logo_url} alt=""/>
                       <div className={style["token"]}>
                         <p className={style["symbol"]}>{item.symbol}</p>
                         <p className={style["name"]}>{item.name}</p>
@@ -177,14 +229,14 @@ export default function Swap() {
           </div>
         </div>
 
-        <img className={style["swap-icon"]} src="/images/swap.svg" alt="" role="button" onClick={() => onSwapIconClicked()} />
+        <img className={style["swap-icon"]} src="/images/swap.svg" alt="" role="button" onClick={() => onSwapIconClicked()}/>
 
         <div className={`${style["input-has-select"]}`} ref={refReceive}>
           <label htmlFor="receiveAmount" className="text-green-1 text-uppercase mb-2 ms-2" role="button">Receive</label>
           <div className={style["wrap"]}>
             <div className={style["select"]} onClick={() => toggleCoinList("receive")}>
               <div className={style["line-1"]}>
-                <img src={form.receive.logo_url} alt="" />
+                <img src={form.receive.logo_url} alt=""/>
                 <span>{form.receive.symbol}</span>
               </div>
               {
@@ -195,7 +247,7 @@ export default function Swap() {
             <div className={style["input"]}>
               <div className={style["line-1"]}>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="0.00"
                   id="receiveAmount"
                   name="receiveAmount"
@@ -205,7 +257,8 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected && <div className={style["line-2"]}>{CommonUtility.commaFormatter(2000)}</div>
+                walletAdapter.connected &&
+                <div className={style["line-2"]}>{CommonUtility.commaFormatter(balanceReceiveSwap)}</div>
               }
             </div>
           </div>
@@ -215,7 +268,7 @@ export default function Swap() {
                 coinList.map((item, key) => {
                   return (
                     <li className={`${style["option"]}`} key={key} onClick={() => onSelectCoin("receive", item)}>
-                      <img src={item.logo_url} alt="" />
+                      <img src={item.logo_url} alt=""/>
                       <div className={style["token"]}>
                         <p className={style["symbol"]}>{item.symbol}</p>
                         <p className={style["name"]}>{item.name}</p>
@@ -231,7 +284,10 @@ export default function Swap() {
         <div
           className={`${style["slip"]} ms-2 mt-1 mb-5 text-green-1 fw-bold`}
           role="button"
-          onClick={() => dispatch(PopupsActions.togglePopup({"popupName": "transactionSettings", "display": true}))}
+          onClick={() => dispatch(PopupsActions.togglePopup({
+            "popupName": "transactionSettings",
+            "display": true
+          }))}
         >
           Slip {transactionSettings.slippage}%
           <i className="fa fa-sliders ms-2" aria-hidden="true"></i>
@@ -265,7 +321,8 @@ export default function Swap() {
           {
             (walletAdapter.connected && form.payAmount && form.receiveAmount) && (
               <button
-                className={`${style["butons"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}
+                disabled={Number(form.payAmount) > balancePaySwap}
+                className={`${style["butons"]} cbtn cbtn-lg cbtn-outline-gradient-blue btn btn-gradient-blue w-50 fw-bold`}
                 type="button"
                 onClick={() => onSwapButtonClicked()}
               >
@@ -278,19 +335,19 @@ export default function Swap() {
 
       <div className={style["icons"]}>
         <a href={process.env.TELEGRAM} target="_blank" rel="noreferrer">
-          <TelegramIcon className={style["icon"]} />
+          <TelegramIcon className={style["icon"]}/>
         </a>
         <a href={process.env.TWITTER} target="_blank" rel="noreferrer">
-          <TwitterIcon className={style["icon"]} />
+          <TwitterIcon className={style["icon"]}/>
         </a>
         <a href={process.env.DISCORD} target="_blank" rel="noreferrer">
-          <DiscordIcon className={style["icon"]} />
+          <DiscordIcon className={style["icon"]}/>
         </a>
         <a href={"/"} target="_blank" rel="noreferrer">
-          <GlobalIcon className={style["icon"]} />
+          <GlobalIcon className={style["icon"]}/>
         </a>
         <a href={"/"} target="_blank" rel="noreferrer">
-          <PaperIcon className={style["icon"]} />
+          <PaperIcon className={style["icon"]}/>
         </a>
       </div>
     </div>

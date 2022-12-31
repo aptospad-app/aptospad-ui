@@ -50,7 +50,7 @@ export default function Buy() {
           const registry = await apdService.getLaunchPadRegistry();
           setTotalBid((registry?.totalBid || 0) / Math.pow(10, 8));
 
-          const priceOfApt = (await apdService.loadPriceOfAPT()).price;
+          const priceOfApt = (await apdService.getPriceOfAPTFromBinance()).price;
           setAptPrice(priceOfApt);
           setTokenPrice(aptPrice / aptToApdRate);
 

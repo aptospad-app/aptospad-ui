@@ -120,7 +120,7 @@ export default function PopupReferral() {
               value={form.maxGasFee}
               onInput={handleInputChange}
             />
-            <span className={`${style["extend"]} input-group-text`}>Gas Units</span>
+            <span className={`${style["extend"]} input-group-text`}>Octa</span>
           </div>
         </div>
       </Modal.Body>
