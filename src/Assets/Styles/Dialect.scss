@@ -1,0 +1,18 @@
+/*
+  Override CSS of Dialect
+*/
+.dialect {
+  .dt-relative {
+    background-color: initial;
+    border: none;
+    width: initial;
+
+    .dt-button {
+      color: rgba(255, 255, 255, 0.6);
+      &:hover {
+        color: #75d8d5 !important;
+        opacity: 1;
+      }
+    }
+  }
+}

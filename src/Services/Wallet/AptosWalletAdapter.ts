@@ -15,6 +15,10 @@ export class AptosWalletAdapter {
     this.aptosClient = new FaucetClient(aptosNodeUrl, aptosFaucetUrl);
   }
 
+  getWalletContextState(): WalletContextState {
+    return this.walletContextState;
+  }
+
   selectAdapter(walletName: string): WalletAdapter | undefined {
     if (!walletName) {
       throw new WalletNameEmpty();
@@ -60,7 +64,7 @@ export class AptosWalletAdapter {
     }
   }
 
-  get faucetClient(): FaucetClient {
+  get client(): FaucetClient {
     return this.aptosClient;
   }
 }

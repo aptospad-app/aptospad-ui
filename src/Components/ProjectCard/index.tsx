@@ -27,7 +27,7 @@ export default function ProjectCard(props: ITF_ProjectCardProps) {
       <Link className={`${style["overlay"]}`} to="/project/1"></Link>
 
       <header className={style["header"]}>
-        <img className={style["banner"]} src="https://academy-public.coinmarketcap.com/optimized-uploads/92ac70eb0ab84ab5a400d804eac10cb2.png" alt="" />
+        <img className={style["banner"]} src="/images/demo-project-banners/sbanner-1.png" alt="" />
         <div className={`${style["wrap-logo"]} ${style[`wrap-logo-${project.status}`]}`}>
           <div className={style["logo"]}>
             <img className={style["icon"]} src="/logo512.png" alt="" />

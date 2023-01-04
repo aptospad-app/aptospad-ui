@@ -3,10 +3,13 @@
 */
 import {
   ConfigProps,
-  CreateThreadCommand, Dapp,
+  CreateThreadCommand,
+  Dapp,
   Dialect,
+  DialectCloudConfigProps,
   DialectSdk,
   EncryptionKeysStore,
+  Environment,
   FindThreadByIdQuery,
   Thread,
   ThreadId,
@@ -15,7 +18,6 @@ import {
   TokenStore
 } from "@dialectlabs/sdk";
 import {Aptos, AptosSdkFactory, NodeDialectAptosWalletAdapter} from "@dialectlabs/blockchain-sdk-aptos";
-import {DialectCloudConfigProps, Environment} from "@dialectlabs/sdk/src/sdk/sdk.interface";
 import {Buffer} from "buffer";
 
 export function createAptosSdk(keyStore?: string): DialectSdk<Aptos> {

@@ -8,8 +8,9 @@
 @import "./ReactTooltip.scss";
 @import "./BootstrapModal.scss";
 @import "./Button.scss";
-@import "~slick-carousel/slick/slick.scss"; 
+@import "~slick-carousel/slick/slick.scss";
 @import "~slick-carousel/slick/slick-theme.scss";
+@import "./Dialect.scss";
 
 html {
   width: 100% !important;
@@ -28,8 +29,7 @@ a {
   text-decoration: none;
 }
 
-a,
-div {
+* {
   &.disabled {
     pointer-events: none;
     cursor: default;
@@ -43,5 +43,9 @@ input:focus {
 }
 
 .text-green-1 {
-  color: #72F7CD;
+  color: #72f7cd !important;
+}
+
+.text-green-2 {
+  color: #04cfa6 !important;
 }

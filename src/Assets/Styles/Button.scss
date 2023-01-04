@@ -19,7 +19,7 @@
   border: 1px solid transparent;
   padding: 5px 20px;
   font-size: 1rem;
-  border-radius: 11px;
+  border-radius: 9px;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 
   &.cbtn-sm {
@@ -38,18 +38,14 @@
     background-image: linear-gradient(hsla(0,0%,100%,0),hsla(0,0%,100%,0)),linear-gradient(0deg, #5AB2F7, #45B9E4, #10CBB2, #04CFA6);
     background-origin: border-box;
     background-clip: content-box,border-box;
-    box-shadow: inset 2px 1000px 1px #03132f;
+    box-shadow: inset 2px 1000px 1px #03132f !important;
 
     &:hover {
-      color: #00f1ff;
+      color: #00f1ff !important;
     }
 
     &.active {
-      color: #00f1ff;
-    }
-
-    &:focus {
-      box-shadow: inset 2px 1000px 1px #03132f !important;
+      color: #00f1ff !important;
     }
   }
 }

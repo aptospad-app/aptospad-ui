@@ -258,10 +258,10 @@ function Header() {
           <span>$0</span>
         </div> */}
         <div className="stack d-none d-md-flex align-items-center">
-          <Notifications />
+          <WalletInteractComponent />
         </div>
         <div className="stack d-none d-md-flex align-items-center">
-          <WalletInteractComponent />
+          <Notifications />
         </div>
         <div className="stack d-flex align-items-center">
           <LanguageComponent />

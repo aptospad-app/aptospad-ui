@@ -5,8 +5,9 @@ interface ITF_Popup {
   data?: any;
 }
 interface ITF_Popups {
-  chooseWallet: ITF_Popup,
-  referral: ITF_Popup
+  chooseWallet: ITF_Popup;
+  referral: ITF_Popup;
+  transactionSettings: ITF_Popup;
 }
 
 interface ITF_Payload {
@@ -20,6 +21,9 @@ const initialState: ITF_Popups = {
     "display": false
   },
   "referral": {
+    "display": false
+  },
+  "transactionSettings": {
     "display": false
   }
 };

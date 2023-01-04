@@ -5,7 +5,8 @@ import BaseService from "@/Services/Base.service";
 
 const APTOSPAD_SOURCE_ADDRESS = process.env.APTOSPAD_SOURCE_ADDRESS as string;
 const APTOSPAD_ADDRESS = process.env.APTOSPAD_ADDRESS as string;
-const PRICE_URL = process.env.PRICE_URL as string;
+const BINANCE_PRICE_URL = (process.env.BINANCE_URL as string) + "/api/v3/ticker/price";
+const COINGECKO_PRICE_URL = (process.env.API_COINGECKO_URL as string) + "/api/v3/simple/price";
 
 export class AptospadBusinessService extends BaseService {
   private walletAdapter: AptosWalletAdapter;
@@ -13,6 +14,10 @@ export class AptospadBusinessService extends BaseService {
   constructor(walletContext: WalletContextState) {
     super();
     this.walletAdapter = new AptosWalletAdapter(walletContext);
+  }
+
+  get adapter(): AptosWalletAdapter {
+    return this.walletAdapter;
   }
 
   async withdrawAptosPad(debitAddress: string, amount: BigInt): Promise<any> {
@@ -24,6 +29,20 @@ export class AptospadBusinessService extends BaseService {
     };
 
     return this.walletAdapter.signAndSubmitTransaction(payload);
+  }
+
+  async getPriceFromCoinGecko(coinIds: string[], currencies: string[]): Promise<any> {
+    try {
+      const idsParam = coinIds.join(",");
+      const currenciesParam = currencies.join(",");
+      const response = await this.axiosInstance().get(`${COINGECKO_PRICE_URL}?ids=${idsParam}&vs_currencies=${currenciesParam}`);
+
+      return response.data;
+    } catch (error: any) {
+      console.error(error);
+
+      return {};
+    }
   }
 
   async bidAptosPad(amount: BigInt): Promise<{ hash: string } | undefined> {
@@ -42,6 +61,19 @@ export class AptospadBusinessService extends BaseService {
       const resource = await this.walletAdapter.resourceOf(accountAddress, "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>");
 
       return (resource?.data as any)?.coin?.value as string;
+    } catch (error: any) {
+      console.error(error);
+
+      return "0";
+    }
+  }
+
+  async getBalanceOf(accountAddress: MaybeHexString, coinType: string): Promise<string> {
+    try {
+      const resourceType = `0x1::coin::CoinStore<${coinType}>`;
+      const resource = await this.walletAdapter.resourceOf(accountAddress, resourceType);
+
+      return (resource.data as any).coin.value;
     } catch (error: any) {
       console.error(error);
 
@@ -101,9 +133,9 @@ export class AptospadBusinessService extends BaseService {
     }
   }
 
-  async loadPriceOfAPT(): Promise<{ price: number }> {
+  async getPriceOfAPTFromBinance(): Promise<{ price: number }> {
     try {
-      const response = await this.axiosInstance().get(`${PRICE_URL}?symbol=APTUSDT`);
+      const response = await this.axiosInstance().get(`${BINANCE_PRICE_URL}?symbol=APTUSDT`);
 
       return response?.data as { price: number };
     } catch (error: any) {

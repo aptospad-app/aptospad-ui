@@ -40,6 +40,11 @@ export default function Footer() {
                 Discord
               </a>
             </li>
+            <li>
+              <a href={process.env.TELEGRAM} target="_blank" rel="noreferrer">
+                Telegram
+              </a>
+            </li>
           </ul>
         </div>
         <div className="col-12 col-md-2">
