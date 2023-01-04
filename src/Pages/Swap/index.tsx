@@ -8,15 +8,16 @@ import {ReactComponent as PaperIcon} from "@/Assets/Images/Social/Paper.svg";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {PopupsActions, useAppDispatch, useAppSelector} from "@/MyRedux";
 import {HippoSwapService} from "@/Services";
-import {RawCoinInfo} from "@manahippo/coin-list";
+import {CoinListClient, RawCoinInfo} from "@manahippo/coin-list";
 import _ from "lodash";
 import {CommonUtility, CustomHookUtility} from "@/Utilities";
 import {toast} from "react-toastify";
 import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
-import {readConfig} from "@manahippo/hippo-sdk/dist/tools/utils";
-import {TradeAggregator} from "@manahippo/hippo-sdk";
+import {MAINNET_CONFIG, TESTNET_CONFIG, TradeAggregator} from "@manahippo/hippo-sdk";
 import {DetailedRouteAndQuote} from "@manahippo/hippo-sdk/dist/aggregator/types";
-import {TxnBuilderTypes} from "aptos";
+import {TransactionPayload_EntryFunctionPayload} from "aptos";
+import {NetworkConfiguration} from "@manahippo/hippo-sdk/dist/config/configuration";
+import {NetworkType} from "@manahippo/coin-list/src/client";
 
 interface ITF_DefaultForm {
   pay: RawCoinInfo;
@@ -29,7 +30,8 @@ interface ITF_DefaultForm {
 
 export default function Swap() {
   const dispatch = useAppDispatch();
-  const walletAdapter = useWallet();
+  const walletContext = useWallet();
+  const businessService = new AptospadBusinessService(walletContext);
   const popups = useAppSelector((state) => state.popups);
   const transactionSettings = useAppSelector((state) => state.transactionSettings);
   const refPay = useRef(null);
@@ -50,6 +52,7 @@ export default function Swap() {
   const [balanceReceiveSwap, setBalanceReceiveSwap] = useState<number>(0);
   const [rateSwap, setRateSwap] = useState<number>(1);
   const [quotes, setQuotes] = useState<DetailedRouteAndQuote[]>([]);
+  const [hippoSwap, setHippoSwap] = useState(new HippoSwapService.HippoSwap(walletContext));
 
   const toggleCoinList = (which: "pay" | "receive") => {
     if (which === "pay") {
@@ -62,7 +65,7 @@ export default function Swap() {
   };
 
   const openChooseWalletPopup = () => {
-    walletAdapter.disconnect();
+    walletContext.disconnect();
     dispatch(PopupsActions.togglePopup({
       "popupName": "chooseWallet",
       "display": true
@@ -71,10 +74,14 @@ export default function Swap() {
 
   // compute a list of quotes (ordered by output), for fromSymbol -> toSymbol
   const aggListQuotes = async (fromSymbol: string, toSymbol: string, inputUiAmt: string) => {
-    const {client} = readConfig();
-    const agg = await TradeAggregator.create(client);
-    const xCoinInfo = agg.coinListClient.getCoinInfoBySymbol(fromSymbol);
-    const yCoinInfo = agg.coinListClient.getCoinInfoBySymbol(toSymbol);
+    console.log("Route coin " + fromSymbol + " to " + toSymbol + " amount " + inputUiAmt);
+    const network = process.env.APTOS_NETWORK_NAME as NetworkType;
+    const netConfig = network === "testnet" ? TESTNET_CONFIG : MAINNET_CONFIG;
+    const agg = await new TradeAggregator(businessService.adapter.client, netConfig);
+    console.log(agg);
+
+    const xCoinInfo = HippoSwapService.coinList.getCoinInfoBySymbol(fromSymbol);
+    const yCoinInfo = HippoSwapService.coinList.getCoinInfoBySymbol(toSymbol);
     const inputAmt = parseFloat(inputUiAmt);
     const quotes = await agg.getQuotes(inputAmt, xCoinInfo[0], yCoinInfo[0]);
     for (const quote of quotes) {
@@ -105,9 +112,10 @@ export default function Swap() {
   const onSwapButtonClicked = async () => {
     console.log(form, transactionSettings);
     const payload = quotes[0].route.makePayload(Number(form.payAmount), 0);
-    const account = walletAdapter.account?.address;
-    const {client} = readConfig();
-    await sendPayloadTx(client, account, payload as TxnBuilderTypes.TransactionPayloadEntryFunction);
+    const option = {
+      "max_gas_amount": transactionSettings.maxGasFee
+    };
+    await walletContext.signAndSubmitTransaction(payload as TransactionPayload_EntryFunctionPayload, option);
   };
 
   const onSelectCoin = (type: "pay" | "receive", item: RawCoinInfo) => {
@@ -179,11 +187,10 @@ export default function Swap() {
 
   useEffect(() => {
     (async () => {
-      if (walletAdapter.connected) {
-        const businessService = new AptospadBusinessService(walletAdapter);
+      if (walletContext.connected) {
         try {
-          const payBalance = await businessService.getBalanceOf(walletAdapter.account?.address!, form.pay.token_type.type);
-          const receiveBalance = await businessService.getBalanceOf(walletAdapter.account?.address!, form.receive.token_type.type);
+          const payBalance = await businessService.getBalanceOf(walletContext.account?.address!, form.pay.token_type.type);
+          const receiveBalance = await businessService.getBalanceOf(walletContext.account?.address!, form.receive.token_type.type);
           setBalancePaySwap(Number(payBalance) / Math.pow(10, form.pay.decimals));
           setBalanceReceiveSwap(Number(receiveBalance) / Math.pow(10, form.receive.decimals));
 
@@ -195,16 +202,16 @@ export default function Swap() {
           const priceOfCoinPay = prices[coinPayId]["usd"];
           const priceOfCoinReceive = prices[coinReceiveId]["usd"];
           setRateSwap(Number(priceOfCoinPay) / Number(priceOfCoinReceive));
-          const quotes = await aggListQuotes(form.pay.symbol, form.receive.symbol, form.payAmount);
-          setQuotes(quotes);
-          console.log(quotes);
+          const quotes = await hippoSwap.aggListQuotes(form.pay.symbol, form.receive.symbol, form.payAmount);
+          // setQuotes(quotes);
+          console.log("Result router: " + quotes);
         } catch (error) {
           setBalancePaySwap(0);
           setBalanceReceiveSwap(0);
         }
       }
     })();
-  }, [walletAdapter.connected, form]);
+  }, [walletContext.connected, form]);
 
   return (
     <div id={style["swap"]} className="container">
@@ -224,7 +231,7 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected && <div className={style["line-2"]}>Balance</div>
+                walletContext.connected && <div className={style["line-2"]}>Balance</div>
               }
             </div>
             <div className={style["input"]}>
@@ -240,7 +247,7 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected &&
+                walletContext.connected &&
                 <div className={style["line-2"]}>{CommonUtility.commaFormatter(balancePaySwap)}</div>
               }
             </div>
@@ -273,7 +280,7 @@ export default function Swap() {
                 <span>{form.receive.symbol}</span>
               </div>
               {
-                walletAdapter.connected && <div className={style["line-2"]}>Balance</div>
+                walletContext.connected && <div className={style["line-2"]}>Balance</div>
               }
 
             </div>
@@ -290,7 +297,7 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected &&
+                walletContext.connected &&
                 <div className={style["line-2"]}>{CommonUtility.commaFormatter(balanceReceiveSwap)}</div>
               }
             </div>
@@ -328,7 +335,7 @@ export default function Swap() {
 
         <div className="d-flex justify-content-center">
           {
-            !walletAdapter.connected && (
+            !walletContext.connected && (
               <button
                 className={`${style["butons"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}
                 type="button"
@@ -340,7 +347,7 @@ export default function Swap() {
           }
 
           {
-            (walletAdapter.connected && !form.payAmount) && (
+            (walletContext.connected && !form.payAmount) && (
               <button
                 className={`${style["butons"]} cbtn cbtn-lg cbtn-outline-gradient-blue`}
                 type="button"
@@ -352,7 +359,7 @@ export default function Swap() {
           }
 
           {
-            (walletAdapter.connected && form.payAmount && form.receiveAmount) && (
+            (walletContext.connected && form.payAmount && form.receiveAmount) && (
               <button
                 disabled={Number(form.payAmount) > balancePaySwap}
                 className={`${style["butons"]} cbtn cbtn-lg cbtn-outline-gradient-blue btn btn-gradient-blue w-50 fw-bold`}

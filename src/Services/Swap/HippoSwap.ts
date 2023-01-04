@@ -1,14 +1,19 @@
 /**
  * aptos: v1.3.15
  */
-import {AptosClient, Types, HexString} from "aptos"; // v1.3.15
-import {HippoWalletClient, NetworkConfiguration, TradeAggregator} from "@manahippo/hippo-sdk";
-import {CoinListClient, NetworkType, RawCoinInfo} from "@manahippo/coin-list";
+import {AptosClient, HexString, Types} from "aptos"; // v1.3.15
+import {
+  HippoWalletClient,
+  MAINNET_CONFIG,
+  NetworkConfiguration,
+  TESTNET_CONFIG,
+  TradeAggregator
+} from "@manahippo/hippo-sdk";
+import {CoinListClient, NetworkType} from "@manahippo/coin-list";
 import {DetailedRouteAndQuote} from "@manahippo/hippo-sdk/dist/aggregator/types";
 import {OptionTransaction, simulatePayloadTxAndLog, SimulationKeys} from "@manahippo/move-to-ts";
-import {WalletNameEmpty, WalletNotFound} from "@/Services/Wallet/errors";
 
-import {WalletContextState, WalletAdapter} from "@manahippo/aptos-wallet-adapter";
+import {WalletContextState} from "@manahippo/aptos-wallet-adapter";
 
 // import { GeneralRouteAndQuote, TTransaction } from '../../Types/hippo';
 import {AptosWalletAdapter} from "../Wallet/AptosWalletAdapter";
@@ -24,26 +29,15 @@ class HippoSwap extends AptosWalletAdapter {
 
   constructor(walletContextState: WalletContextState) {
     super(walletContextState);
-    this.hippoWalletClient = new HippoWalletClient(client as any, (new HexString(this.getWalletContextState().account?.address as any) as any), {"fullNodeUrl": aptosNodeUrl} as NetworkConfiguration, coinList);
-  }
-
-  getBalanceOf = async (tokenFullName: string): Promise<any> => {
-    try {
-      let tokenInfo = coinList.fullnameToCoinInfo[tokenFullName]
-      if(!tokenInfo) {
-        return null
-      }
-      let tokenStore = !!this.hippoWalletClient && this.hippoWalletClient.fullnameToCoinStore[tokenFullName]
-      if (!tokenStore) return null;
-      return tokenStore ? tokenStore.coin.value.toJsNumber() / Math.pow(10, tokenInfo.decimals) : 0;
-    } catch (error) {
-      throw error
-    }
+    this.hippoWalletClient = new HippoWalletClient(client,
+      (new HexString(this.getWalletContextState().account?.address as any) as any),
+      {"fullNodeUrl": aptosNodeUrl} as NetworkConfiguration, coinList);
   }
 
   aggListQuotes = async (fromSymbol: string, toSymbol: string, inputUiAmt: string): Promise<DetailedRouteAndQuote | null> => {
     console.log("Getting best quote local...");
-    const agg = await TradeAggregator.create(client as any);
+    const netConfig = network === "testnet" ? TESTNET_CONFIG : MAINNET_CONFIG;
+    const agg = await new TradeAggregator(client, netConfig);
     console.log(agg);
     const xCoinInfo = coinList.getCoinInfoBySymbol(fromSymbol);
     const yCoinInfo = coinList.getCoinInfoBySymbol(toSymbol);

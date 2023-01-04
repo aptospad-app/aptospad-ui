@@ -64,7 +64,7 @@ export class AptosWalletAdapter {
     }
   }
 
-  get faucetClient(): FaucetClient {
+  get client(): FaucetClient {
     return this.aptosClient;
   }
 }

@@ -16,6 +16,10 @@ export class AptospadBusinessService extends BaseService {
     this.walletAdapter = new AptosWalletAdapter(walletContext);
   }
 
+  get adapter(): AptosWalletAdapter {
+    return this.walletAdapter;
+  }
+
   async withdrawAptosPad(debitAddress: string, amount: BigInt): Promise<any> {
     const payload: AptosPayload = {
       "arguments": [debitAddress, amount.toString()],
