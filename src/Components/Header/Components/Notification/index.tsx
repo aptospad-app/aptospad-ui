@@ -1,10 +1,8 @@
 import {
   ConfigProps,
-  defaultVariables,
   DialectNoBlockchainSdk,
   DialectThemeProvider,
   DialectUiManagementProvider,
-  IncomingThemeVariables,
   NotificationsButton
 } from "@dialectlabs/react-ui";
 import {FC, useEffect, useMemo, useState} from "react";
@@ -12,30 +10,11 @@ import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {
   DialectAptosWalletAdapter
 } from "@dialectlabs/blockchain-sdk-aptos/src/wallet-adapter/dialect-aptos-wallet-adapter.interface";
+import {AptosConfigProps} from "@dialectlabs/blockchain-sdk-aptos";
 import {aptosWalletToDialectWallet} from "@/Utilities/Wallet.utility";
 import {DialectAptosSdk} from "@dialectlabs/react-sdk-blockchain-aptos";
+import "@dialectlabs/react-ui/index.css";
 import {DialectDappsIdentityResolver} from "@dialectlabs/identity-dialect-dapps";
-
-import "./index.scss";
-import "tailwindcss/tailwind.css";
-
-export const themeVariables: IncomingThemeVariables = {
-  "dark": {
-    "bellButton":
-      "w-10 h-10 shadow-xl shadow-neutral-800 border border-neutral-600 hover:shadow-neutral-700 bg-white text-black",
-    "modal": `${defaultVariables.dark.modal} sm:border border-[#383838]/40 bg-[#141414]` // 0.4 opacity based on trial-and-error
-  },
-  "animations": {
-    "popup": {
-      "enter": "transition-all duration-300 origin-top-right",
-      "enterFrom": "opacity-0 scale-75",
-      "enterTo": "opacity-100 scale-100",
-      "leave": "transition-all duration-100 origin-top-right",
-      "leaveFrom": "opacity-100 scale-100",
-      "leaveTo": "opacity-0 scale-75"
-    }
-  }
-};
 
 export const SdkProvider: FC<any> = (props) => {
   const aptosWallet = useWallet();
@@ -53,7 +32,8 @@ export const SdkProvider: FC<any> = (props) => {
     }
   }), []);
 
-  const aptosConfig = useMemo(() => ({
+  // @ts-ignore
+  const aptosConfig: AptosConfigProps = useMemo(() => ({
     "wallet": dialectAptosWalletAdapter
   }), [dialectAptosWalletAdapter]);
 
@@ -84,7 +64,7 @@ const DialectProviders: FC<any> = ({children}) => {
     // eslint-disable-next-line react/react-in-jsx-scope
     <SdkProvider>
       {/* eslint-disable-next-line react/jsx-no-undef,react/react-in-jsx-scope */}
-      <DialectThemeProvider theme={"light"} >
+      <DialectThemeProvider theme={"light"}>
         {/* eslint-disable-next-line react/react-in-jsx-scope */}
         <DialectUiManagementProvider>
           {children}
@@ -108,7 +88,7 @@ export default function Notifications() {
             "detail": "On signup"
           }
         ]}
-        pollingInterval={1500}
+        pollingInterval={15000}
         channels={["web3"]}
       />
     </DialectProviders>

@@ -7,6 +7,7 @@ import {AptospadBusinessService} from "@/Services/AptospadBusiness.service";
 import {LoadingSpinnerActions, useAppDispatch} from "@/MyRedux";
 import {toast} from "react-toastify";
 import {Alert} from "@/Components/Alert";
+import {createAptosDapp, createAptosSdk} from "@/Sdk/Dialect/helpers";
 
 const APTOS_NETWORK_NAME = process.env.APTOS_NETWORK_NAME as string;
 
@@ -31,6 +32,7 @@ export default function Buy() {
   const [distributedToken, setDistributedToken] = useState<number>(0);
   const [distributeTime, setDistributeTime] = useState<Date>(new Date(Date.parse("December 2, 2022, 17:00:00 UTC")));
   const finishTime = new Date(Date.parse("December 2, 2022, 12:00:00 UTC"));
+
   useEffect(() => {
     (async () => {
       if (walletContext.connected) {
@@ -130,12 +132,26 @@ export default function Buy() {
     }
   }
 
+  async function testDialect() {
+    const sdk = await createAptosSdk();
+    const aptosDapp = await createAptosDapp(sdk);
+
+    const title = "Test";
+    const message = "Hello Web3Lab";
+    const recipient = "0x4247110ad8a97ee048756065975e592732ab746af2a757f285a9966da381d90b";
+    await aptosDapp.messages.send({
+      title,
+      message
+    });
+  }
+
   return (
     <div id={style["buy"]} className="py-5">
       <div className="bg"/>
 
       <div className="main-content container">
-        <h1 className="text-center text-green-1 mb-5">{isDistributed ? `Testnet Ended` : `Testnet AptosPad Token Sale`}</h1>
+        <h1
+          className="text-center text-green-1 mb-5">{isDistributed ? `Testnet Ended` : `Testnet AptosPad Token Sale`}</h1>
         <div className="row mb-5">
           <div className="col-12 col-md-6">
             <div className="row h-100">

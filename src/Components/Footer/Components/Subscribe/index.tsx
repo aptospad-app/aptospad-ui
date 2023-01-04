@@ -17,24 +17,6 @@ import {DialectAptosSdk} from "@dialectlabs/react-sdk-blockchain-aptos";
 import "./index.scss";
 import {DialectDappsIdentityResolver} from "@dialectlabs/identity-dialect-dapps";
 
-export const themeVariables: IncomingThemeVariables = {
-  "dark": {
-    "bellButton":
-      "w-10 h-10 shadow-xl shadow-neutral-800 border border-neutral-600 hover:shadow-neutral-700 bg-white text-black",
-    "modal": `${defaultVariables.dark.modal} sm:border border-[#383838]/40 bg-[#141414]` // 0.4 opacity based on trial-and-error
-  },
-  "animations": {
-    "popup": {
-      "enter": "transition-all duration-300 origin-top-right",
-      "enterFrom": "opacity-0 scale-75",
-      "enterTo": "opacity-100 scale-100",
-      "leave": "transition-all duration-100 origin-top-right",
-      "leaveFrom": "opacity-100 scale-100",
-      "leaveTo": "opacity-0 scale-75"
-    }
-  }
-};
-
 export const SdkProvider: FC<any> = (props) => {
   const aptosWallet = useWallet();
   const [dialectAptosWalletAdapter, setDialectAptosWalletAdapter] = useState<DialectAptosWalletAdapter | null>(null);
@@ -100,7 +82,7 @@ export default function DialectSubscribe() {
       <SubscribeButton
         dialectId="dialect-subscribe"
         channels={["web3"]}
-        pollingInterval={1500}
+        pollingInterval={15000}
         onWalletConnect={() => {
           console.log("Subscribe onWalletConnect....");
         }}

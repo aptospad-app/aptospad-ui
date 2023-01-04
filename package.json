@@ -15,8 +15,8 @@
   "dependencies": {
     "@dialectlabs/blockchain-sdk-aptos": "^1.0.3",
     "@dialectlabs/identity-cardinal": "^1.0.0",
-    "@dialectlabs/identity-dialect-dapps": "^1.0.0",
     "@dialectlabs/identity-sns": "^1.0.0",
+    "@dialectlabs/identity-dialect-dapps": "^1.0.0",
     "@dialectlabs/react-sdk-blockchain-aptos": "^1.0.0-beta.5",
     "@dialectlabs/react-ui": "^1.1.0-beta.12",
     "@dialectlabs/sdk": "^1.4.0",
