@@ -10,6 +10,7 @@
 @import "./Button.scss";
 @import "~slick-carousel/slick/slick.scss"; 
 @import "~slick-carousel/slick/slick-theme.scss";
+@import "./Dialect.scss";
 
 html {
   width: 100% !important;
@@ -28,8 +29,7 @@ a {
   text-decoration: none;
 }
 
-a,
-div {
+* {
   &.disabled {
     pointer-events: none;
     cursor: default;

@@ -75,10 +75,27 @@ const delay = (millisecond: number): void => {
   }
 };
 
+const kFormatter = (value: string | number): string => {
+  return Intl.NumberFormat("en", {"notation": "compact"}).format(parseFloat(value as any));
+};
+
+const commaFormatter = (value: string | number): string => {
+  return Intl.NumberFormat("en-US").format(parseFloat(value as any));
+};
+
+const allowSixDigitsAfterDecimalPoint = (value: string): boolean => {
+  const rgx = /^[0-9]*\.?[0-9]{0,6}$/; // Accept 2 digits after decimal point only
+
+  return rgx.test(value);
+};
+
 export const CommonUtility = {
   rewriteConsole,
   stringEllipsisMiddle,
   getAppMode,
   isDevelopmentMode,
-  delay
+  delay,
+  kFormatter,
+  commaFormatter,
+  allowSixDigitsAfterDecimalPoint
 };

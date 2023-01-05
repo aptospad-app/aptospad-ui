@@ -9,6 +9,8 @@ import {ReactComponent as GlobalIcon} from "@/Assets/Images/Social/Global.svg";
 import {ReactComponent as PaperIcon} from "@/Assets/Images/Social/Paper.svg";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {useAppDispatch, useAppSelector, TransactionSettingsActions, PopupsActions} from "@/MyRedux";
+import {CommonUtility, CustomHookUtility} from "@/Utilities";
+import {toast} from "react-toastify";
 
 interface ITF_DefaultForm {
   pay: string;
@@ -23,7 +25,9 @@ export default function Swap() {
   const popups = useAppSelector((state) => state.popups);
   const transactionSettings = useAppSelector((state) => state.transactionSettings);
   const refPay = useRef(null);
+  CustomHookUtility.useOnClickOutside(refPay, () => (refPay.current as any)?.classList.remove(style["expand"]));
   const refReceive = useRef(null);
+  CustomHookUtility.useOnClickOutside(refReceive, () => (refReceive.current as any)?.classList.remove(style["expand"]));
   const defaultForm: ITF_DefaultForm = {
     "pay": "",
     "paySymbol": "",
@@ -45,6 +49,54 @@ export default function Swap() {
   const openChooseWalletPopup = () => {
     walletAdapter.disconnect();
     dispatch(PopupsActions.togglePopup({"popupName": "chooseWallet", "display": true}));
+  };
+
+  const onSwapIconClicked = () => {
+    const pay = form.receive;
+    const receive = form.pay;
+
+    setForm({...form, ...{pay, receive}});
+  };
+
+  const onSwapButtonClicked = () => {
+    console.log(form, transactionSettings);
+  };
+
+  const onSelectCoin = (type: "pay" | "receive", item: any) => {
+    // if (type === "pay") {
+    //   if (item.symbol === form.receive.symbol) {
+    //     const pay = item;
+    //     const receive = form.pay;
+    //     setForm({...form, ...{pay, receive}});
+    //   } else {
+    //     setForm({...form, [type]: item});
+    //   }
+    // } else {
+    //   if (item.symbol === form.pay.symbol) {
+    //     const pay = form.receive;
+    //     const receive = item;
+    //     setForm({...form, ...{pay, receive}});
+    //   } else {
+    //     setForm({...form, [type]: item});
+    //   }
+    // }
+
+    (refReceive.current as any).classList.remove(style["expand"]);
+    (refPay.current as any).classList.remove(style["expand"]);
+  };
+
+  const onInputChange = (type: "pay" | "receive", value: string) => {
+    if (CommonUtility.allowSixDigitsAfterDecimalPoint(value)) {
+      if (type === "pay") {
+        const payAmount = value;
+        const receiveAmount = (parseFloat(value) * 2).toString();
+        setForm({...form, ...{payAmount, receiveAmount}});
+      } else {
+        const receiveAmount = value;
+        const payAmount = (parseFloat(value) / 2).toString();
+        setForm({...form, ...{payAmount, receiveAmount}});
+      }
+    }
   };
 
   return (
@@ -70,7 +122,7 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected && <div className={style["line-2"]}>1,000</div>
+                walletAdapter.connected && <div className={style["line-2"]}>{CommonUtility.commaFormatter("1000")}</div>
               }
             </div>
           </div>
@@ -122,7 +174,7 @@ export default function Swap() {
               </div>
 
               {
-                walletAdapter.connected && <div className={style["line-2"]}>1,000</div>
+                walletAdapter.connected && <div className={style["line-2"]}>{CommonUtility.commaFormatter(2000)}</div>
               }
             </div>
           </div>
