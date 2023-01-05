@@ -82,6 +82,7 @@ export default function PopupReferral() {
                 );
               })
             }
+
             <div className={`${style["input-custom"]} input-group`}>
               <input
                 type="text"
