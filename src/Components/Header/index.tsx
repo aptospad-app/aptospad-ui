@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector, PopupsActions} from "@/MyRedux";
 import {useTranslation} from "react-i18next";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import WalletInteractComponent from "./Components/WalletInteract";
+import Notification from "./Components/Notification";
 import LanguageComponent from "./Components/Language";
 import {toast} from "react-toastify";
 import {ReactComponent as DiscordIcon} from "@/Assets/Images/Social/Discord.svg";
@@ -258,6 +259,9 @@ function Header() {
         </div> */}
         <div className="stack d-none d-md-flex align-items-center">
           <WalletInteractComponent />
+        </div>
+        <div className="stack d-flex align-items-center">
+          <Notification />
         </div>
         <div className="stack d-flex align-items-center">
           <LanguageComponent />
