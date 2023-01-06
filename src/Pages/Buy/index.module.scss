@@ -1,0 +1,117 @@
+@import "@/Assets/Styles/Variables";
+$formPadding: 15;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#buy {
+  position: relative;
+
+  :global {
+    .bg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url("/images/home/wave.png");
+      background-position: bottom;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.05;
+    }
+
+    .card {
+      padding: 15px;
+      border: 1px solid #72f7cd;
+      border-radius: 11px;
+      background-image: linear-gradient(to right, #001d36, #022038, #072b40, #103d4c, #1d555d, #2e7573);
+    }
+
+    .main-content {
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+
+      #block-1__3 {
+        h1 {
+          letter-spacing: 2px;
+        }
+        h3 {
+          letter-spacing: 5px;
+        }
+
+        .goal-progress {
+          border: 2px solid #72f7cd;
+        }
+        .progress-bar {
+          background-color: #0c9a85;
+        }
+      }
+
+      #block-2 {
+        border: 1px solid #72f7cd;
+        border-radius: 11px;
+        overflow: hidden;
+        .card-header {
+          padding: 15px;
+          background-image: linear-gradient(to right, #001d36, #022038, #072b40, #103d4c, #1d555d, #2e7573);
+          border-bottom: 1px solid #72f7cd;
+        }
+        .card-body {
+          padding: 30px 15px 15px;
+          background-color: #03132f;
+
+          #buy-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+
+            .fake-input {
+              display: flex;
+              padding: 5px 2px 5px 31px;
+              background-color: #01E8B9;
+              border-radius: 11px;
+              overflow: hidden;
+              height: 50px;
+
+              input {
+                border: none;
+                background-color: transparent;
+                border-bottom: 1px dotted #000;
+                width: 100%;
+              }
+              button {
+                color: #4097A0;
+                background-color: #03132F;
+                padding-left: 25px;
+                padding-right: 25px;
+              }
+            }
+
+            #amount {
+              width: 100%;
+              margin-right: 20px;
+            }
+            #receive {
+              width: 100%;
+              margin-left: 20px;
+            }
+            #arrow-right {
+              position: relative;
+              bottom: -15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

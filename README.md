@@ -1,2 +1,10 @@
-# aptospad-ui
-UI layer for AptosPad
+# Run project local
+```
+yarn install
+yarn start
+```
+
+## Deploy
+```
+yarn build
+```

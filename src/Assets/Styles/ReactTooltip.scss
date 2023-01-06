@@ -1,0 +1,12 @@
+/* 
+  Override CSS of react-tooltip
+*/
+.__react_component_tooltip.react-tooltip-my-custom {
+  z-index: $tooltipZIndex !important;
+  border-color: rgb(81, 192, 225) !important;
+  opacity: 1;
+  font-size: 14px;
+  * {
+    font-size: 14px;
+  }
+}

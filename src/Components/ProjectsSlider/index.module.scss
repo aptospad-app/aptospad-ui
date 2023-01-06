@@ -1,0 +1,56 @@
+@import "@/Assets/Styles/Variables";
+
+.projects-slider {
+  .my-slider {
+    margin: 0 50px;
+    :global {
+      .slick-dots {
+        bottom: -35px;
+        li {
+          button {
+            &::before {
+              color: #04cfa6;
+              font-size: 30px;
+              opacity: 1 !important;
+            }
+          }
+        }
+        li.slick-active {
+          button {
+            border: 1px solid #04cfa6;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .slick-arrow {
+        &.slick-prev {
+          width: 35px;
+          height: 35px;
+          left: -45px;
+          background-image: url(/images/arrow-prev.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          &::before {
+            content: "";
+          }
+        }
+        &.slick-next {
+          width: 35px;
+          height: 35px;
+          right: -45px;
+          background-image: url(/images/arrow-next.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          &::before {
+            content: "";
+          }
+        }
+
+        &.slick-disabled {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "home": "Trang chủ",
+  "buy crypto": "Mua tiền điện tử",
+  "connect wallet": "Kết nối Ví",
+  "disconnect": "Ngắt kết nối",
+  "next": "Tiếp tục",
+  "previous": "Quay lại",
+  "new order": "Đơn hàng mới",
+  "successfully": "Thành công",
+  "failed": "Thất bại",
+  
+  "homeScreen": {
+    "title": "Làm mọi thứ trở nên dễ dàng hơn",
+    "description": "Chúng ta hãy nghĩ về một thế giới sử dụng tiền điện tử như một phương thức thanh toán phổ biến và loại bỏ hoàn toàn hình thức thanh toán truyền thống hiện nay. Một thế giới chỉ có một phương thức đăng nhập duy nhất là “kết nối ví”. Bạn sẽ không còn phải cung cấp thông tin cá nhân cho bất kỳ tổ chức nào. <br /> Chúng tôi đang làm điều này, làm cho tiền điện tử trở nên phổ biến với mọi người trên toàn thế giới theo cách dễ dàng nhất.",
+    "buy crypto now": "Mua tiền điện tử"
+  },
+
+  "buyCryptoScreen": {
+    "buy": "Mua",
+    "steps": {
+      "order": "Đặt hàng",
+      "payment": "T.Toán",
+      "finish": "H.Thành"
+    },
+    "the remaining balance": "Số dư hiện có",
+    "the remaining balance tootip": "Số lượng tiền điện tử khả dụng mà bạn có thể mua. <br /> Vì một số giới hạn trong chính sách của Paypal, vì vậy chúng tôi chỉ có thể đưa ra một số lượng tiền điện tử giới hạn để giao dịch mỗi ngày. <br /> Chúng tôi sẽ nâng giới hạn giao dịch lên cao hơn trong tương lai.",
+    "amount USD will you pay": "Số USD bạn sẽ thanh toán",
+    "select a cryptocurrency": "Chọn tiền điện tử",
+    "select a cryptocurrency tooltip": "Loại tiền điện tử bạn sẽ nhận được",
+    "your wallet address": "Địa chỉ ví (BSC network)",
+    "your wallet address tooltip": "Địa chỉ ví sẽ nhận được tiền điện tử (Binance Smart Chain network - BEP20)",
+    "transaction fee": "Phí giao dịch",
+    "transaction fee tooltip": "Tính toán dựa trên Paypal transaction fee + Processing fee + Network fee",
+    "view fees": "Xem biểu phí",
+    "total payment": "Tổng thanh toán",
+    "reminder": "Xin nhắc lại, bạn đang mua hàng hóa “Kỹ thuật số“ và vì vậy sẽ không có mặt hàng thực nào được vận chuyển. Do đó, việc nhập địa chỉ thanh toán là bắt buộc theo các điều khoản của Paypal nhưng chúng tôi sẽ không sử dụng địa chỉ này để gửi tiền điện tử cho bạn. Tiền điện tử sẽ được gửi đến địa chỉ Ví mà bạn đã nhập ở bước trước.",
+    "choose a payment method": "Chọn phương thức thanh toán",
+    "transaction informations": "Dưới đây là một số thông tin về giao dịch",
+    "token price at time of sale": "Giá token tại thời điểm mua",
+    "support message success": "Vui lòng lưu thông tin giao dịch của bạn thật cẩn thận trước khi nhìn thấy tiền điện tử trong ví của bạn. Nếu có bất kỳ vấn đề gì, vui lòng liên hệ với chúng tôi qua email hoặc Facebook fanpage và cung cấp thông tin giao dịch ở trên để được hỗ trợ. Xin cảm ơn",
+    "support message error": "Vui lòng liên hệ với chúng tôi qua email hoặc chat và cung cấp thông tin giao dịch ở trên để nhận lại tiền. Chúng tôi rất xin lỗi vì sự bất tiện này"
+  },
+
+  "whitepaperScreen": {
+    "title": "Bản cáo bạch",
+    "description": "Chào mừng bạn đến với whitepaper của Ezniz. Về cơ bản, kế hoạch dự án của Ezniz phác thảo các khái niệm kỹ thuật thúc đẩy dự án và cách chúng tôi trả cổ tức cũng như bảo vệ các RIPers của chúng tôi.",
+    "whatIsRIP": {
+      "title": "RIP là gì?",
+      "description": "RIP là một dự án DeFi hướng tới cộng đồng được xây dựng trên Binance Smart Chain (BSC). Hợp đồng mang tính đột phá của chúng tôi mang đến một cơ chế mang tính cách mạng cho hệ sinh thái BSC. Giống như cổ phiếu, khi nắm giữ mã thông báo RIP, bạn có quyền biểu quyết, tham gia bảng khởi chạy và nhận cổ tức USDT."
+    },
+    "summary": {
+      "title": "Tổng quan",
+      "description": "RIP không chỉ là một mã thông báo, nó là một nền tảng và cộng đồng giúp mọi người dễ dàng kiếm tiền bằng cách đầu tư vào tiền điện tử. Hệ sinh thái sáng tạo và các sáng kiến ​​của chúng tôi được lựa chọn một cách chiến lược để đảm bảo thu nhập bền vững cho chủ sở hữu của chúng tôi. Khi nắm giữ mã thông báo RIP, bạn có quyền:",
+      "rightsToVote": "Bỏ phiếu về các vấn đề của chính sách kinh doanh.",
+      "rightsToJoinTheLaunchpad": "Tham gia Launchpad của các dự án hứa hẹn được chọn lọc kỹ lưỡng trên Blockchain.",
+      "rightsToReceiveUsdtDevidends": "Nhận cổ tức USDT cho địa chỉ ví nắm giữ mã thông báo RIP dựa trên tỷ lệ hiện tại."
+    },
+    "votingRights": {
+      "title": "Quyền biểu quyết",
+      "description": "Chúng tôi thực hiện các hoạt động tài chính để tạo ra lợi nhuận cho chủ sở hữu của chúng tôi và đầu tư vào các nghiên cứu về việc thúc đẩy phát triển tiền điện tử, mà bạn có quyền biểu quyết."
+    },
+    "joiningTheLaunchpad": {
+      "title": "Tham gia Launchpad",
+      "description": "Ezniz cho phép các dự án khác Launchpad trên nền tảng của mình. Chúng tôi có đội ngũ gồm các chuyên gia giàu kinh nghiệm để kiểm duyệt các dự án Blockchain trước khi launchpad nhằm đảm bảo rằng các dự án đó đều có chất lượng cao và đã được chọn lọc kỹ lưỡng trước khi giới thiệu dự án đó tới các nhà đầu tư của Ezniz. Đây là cách chúng tôi bảo vệ và giảm thiểu rủi ro cho các nhà đầu tư cũng như thúc đẩy sự minh bạch cho thị trường tiền điện tử."
+    },
+    "receivingUsdtDividends": {
+      "title": "Nhận cổ tức bằng USDT",
+      "description": "Cổ tức là trái tim của dự án. Cổ tức bằng USDT sẽ được trả hàng quý. Những người nắm giữ RIP token sẽ phải vào trang chủ trong mục <a href='/investors' class='text-info fw-bold' target='_blank'>Investors</a>, đăng nhập bằng <span class='text-info fw-bold'>Connect Wallet</span> sau đó ấn vào nút <span class='text-info fw-bold'>Receive dividends</span>. Trong 3 ngày cuối cùng của mỗi quý, chức năng đăng ký nhận cổ tức sẽ được mở.<br><br><span class='text-danger fw-bold'>Lưu ý</span><br>- Bạn <span class='text-info fw-bold'>bắt buộc</span> phải thực hiện ấn vào nút <span class='text-info fw-bold'>Receive dividends</span> mới có thể nằm trong danh sách được ghi nhận để chi trả cổ tức. Không còn cách nào khác.<br>- Sau khi đã nằm trong danh sách được nhận cổ tức, bạn vẫn có thể thoải mái mua/bán để tăng/giảm tỉ lệ RIP token đang nắm giữ. Tuy nhiên tại thời điểm chúng tôi thực hiện phân phối cổ tức, tỉ lệ RIP token <span class='text-info fw-bold'>hiện tại</span> bạn đang nắm giữ mới là con số cuối cùng được chúng tôi sử dụng để tính toán bạn sẽ nhận được bao nhiêu USDT cổ tức. Vì vậy, vui lòng tiếp tục nắm giữ RIP token cho đến khi cổ tức bằng USDT thực sự đã xuất hiện trong ví của bạn. <br>- Cổ tức bằng USDT sẽ được chuyển tự động đến địa chỉ ví của bạn chậm nhất là 1 tuần sau ngày kết thúc của quý. <br>- Nếu không đăng ký nhận cổ tức như hướng dẫn bên trên, bạn sẽ mất quyền lợi của mình. Số tiền cổ tức của bạn sẽ được sử dụng để <span class='text-info fw-bold'>làm từ thiện</span>. Bạn hãy yên tâm rằng chúng tôi sẽ công khai số tiền đó cùng với các hoạt động từ thiện một cách minh bạch trên trang chủ của chúng tôi tại đây <a href='/charity-activities' class='text-info fw-bold' target='__blank'>Charity Activities</a>. <br><br>Nguồn tiền chi trả cổ tức đến từ lợi nhuận của các hoạt động tài chính của chúng tôi. Một số các hoạt động tài chính bao gồm:",
+      "financialActivities": {
+        "paypal": "Cho phép mua tiền điện tử bằng PayPal.",
+        "launchpad": "Nền tảng Launchpad cho các dự án Blockchain khác.",
+        "nft": "Bán NFTs <br> Cho phép tạo NFTs và bán chúng trên nền tảng này.<br> <span class='text-warning'>NFTs của chúng tôi là khác biệt. Khi bạn chọn nền tảng này để tạo NFTs của riêng mình thì NFTs của bạn cũng là khác biệt.</span><br> Điều khác biệt đó sẽ được tiết lộ sau khi chúng tôi hoàn thiện tính năng này.",
+        "//nft": "Bán NFTs <br> Cho phép tạo NFTs và bán chúng trên nền tảng này.<br> <span class='text-warning'>NFTs của chúng tôi là khác biệt. Khi bạn chọn nền tảng này để tạo NFTs của riêng mình thì NFTs của bạn cũng là khác biệt.</span><br> Điều khác biệt đó sẽ được tiết lộ sau khi chúng tôi hoàn thiện tính năng này. Khi NFT được tạo ra, mỗi giao dịch bán NFT, người bán sẽ bị thu phí giao dịch và lợi nhuận từ hoạt động này tất nhiên cũng sẽ được sử dụng để phân phối lại cho những người nắm giữ token.<br> Hỗ trợ tạo NFTs dạng ảnh và văn bản.<br> Với NFTs dạng ảnh, chúng tôi có 2 lựa chọn là một image NFT bình thường hoặc ảnh chữ ký (sẽ sử dụng làm chữ ký số).<br> Với NFTs dạng văn bản, chúng ta có thể dùng để tạo NFTs tên người, thơ ca, địa danh,...<br> Điểm khác biệt của chúng tôi là nơi mà NFT's content stored. Trên các nền tảng khác, khi bạn mint NFTs, các thông tin như name and symbol is on-chain but the content you upload stored trên một centralized database. Vậy điều gì sẽ xảy ra nếu centralized database không còn nữa. Điều này sẽ không xảy ra với chúng tôi khi mà content của NFT cũng được lưu trữ trên Blockchain.",
+        "otherFinancialActivities": "Các hoạt động đầu tư tài chính khác."
+      }
+    },
+    "fairAndTransparent": {
+      "title": "Công bằng và minh bạch",
+      "description": "Với tiêu chí <span class='text-info'>công bằng và minh bạch</span>, chúng tôi công khai báo cáo tài chính hàng quý đến cộng đồng chậm nhất là 1 tháng sau ngày kết thúc quý trước đó."
+    },
+    "upgradableContract": {
+      "title": "Upgradable contract",
+      "description": "",
+      "benefitsOfProxyContract": {
+        "optimizeGasFees": "Tối ưu hóa phí gas",
+        "addNewContractFeatures": "Thêm các tính năng mới",
+        "reduceGasFees": "Loại bỏ các tính năng thừa để giảm phí gas",
+        "fixErrors": "Sửa lỗi",
+        "keepUpLatestTrends": "Cập nhật các xu hướng mới nhất"
+      },
+      "description2": "Chúng tôi ở đây để ở lại, điều đó có nghĩa là chúng tôi phải đổi mới để thích ứng với thị trường và nhu cầu của các nhà đầu tư của chúng tôi. Bằng cách có một hợp đồng có thể nâng cấp, sẽ không có giới hạn cho những gì chúng ta có thể đạt được!"
+    }
+  }
+}

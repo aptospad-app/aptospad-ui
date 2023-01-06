@@ -1,0 +1,209 @@
+@import "@/Assets/Styles/Variables";
+
+#Home {
+  color: #b2d2e9;
+
+  #block-1 {
+    position: relative;
+    margin-top: 50px;
+    padding-bottom: 70px;
+    height: calc(80vh - #{$headerHeight}px);
+    border-bottom: 1px solid rgba(10, 140, 233, 0.5);
+
+    #block-1-bg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url("/images/home/wave.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.1;
+    }
+
+    .container {
+      height: 100%;
+
+      .row {
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        #slogan-place {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          .title {
+            @include textGradient;
+            font-size: 25px;
+            margin-bottom: 15px;
+            @include MinWidth(sm) {
+              font-size: 30px;
+            }
+            @include MinWidth(md) {
+              font-size: 35px;
+            }
+            @include MinWidth(lg) {
+              font-size: 50px;
+            }
+          }
+          .description {
+            font-size: 11px;
+            @include MinWidth(sm) {
+              font-size: 12px;
+            }
+            @include MinWidth(md) {
+              font-size: 15px;
+              line-height: 30px;
+            }
+            @include MinWidth(lg) {
+              font-size: 16px;
+            }
+          }
+        }
+
+        #description-photo {
+          justify-content: center;
+          align-items: center;
+
+          img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  #block-2 {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background: radial-gradient(
+      172% 371.67% at 13.41% -80.2%,
+      #72f7cd 0%,
+      #5bcaae 4.46%,
+      #439d8f 9.77%,
+      #2e7573 15.29%,
+      #1d555d 20.94%,
+      #103d4c 26.77%,
+      #072b40 32.84%,
+      #022038 39.32%,
+      #001d36 46.9%
+    );
+
+    .container {
+      max-width: 800px;
+      .row {
+        .item {
+          margin-bottom: 25px;
+        }
+      }
+    }
+  }
+
+  #block-3 {
+    border-bottom: 1px solid rgba(10, 140, 233, 0.5);
+
+    .btn-launch {
+      padding: 10px 50px;
+      box-shadow: initial !important;
+    }
+  }
+
+  #block-4 {
+    padding-top: 70px;
+
+    .banner {
+      img {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
+    .title {
+      line-height: 50px;
+    }
+
+    .cosmos {
+      margin-top: 50px;
+      position: relative;
+
+      #cosmos-bg {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url("/images/home/wave.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.1;
+      }
+
+      .main-planet {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 20px;
+        text-align: left;
+        padding: 20px 30px;
+        .highlight {
+          color: #72f7cd;
+        }
+        p {
+          width: 100%;
+        }
+        .sub-planet {
+          display: none;
+        }
+      }
+
+      @include MinWidth(lg) {
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        .main-planet {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          width: 250px;
+          height: 250px;
+          border-radius: 50%;
+          text-align: center;
+
+          .highlight {
+            color: #72f7cd;
+          }
+
+          &-1 {
+            top: 50px;
+            left: -50px;
+          }
+
+          &-2 {
+            top: 150px;
+            left: 50px;
+          }
+
+          .sub-planet {
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+
+            &-white {
+              background-color: #fff;
+            }
+
+            &-green {
+              background-color: #72f7cd;
+            }
+          }
+        }
+      }
+    }
+  }
+}

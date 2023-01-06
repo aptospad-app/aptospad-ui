@@ -1,0 +1,27 @@
+@import "@/Assets/Styles/Variables";
+
+#not-found {
+  color: #d3d3d3;
+
+  .wrap-page {
+    .title {
+      display: flex;
+      font-size: 115px;
+      margin-bottom: 15px;
+      @include MinWidth(md) {
+        font-size: 196px;
+      }
+  
+      .logo-icon {
+        width: 150px;
+        @include spinInfinite;
+      }
+    }
+  
+    .description {
+      font-size: 30px;
+      margin-bottom: 30px;
+      letter-spacing: 7px;
+    }
+  }
+}

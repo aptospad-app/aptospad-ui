@@ -1,0 +1,50 @@
+@import "@/Assets/Styles/Variables";
+
+#language {
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    .language-icon,
+    .language-text {
+      color: #75d8d5;
+    }
+  }
+  .language-icon {
+    font-size: 20px;
+  }
+  .language-text {
+    font-size: 16px;
+  }
+  &:hover {
+    .bound {
+      display: block;
+    }
+  }
+  .bound {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    padding-top: 40px;
+    .actions {
+      min-width: 150px;
+      border-radius: 5px;
+      background-color: #121122;
+      border: 1px solid #96d9ed;
+      overflow: hidden;
+      .action {
+        padding: 5px 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        &:not(:last-child) {
+          border-bottom: 1px solid #96d9ed;
+        }
+        &:hover {
+          color: #51c0e1;
+        }
+      }
+    }
+  }
+}

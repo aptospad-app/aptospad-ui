@@ -1,0 +1,72 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "double", {"allowTemplateLiterals": true}],
+        "indent": ["error", 2, {"SwitchCase": 1}],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "off",
+        "object-curly-spacing": ["error", "never"],
+        "react/no-unescaped-entities": 0,
+        "no-unused-vars": "off",
+        "no-useless-catch": "off",
+        "comma-dangle": ["error", "never"],
+        "eol-last": ["error", "always"],
+        "no-use-before-define": "off",
+        "space-before-function-paren": ["error", {
+            "anonymous": "never",
+            "named": "never",
+            "asyncArrow": "always"
+        }],
+        "camelcase": "off",
+        "newline-before-return": "error",
+        "quote-props": ["error", "always"],
+        "keyword-spacing": ["error", {"overrides": {
+            "if": {"after": true },
+            "for": {"after": true },
+            "while": {"after": true },
+            "static": {"after": true },
+            "as": {"after": true }
+        }}],
+        "prefer-regex-literals": "off",
+        "object-shorthand": "off",
+        "no-trailing-spaces": "error",
+        "dot-notation": "off"
+    },
+    "ignorePatterns": ["dist", "build", "public", "src/Assets/*", "src/**/*.test.ts", "src/**/*.scss", "src/**/*.css"],
+    "settings": {
+        "react": {
+        "version": "detect"
+        }
+    },
+    "globals": {},
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "no-undef": "off"
+            }
+        }
+    ]
+}

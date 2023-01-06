@@ -1,0 +1,27 @@
+@import "@/Assets/Styles/Variables";
+
+#App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #03132f;
+  #app-content {
+    min-height: calc(100vh - #{$headerHeight}px);
+    @include MinWidth(xs) {
+      padding-bottom: $headerBottomHeight + px;
+    }
+    @include MinWidth(lg) {
+      padding-bottom: 0;
+    }
+
+    .wrap-page {
+      overflow: auto;
+      @include MinWidth(xs) {
+        min-height: calc(100vh - #{$headerHeight}px - #{$headerBottomHeight}px);
+      }
+      @include MinWidth(lg) {
+        min-height: calc(100vh - #{$headerHeight}px);
+      }
+    }
+  }
+}

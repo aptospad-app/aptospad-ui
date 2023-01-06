@@ -1,0 +1,30 @@
+@import "@/Assets/Styles/Variables";
+
+#newsletter {
+  color: #f2f2f2;
+  width: 500px;
+  font-size: 20px;
+
+  @include MaxWidth(xs) {
+    width: 100%;
+  }
+
+  #email-form {
+    input {
+      background-color: #f2f2f2;
+      border: none;
+      padding: 15px;
+      font-size: 18px;
+    }
+    button {
+      background-color: #1c8597;
+      color: #f2f2f2;
+      border: none;
+      font-size: 18px;
+
+      &:hover {
+        color: #00e2ff;
+      }
+    }
+  }
+}

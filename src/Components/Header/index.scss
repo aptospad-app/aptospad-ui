@@ -1,0 +1,125 @@
+@import "@/Assets/Styles/Variables";
+
+#header {
+  height: #{$headerHeight}px;
+  background-color: #03132f;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: $headerZIndex;
+  display: flex;
+
+  #logo {
+    .logo-icon {
+      height: 45px;
+    }
+  }
+
+  .header-left {
+    > ul.menu {
+      height: 100%;
+      user-select: none !important;
+      > li {
+        display: inline-block;
+        > a,
+        > div {
+          position: relative;
+          &.menu-item {
+            > .text {
+              display: flex;
+              align-items: center;
+              height: $headerHeight + px;
+              padding: 0 15px;
+              color: rgba(255, 255, 255, 0.96);
+              font-weight: 500;
+              cursor: pointer;
+            }
+            &.active > .text,
+            &:hover > .text {
+              color: rgb(81, 192, 225);
+            }
+          }
+
+          &:hover {
+            background-color: #1C2332 !important;
+          }
+          > i.icon {
+            font-size: 21px;
+          }
+          > img.icon {
+            width: 27px;
+          }
+
+          .wrap-sub-menu {
+            display: none;
+            position: absolute;
+            top: #{$headerHeight}px;
+            left: 0;
+            background-color: #1C2332;
+            width: 700px;
+
+            .sub-menu {
+              > div[class^="col"] {
+                padding: 10px 20px;
+                .sub-menu-item {
+                  display: flex;
+                  align-items: center;
+                  padding: 15px 20px;
+                  border-radius: 5px;
+                  color: #FFF;
+                  transition: all 0.5s linear 0s;
+
+                  &:hover,
+                  &.active {
+                    background-color: #0B121E;
+                  } 
+
+                  .icon {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 5px;
+                    background-color: #2e2e34;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 20px;
+                    color: rgb(81, 192, 225);
+                  }
+
+                  .description {
+                    flex: 1;
+                    margin-left: 15px;
+                    .text {
+                      margin-bottom: 0;
+                      font-size: 13px;
+                    }
+                    .sub-text {
+                      margin-bottom: 0;
+                      font-size: 12px;
+                      color: rgba(255, 255, 255, 0.5)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .header-right {
+    margin-left: auto; // Làm cho element trượt về phía bên phải, tham khảo tại: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container#using_auto_margins_for_main_axis_alignment
+    padding: 15px 0;
+    color: rgba(255, 255, 255, 0.6);
+    .stack {
+      padding: 0 15px;
+      &:last-child {
+        padding-right: 0;
+      }
+      &:not(:last-child) {
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@import "@/Assets/Styles/Variables";
+
+.popup-transactionSettings {
+  @include borderAndBgGradient(1px, "#2e7573, #1d555d, #103d4c, #072b40, #022038, #001d36", "to top");
+
+  .model-header {
+    border-bottom: 0.5px solid #01e8b9;
+    .model-title {
+      color: #01e8b9;
+      font-weight: 500;
+      font-size: 20px;
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  .model-body {
+    .slippage {
+      display: flex;
+      gap: 10px;
+    }
+
+    .line {
+      display: flex;
+      gap: 10px;
+
+      .title {
+        width: 60%;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .model-footer {
+    border: none;
+    justify-content: center;
+
+    button {
+      min-width: 100px;
+    }
+  }
+
+  .btn-type-1 {
+    border: 1px solid #001d36;
+    outline: none;
+    background: linear-gradient(to bottom, #001d36, #183539);
+    border-radius: 9px;
+    padding: 8px 10px;
+    color: #01e8b9;
+    min-width: 70px;
+
+    &.active,
+    &:hover {
+      border: 1px solid #01e8b9;
+      font-weight: 500;
+    }
+  }
+
+  .input-custom {
+    input {
+      background-color: #fff;
+      border: 1px solid #001d36;
+      border-right: none;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 9px;
+    }
+    ::placeholder {
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .extend {
+      background-color: #fff;
+      border: 1px solid #001d36;
+      border-left: none;
+      border-radius: 9px;
+    }
+  }
+}

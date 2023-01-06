@@ -1,0 +1,230 @@
+@import "@/Assets/Styles/Variables";
+
+$carouselHeight: 450px;
+
+#project-details2 {
+  .bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url("/images/home/wave.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.03;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    padding-top: 150px;
+
+    #block-1 {
+      margin-bottom: 150px;
+      .card-info {
+        @include borderAndBgGradient;
+        border-top-left-radius: 11px;
+        border-top-right-radius: 11px;
+        padding: 30px;
+
+        .wrap-social {
+          display: flex;
+          gap: 40px;
+
+          .icons {
+            display: flex;
+            gap: 20px;
+            .icon {
+              width: 24px;
+              height: 24px;
+              color: #2e7573;
+              &:hover {
+                color: #04cfa6;
+              }
+            }
+          }
+        }
+      }
+      .card-goal {
+        @include borderAndBgGradient;
+        border-radius: 11px;
+        padding: 30px 30px 50px;
+        margin-bottom: 50px;
+        position: relative;
+        top: -10px;
+        position: relative;
+
+        .goal {
+          font-size: 3rem;
+          font-weight: bold;
+          letter-spacing: 5px;
+        }
+
+        .btn-buy {
+          padding: 9px 27px;
+          background-color: #01e8b9;
+          color: #03132f;
+          border-radius: 11px;
+          transition: all 0.5s;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 1px;
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          transform: translate(-50%, 50%);
+
+          &:hover {
+            color: #fff;
+            @include shineInfinite;
+          }
+        }
+      }
+
+      .card-sale-details {
+        @include borderAndBgGradient;
+        border-radius: 11px;
+        padding: 30px;
+
+        .list {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          font-size: 18px;
+          .item {
+            display: flex;
+            gap: 20px;
+            padding: 10px 0;
+
+            &:not(:last-child) {
+              border-bottom: 1px solid #296a6b;
+            }
+            .left {
+              flex: 1;
+              margin-bottom: 0;
+            }
+
+            .right {
+              flex: 1;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+
+    #block-2 {
+      .banner {
+        position: relative;
+        margin-bottom: 50px;
+        .header {
+          display: flex;
+          justify-content: center;
+          position: absolute;
+          z-index: 1;
+          left: 0;
+          right: 0;
+          top: 0;
+          transform: translate(0, -50%);
+          .logo {
+            width: 150px;
+            height: 150px;
+            @include borderAndBgGradient(
+              2px,
+              "#03132f, #03132f",
+              "to right",
+              "#5AB2F7, #45B9E4, #10CBB2, #04CFA6",
+              "to right"
+            );
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              object-fit: contain;
+            }
+          }
+        }
+
+        .carousel {
+          .my-slider {
+            .img {
+              width: 100%;
+              height: $carouselHeight;
+              object-fit: cover;
+            }
+            :global {
+              .slick-list {
+                @include borderAndBgGradient;
+                border-radius: 11px;
+                overflow: hidden;
+                height: $carouselHeight;
+              }
+              .slick-arrow {
+                &.slick-prev {
+                  width: 35px;
+                  height: 35px;
+                  left: 10px;
+                  z-index: 1;
+                  background-image: url(/images/arrow-prev.svg);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  &::before {
+                    content: "";
+                  }
+                }
+                &.slick-next {
+                  width: 35px;
+                  height: 35px;
+                  right: 10px;
+                  z-index: 1;
+                  background-image: url(/images/arrow-next.svg);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  &::before {
+                    content: "";
+                  }
+                }
+
+                &.slick-disabled {
+                  opacity: 0.5;
+                }
+              }
+              .slick-dots {
+                bottom: -35px;
+                li {
+                  button {
+                    &::before {
+                      content: "\f0c8";
+                      font-family: "FontAwesome";
+                      color: #04cfa6;
+                      @include textGradient("to right", "#04cfa6, #296A6B");
+                      font-size: 10px;
+                      opacity: 1 !important;
+                    }
+                  }
+                }
+                li.slick-active {
+                  button {
+                    border: 1px solid #04cfa6;
+                    border-radius: 5px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .description {
+
+      }
+    }
+  }
+}

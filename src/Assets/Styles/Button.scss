@@ -1,0 +1,59 @@
+/*
+  Custom CSS for button
+*/
+.cbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 5px 20px;
+  font-size: 1rem;
+  border-radius: 9px;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+  &.cbtn-sm {
+    padding: 5px 10px;
+    font-size: 1rem;
+  }
+
+  &.cbtn-lg {
+    padding: 9px 15px;
+    font-size: 1.1rem;
+  }
+
+  &.cbtn-outline-gradient-blue {
+    color: #FFF;
+    border: 1px solid transparent;
+    background-image: linear-gradient(hsla(0,0%,100%,0),hsla(0,0%,100%,0)),linear-gradient(0deg, #5AB2F7, #45B9E4, #10CBB2, #04CFA6);
+    background-origin: border-box;
+    background-clip: content-box,border-box;
+    box-shadow: inset 2px 1000px 1px #03132f !important;
+
+    &:hover {
+      color: #00f1ff !important;
+    }
+
+    &.active {
+      color: #00f1ff !important;
+    }
+  }
+}
+
+.btn-gradient-blue {
+  background-image: linear-gradient(to right, #5AB2F7, #45B9E4, #10CBB2, #04CFA6);
+
+  &:hover {
+    color: #00f1ff !important;
+  }
+}

@@ -1,0 +1,302 @@
+@import "@/Assets/Styles/Variables";
+
+$dot: 8;
+$carouselHeight: 350;
+$formPadding: 25;
+
+#project-details {
+  position: relative;
+
+  :global {
+    .bg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url("/images/home/wave.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.03;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding-top: 50px;
+
+      #project-common {
+        margin-bottom: 30px;
+        #common {
+          padding: 15px;
+          @include borderAndBgGradient;
+          border-radius: 11px;
+          margin-bottom: 30px;
+
+          .social {
+            color: #2e7573;
+            margin-right: 24px;
+            &:hover {
+              color: #04cfa6;
+            }
+
+            .icon {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+
+        #description {
+          .text {
+            color: #01e8b9;
+            font-size: 25px;
+          }
+          .second-text {
+            font-size: 14px;
+          }
+        }
+      }
+
+      #project-banner-carousel {
+        margin-bottom: 60px;
+
+        .carousel {
+          width: 100%;
+          height: #{$carouselHeight}px;
+
+          .carousel-inner {
+            border-radius: 11px;
+            overflow: hidden;
+            border: 1px solid #72f7cd;
+
+            .carousel-item {
+              img {
+                width: 100%;
+                height: #{$carouselHeight}px;
+                object-fit: cover;
+              }
+            }
+          }
+
+          .carousel-indicators {
+            margin-bottom: 0;
+            transform: translate(0, 150%);
+
+            button {
+              width: #{$dot}px;
+              height: #{$dot}px;
+              background-color: #72f7cd;
+              margin: 10px;
+              border-radius: 2px;
+              border: 0;
+              position: relative;
+
+              &.active::before {
+                content: "";
+                display: block;
+                width: #{$dot * 2}px;
+                height: #{$dot * 2}px;
+                border: 1px solid #72f7cd;
+                border-radius: 4px;
+                position: absolute;
+                top: -50%;
+                left: -50%;
+              }
+            }
+          }
+        }
+      }
+
+      #details {
+        #actions {
+          button {
+            font-size: 16px;
+
+            &:not(:last-child) {
+              margin-right: 5px;
+            }
+          }
+        }
+        #details-content {
+          padding: 25px 15px;
+          border: 1px solid #72f7cd;
+          border-radius: 11px;
+
+          &.my-info {
+            height: 500px;
+            overflow: auto;
+          }
+
+          &.my-sale {
+          }
+
+          &.my-join {
+            .join-condition {
+              display: flex;
+              align-items: baseline;
+              margin-bottom: 10px;
+              
+              .left {
+                width: 120px;
+              }
+
+              .rigth {
+                flex: 1;
+                @include textOverflowEllipsis(1);
+              }
+            }
+          }
+
+          .text {
+            color: #01e8b9;
+            font-size: 25px;
+            padding-bottom: 10px;
+          }
+
+          ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+              display: flex;
+              margin-bottom: 10px;
+              p {
+                flex: 1;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+
+      #buy-early {
+        .text {
+          color: #01e8b9;
+          font-size: 30px;
+          font-weight: bold;
+        }
+
+        #info {
+          margin: 0;
+          padding: 0 0 40px 0;
+          list-style-type: none;
+          li {
+            display: flex;
+            margin-bottom: 10px;
+
+            p {
+              margin-bottom: 0;
+            }
+            .left {
+              width: 200px;
+            }
+            .right {
+              flex: 1;
+              @include textOverflowEllipsis(1);
+            }
+          }
+        }
+
+        #buy-form {
+          #line-1 {
+            display: flex;
+            justify-content: space-between;
+            color: #01e8b9;
+            padding-bottom: 40px;
+
+            .item {
+              position: relative;
+
+              &::before {
+                content: "";
+                display: block;
+                width: 27px;
+                height: 1px;
+                background-color: #01e8b9;
+                position: absolute;
+                top: -5px;
+              }
+
+              p {
+                margin-bottom: 0;
+
+                &.text-top {
+                  margin-bottom: 5px;
+                }
+              }
+            }
+          }
+
+          #line-2 {
+            #input-buy {
+              display: flex;
+              justify-content: space-between;
+              padding: #{$formPadding}px 20px;
+              border: 1px solid #72F7CD;
+              border-radius: 11px;
+              margin-bottom: 25px;
+              position: relative;
+
+              #amount {
+                flex-basis: 40%;
+                position: relative;
+
+                &::before {
+                  content: "Amount of APT";
+                  position: absolute;
+                  top: calc(-50% - #{$formPadding}px);
+                  left: 50%;
+                  transform: translate(-50%, 0);
+                  background-color: #03142F;
+                  font-size: 16px;
+                  display: block;
+                  width: 127px; // or 100%
+                  text-align: center;
+                  color: #72F7CD;
+                }
+                input {
+                  width: 100%;
+                  background-color: transparent;
+                  border: none;
+                  border-bottom: 1px dotted #72F7CD;
+                  color: #72F7CD;
+                  text-align: center;
+                  padding-bottom: 5px;
+                }
+              }
+
+              #arrow-right {
+                max-width: 50px;
+              }
+
+              #receive {
+                flex-basis: 40%;
+                position: relative;
+                text-align: center;
+                font-size: 20px;
+                color: #72F7CD;
+
+                &::before {
+                  content: "You will get";
+                  position: absolute;
+                  top: calc(-50% - #{$formPadding}px);
+                  left: 50%;
+                  transform: translate(-50%, 0);
+                  background-color: #03142F;
+                  font-size: 16px;
+                  display: block;
+                  width: 100px; // or 100%
+                  text-align: center;
+                  color: #72F7CD;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

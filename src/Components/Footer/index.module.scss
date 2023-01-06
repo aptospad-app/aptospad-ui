@@ -1,0 +1,29 @@
+#Footer {
+  padding-top: 45px;
+  padding-bottom: 45px;
+  border-top: 1px solid rgba(10, 140, 233, 0.3);
+
+  .contact {
+    color: #45C9D8;
+  }
+
+  .list {
+    list-style-type: none;
+    padding-left: 0;
+    .title {
+      color: #45C9D8;
+      font-size: 20px;
+    }
+    li {
+      margin-bottom: 20px;
+
+      a {
+        color: #FFF;
+
+        &:hover {
+          color: #45C9D8;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+// This file for Global CSS
+
+@import "./Variables";
+@import "font-awesome/css/font-awesome.min";
+@import "~bootstrap/scss/bootstrap"; // Bootstrap need to import after Fontawesome so it can overwrite some CSS of Fontawesome
+@import "./Fonts.scss";
+@import "./ReactToastify.scss";
+@import "./ReactTooltip.scss";
+@import "./BootstrapModal.scss";
+@import "./Button.scss";
+@import "~slick-carousel/slick/slick.scss"; 
+@import "~slick-carousel/slick/slick-theme.scss";
+@import "./Dialect.scss";
+
+html {
+  width: 100% !important;
+  font-size: $fontSideRoot;
+}
+
+body,
+#root {
+  width: 100% !important;
+  font-size: $fontSideBase;
+  color: rgba(255, 255, 255, 0.96);
+  font-family: "Red Hat", "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  &.disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+button:focus,
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.text-green-1 {
+  color: #72F7CD !important;
+}

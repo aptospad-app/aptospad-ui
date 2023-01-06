@@ -1,0 +1,9 @@
+/*
+  Overwrite Bootstrap Modal CSS
+*/
+.modal-backdrop.fade {
+  z-index: $modalZIndex - 1 !important;
+}
+.modal.fade {
+  z-index: $modalZIndex !important;
+}

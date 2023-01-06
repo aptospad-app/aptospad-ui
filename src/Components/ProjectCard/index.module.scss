@@ -1,0 +1,169 @@
+@import "@/Assets/Styles/Variables";
+
+$dimension: 80px;
+$paddingX: 15px;
+
+.project-card {
+  @include borderAndBgGradient;
+  border-radius: 11px;
+  overflow: hidden;
+  position: relative;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  .header {
+    position: relative;
+    .banner {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+    .wrap-logo {
+      display: flex;
+      align-items: center;
+      padding: 0 $paddingX;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: translate(0, 50%);
+      .logo {
+        width: $dimension;
+        height: $dimension;
+        padding: 10px;
+        position: relative;
+        z-index: 1;
+        @include borderAndBgGradient(
+          2px,
+          "#03132f, #03132f",
+          "to right",
+          "#5AB2F7, #45B9E4, #10CBB2, #04CFA6",
+          "to right"
+        );
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.5);
+        .icon {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: contain;
+        }
+      }
+      .extend {
+        @include borderAndBgGradient(2px, "#04cfa6, #04cfa6", "to right", "#072B40, #103D4C, #1D555D", "to top");
+        font-weight: 600;
+        font-size: 20px;
+        color: #032139;
+        line-height: 40px;
+        border-radius: 20px;
+      }
+
+      &.wrap-logo-upcoming {
+        .extend {
+          padding: 0 #{calc($dimension/2)} 0 $dimension;
+          position: relative;
+          left: -#{calc($dimension/2)};
+        }
+      }
+
+      &.wrap-logo-open {
+        justify-content: center;
+        .extend {
+          display: none;
+        }
+      }
+
+      &.wrap-logo-funded {
+        justify-content: flex-end;
+        .logo {
+          order: 2;
+        }
+        .extend {
+          order: 1;
+          padding: 0 $dimension 0 #{calc($dimension/2)} ;
+          position: relative;
+          right: -#{calc($dimension/2)};
+        }
+      }
+    }
+  }
+
+  .body {
+    padding: calc($dimension/2) $paddingX 30px;
+
+    .details {
+      list-style-type: none;
+      padding: 20px 0;
+      margin: 0;
+      font-size: 1.3rem;
+      .item {
+        display: flex;
+        justify-content: space-between;
+
+        &:not(:last-child) {
+          padding-bottom: 10px;
+        }
+
+        .name {
+          color: #01e8b9;
+          margin-right: 10px;
+        }
+        .dot {
+          flex: 1;
+          border-bottom: 1px dotted #01e8b9;
+          position: relative;
+          top: -7px;
+        }
+        .description {
+          color: #ffffff;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .progress {
+      border: 1px solid #01e8b9;
+      border-radius: 0;
+      height: 9px;
+      :global {
+        .progress-bar {
+          background-color: #01e8b9 !important;
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    button {
+      position: relative;
+      z-index: 2;
+      width: 200px;
+      padding: 10px;
+      background-color: #04cfa6;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      border: 1px solid #5ab2f7;
+      border-radius: 11px;
+      transition: all 0.5s;
+
+      &:hover {
+        color: #fff;
+        @include shineInfinite;
+      }
+    }
+  }
+}
