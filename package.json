@@ -9,8 +9,8 @@
     "generate-sitemap": "node ./Generate-Sitemap/index.js",
     "check:error": "tsc --noEmit && npx eslint './src'",
     "check:circular-import": "npx madge --circular --extensions ts ./src",
-    "check:bundle-code": "source-map-explorer './dist/assets/*.js'",
-    "check:all": "bash ./Scripts/CheckAll.sh"
+    "check:all": "bash ./Scripts/CheckAll.sh",
+    "see:bundle-code": "source-map-explorer './dist/assets/*.js'"
   },
   "dependencies": {
     "@dialectlabs/blockchain-sdk-aptos": "^1.0.3",
